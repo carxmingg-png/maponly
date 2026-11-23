@@ -1,0 +1,3150 @@
+{
+  "save_revision": "963171183adc4c0e81877560d94fdd46.2",
+  "date_time": "2026-11-20 22:39:35",
+  "first_entry_date": 0,
+  "data_version": 77,
+  "model_upgrade_version": 1,
+  "messaging_version": 13,
+  "is_actual_clubs_send": true,
+  "did_receive_currency_first_purchase_bonus": true,
+  "game_world_parts": {
+    "industrial": {
+      "unlocked": true
+    },
+    "midtown": {
+      "unlocked": true
+    },
+    "suburb": {
+      "unlocked": true
+    },
+    "port": {
+      "unlocked": true
+    },
+    "mountain": {
+      "unlocked": true
+    },
+    "sunset": {
+      "unlocked": true
+    }
+  },
+  "current_car_id": "1013",
+  "styling_custom_paints_presets": {
+    "seed": 0,
+    "items": {}
+  },
+  "consumable_wheel_tires": {
+    "seed": 0,
+    "items": {
+      "wheel_tires_set_stock": {
+        "__desc_id": "wheel_tires_set_stock",
+        "count": 99
+      },
+      "wheel_tires_set_1": {
+        "__desc_id": "wheel_tires_set_1",
+        "count": 99
+      },
+      "wheel_tires_set_3": {
+        "__desc_id": "wheel_tires_set_3",
+        "count": 99
+      },
+      "wheel_tires_set_4": {
+        "__desc_id": "wheel_tires_set_4",
+        "count": 98
+      },
+      "wheel_tires_set_2": {
+        "__desc_id": "wheel_tires_set_2",
+        "count": 99
+      }
+    }
+  },
+  "locations": {
+    "default": {
+      "location_objects_set": {
+        "keys": [
+          "styling_01",
+          "styling_02",
+          "styling_03",
+          "styling_04",
+          "styling_05",
+          "tuning_01",
+          "tuning_02",
+          "tuning_03",
+          "tuning_04",
+          "tuning_05",
+          "tuning_06",
+          "gas_station_0",
+          "gas_station_1",
+          "gas_station_2",
+          "gas_station_3",
+          "gas_station_4",
+          "gas_station_5",
+          "gas_station_6",
+          "gas_station_7",
+          "gas_station_8",
+          "gas_station_9",
+          "gas_station_10",
+          "gas_station_11",
+          "gas_station_12",
+          "gas_station_13",
+          "gas_station_14",
+          "gas_station_15",
+          "gas_station_16",
+          "gas_station_17",
+          "gas_station_18",
+          "gas_station_38",
+          "gas_station_39",
+          "apartment_01",
+          "apartment_51",
+          "apartment_95",
+          "apartment_industrial_SP",
+          "apartment_midtown_SP",
+          "apartment_midtown2_SP",
+          "apartment_midtown3_SP",
+          "club_white_tigers",
+          "club_chimeras",
+          "club_pitons",
+          "club_drift_united",
+          "club_burnout_rangers",
+          "club_pythons",
+          "club_speedline_syndicate",
+          "club_streethunters",
+          "club_falcons_outlaws",
+          "club_savage",
+          "club_hyper_sonic",
+          "club_arctic_outlaws",
+          "club_emeralds",
+          "Industrial_apartment_1",
+          "Industrial_apartment_2",
+          "Industrial_apartment_3",
+          "Industrial_apartment_6",
+          "Midtown_apartment_1",
+          "Midtown_apartment_3",
+          "Midtown_apartment_4",
+          "Midtown_apartment_7",
+          "Midtown_apartment_8",
+          "Midtown_apartment_9",
+          "Midtown_apartment_10",
+          "Midtown_apartment_11",
+          "Midtown_apartment_12",
+          "Prigorod_apartment_1",
+          "Prigorod_apartment_2",
+          "Prigorod_apartment_3",
+          "Prigorod_apartment_4",
+          "Prigorod_apartment_5",
+          "Prigorod_apartment_7",
+          "car_showroom_0",
+          "car_showroom_1",
+          "car_showroom_2",
+          "midtown_race_simple_sprint_DM03_net_duel",
+          "midtown_race_simple_sprint_DM06_net_duel",
+          "midtown_race_simple_sprint_DM08_net_duel",
+          "midtown_race_simple_sprint_DM023_net_duel",
+          "midtown_race_simple_sprint_DM027_net_duel",
+          "midtown_race_simple_sprint_DM043_net_duel",
+          "midtown_race_simple_sprint_DM044_net_duel",
+          "midtown_race_simple_sprint_DM045_net_duel",
+          "midtown_race_simple_sprint_DM046_net_duel",
+          "midtown_race_simple_sprint_DM060_net_duel",
+          "port_race_simple_sprint_DM01_net_duel",
+          "prigorod_race_simple_ring_01ST_net_duel",
+          "prigorod_race_simple_ring_04ST_net_duel",
+          "prigorod_race_simple_ring_ST001_net_duel",
+          "prigorod_race_simple_ring_ST004_net_duel",
+          "prigorod_race_simple_sprint_ST001_net_duel",
+          "highway_race_simple_sprint_DM04_net_duel",
+          "highway_race_simple_sprint_DM05_net_duel",
+          "industrial_race_simple_ring_01dima_net_duel",
+          "industrial_race_simple_ring_DM010_net_duel",
+          "midtown_race_simple_ring_DM020_net_duel",
+          "midtown_race_simple_sprint_6stas_net_duel",
+          "midtown_race_simple_sprint_23stas_net_duel",
+          "midtown_race_simple_sprint_DM02_net_duel",
+          "midtown_race_simple_ring_DM05_net_duel",
+          "midtown_race_simple_sprint_DM10_net_duel",
+          "prigorod_race_simple_ring_03ST_net_duel",
+          "prigorod_race_simple_ring_02ST_net_duel",
+          "prigorod_race_simple_sprint_02ST_net_duel",
+          "industrial_race_simple_sprint_DM010_net_duel",
+          "midtown_race_simple_sprint_DM03_speed_league",
+          "midtown_race_simple_sprint_DM06_speed_league",
+          "midtown_race_simple_sprint_DM08_speed_league",
+          "midtown_race_simple_sprint_DM023_speed_league",
+          "midtown_race_simple_sprint_DM027_speed_league",
+          "midtown_race_simple_sprint_DM043_speed_league",
+          "midtown_race_simple_sprint_DM044_speed_league",
+          "midtown_race_simple_sprint_DM045_speed_league",
+          "midtown_race_simple_sprint_DM046_speed_league",
+          "midtown_race_simple_sprint_DM060_speed_league",
+          "port_race_simple_sprint_DM01_speed_league",
+          "prigorod_race_simple_ring_01ST_speed_league",
+          "prigorod_race_simple_ring_04ST_speed_league",
+          "prigorod_race_simple_ring_ST001_speed_league",
+          "prigorod_race_simple_ring_ST004_speed_league",
+          "prigorod_race_simple_sprint_ST001_speed_league",
+          "highway_race_simple_sprint_DM04_speed_league",
+          "highway_race_simple_sprint_DM05_speed_league",
+          "industrial_race_simple_ring_01dima_speed_league",
+          "industrial_race_simple_ring_DM010_speed_league",
+          "midtown_race_simple_ring_DM020_speed_league",
+          "midtown_race_simple_sprint_6stas_speed_league",
+          "midtown_race_simple_sprint_23stas_speed_league",
+          "midtown_race_simple_sprint_DM02_speed_league",
+          "midtown_race_simple_ring_DM05_speed_league",
+          "midtown_race_simple_sprint_DM10_speed_league",
+          "prigorod_race_simple_ring_03ST_speed_league",
+          "prigorod_race_simple_ring_02ST_speed_league",
+          "prigorod_race_simple_sprint_02ST_speed_league",
+          "industrial_race_simple_sprint_DM010_speed_league",
+          "car_delivery_business",
+          "car_delivery_low",
+          "part_delivery_business",
+          "part_delivery_low",
+          "midtown_race_farm_drift_DM10",
+          "midtown_race_farm_sprint_IV009",
+          "midtown_race_farm_sprint_DM11",
+          "port_race_farm_free_drift_AO03",
+          "midtown_race_farm_free_drift_AO02",
+          "prigorod_race_farm_free_drift_AO02",
+          "midtown_race_farm_drift_DM08",
+          "industrial_race_gymkhana_ao01",
+          "midtown_race_farm_sprint_MK01",
+          "midtown_race_farm_drift_DM16",
+          "Speedway_apartment_1",
+          "Speedway_apartment_2",
+          "Speedway_apartment_3",
+          "speedway_race_farm_sprint_DM020",
+          "speedway_race_farm_sprint_DM05",
+          "speedway_race_farm_free_drift_AO03",
+          "speedway_race_farm_gymkhana_ao01",
+          "styling_09",
+          "tuning_14",
+          "tuning_15",
+          "club_speedstar_energy",
+          "club_grip_masters",
+          "gas_station_34",
+          "gas_station_35",
+          "gas_station_36",
+          "gas_station_37",
+          "speedway_race_simple_ring_DM02_net_duel",
+          "speedway_race_simple_sprint_DM01_net_duel",
+          "speedway_race_simple_sprint_DM03_net_duel",
+          "speedway_race_simple_sprint_DM08_net_duel",
+          "speedway_race_simple_sprint_DM09_net_duel",
+          "speedway_race_simple_sprint_DM010_net_duel",
+          "speedway_race_simple_sprint_DM011_net_duel",
+          "speedway_race_simple_sprint_DM013_net_duel",
+          "speedway_race_simple_sprint_DM014_net_duel",
+          "speedway_race_simple_ring_DM02_speed_league",
+          "speedway_race_simple_sprint_DM01_speed_league",
+          "speedway_race_simple_sprint_DM03_speed_league",
+          "speedway_race_simple_sprint_DM08_speed_league",
+          "speedway_race_simple_sprint_DM09_speed_league",
+          "speedway_race_simple_sprint_DM010_speed_league",
+          "speedway_race_simple_sprint_DM011_speed_league",
+          "speedway_race_simple_sprint_DM013_speed_league",
+          "speedway_race_simple_sprint_DM014_speed_league",
+          "Mountain_apartment_1",
+          "Mountain_apartment_2",
+          "Mountain_apartment_3",
+          "Mountain_apartment_4",
+          "Mountain_apartment_5",
+          "Mountain_apartment_6",
+          "Mountain_apartment_7",
+          "Mountain_apartment_8",
+          "Mountain_apartment_9",
+          "Mountain_apartment_11",
+          "Mountain_apartment_13",
+          "Mountain_apartment_14",
+          "Mountain_apartment_15",
+          "Mountain_apartment_16",
+          "Mountain_apartment_17",
+          "Mountain_apartment_18",
+          "Mountain_apartment_19",
+          "mountain_race_farm_sprint_DM03",
+          "mountain_race_farm_drift_DM004",
+          "mountain_race_farm_free_drift_AO08",
+          "mountain_race_farm_gymkhana_ao06",
+          "styling_06",
+          "styling_07",
+          "styling_08",
+          "tuning_07",
+          "tuning_08",
+          "tuning_09",
+          "tuning_10",
+          "tuning_11",
+          "tuning_12",
+          "tuning_13",
+          "club_21_tribe",
+          "club_road_runner",
+          "club_black_lotus",
+          "club_western_sierra",
+          "club_spitfire",
+          "gas_station_19",
+          "gas_station_20",
+          "gas_station_21",
+          "gas_station_22",
+          "gas_station_23",
+          "gas_station_24",
+          "gas_station_25",
+          "gas_station_26",
+          "gas_station_27",
+          "gas_station_28",
+          "gas_station_29",
+          "gas_station_30",
+          "gas_station_31",
+          "gas_station_32",
+          "gas_station_33",
+          "mountain_race_simple_ring_DM01_net_duel",
+          "mountain_race_simple_ring_DM02_net_duel",
+          "mountain_race_simple_sprint_DM01_net_duel",
+          "mountain_race_simple_sprint_DM02_net_duel",
+          "mountain_race_simple_sprint_DM03_net_duel",
+          "mountain_race_simple_sprint_DM04_net_duel",
+          "mountain_race_simple_sprint_DM05_net_duel",
+          "mountain_race_simple_sprint_DM07_net_duel",
+          "mountain_race_simple_sprint_DM10_net_duel",
+          "mountain_race_simple_sprint_DM12_net_duel",
+          "mountain_race_simple_sprint_DM14_net_duel",
+          "mountain_race_simple_sprint_DM16_net_duel",
+          "mountain_race_simple_sprint_DM18_net_duel",
+          "mountain_race_simple_sprint_DM20_net_duel",
+          "mountain_race_simple_ring_DM01_speed_league",
+          "mountain_race_simple_ring_DM02_speed_league",
+          "mountain_race_simple_sprint_DM01_speed_league",
+          "mountain_race_simple_sprint_DM02_speed_league",
+          "mountain_race_simple_sprint_DM03_speed_league",
+          "mountain_race_simple_sprint_DM04_speed_league",
+          "mountain_race_simple_sprint_DM05_speed_league",
+          "mountain_race_simple_sprint_DM07_speed_league",
+          "mountain_race_simple_sprint_DM10_speed_league",
+          "mountain_race_simple_sprint_DM12_speed_league",
+          "mountain_race_simple_sprint_DM14_speed_league",
+          "mountain_race_simple_sprint_DM16_speed_league",
+          "mountain_race_simple_sprint_DM18_speed_league",
+          "mountain_race_simple_sprint_DM20_speed_league",
+          "prigorod_traffic_master_gd02",
+          "midtown_race_gymkhana_ao04",
+          "prigorod_race_farm_sprint_MK01"
+        ]
+      }
+    }
+  },
+  "real_estate_slots": {
+    "apartment_01_slot_0": {
+      "car_id": "1012"
+    },
+    "apartment_01_slot_1": {
+      "car_id": "1033",
+      "unlocked": true
+    },
+    "apartment_01_slot_2": {
+      "car_id": "1119",
+      "unlocked": true
+    },
+    "apartment_51_slot_0": {
+      "car_id": "1081"
+    },
+    "apartment_51_slot_1": {},
+    "apartment_51_slot_2": {},
+    "apartment_95_slot_0": {
+      "car_id": "1095"
+    },
+    "apartment_95_slot_1": {
+      "car_id": "1086",
+      "unlocked": true
+    },
+    "apartment_95_slot_2": {
+      "car_id": "1087",
+      "unlocked": true
+    },
+    "apartment_industrial_SP_slot_0": {
+      "car_id": "1022"
+    },
+    "apartment_midtown_SP_slot_0": {
+      "car_id": "1028"
+    },
+    "apartment_midtown2_SP_slot_0": {
+      "car_id": "1031"
+    },
+    "apartment_midtown3_SP_slot_0": {
+      "car_id": "1025"
+    },
+    "Industrial_apartment_1_slot_0": {
+      "car_id": "1029"
+    },
+    "Industrial_apartment_1_slot_1": {
+      "car_id": "1088",
+      "unlocked": true
+    },
+    "Industrial_apartment_1_slot_2": {
+      "car_id": "1089",
+      "unlocked": true
+    },
+    "Industrial_apartment_2_slot_0": {
+      "car_id": "1052"
+    },
+    "Industrial_apartment_2_slot_1": {
+      "car_id": "1131",
+      "unlocked": true
+    },
+    "Industrial_apartment_2_slot_2": {
+      "car_id": "1118",
+      "unlocked": true
+    },
+    "Industrial_apartment_3_slot_0": {
+      "car_id": "1041"
+    },
+    "Industrial_apartment_3_slot_1": {
+      "car_id": "1120",
+      "unlocked": true
+    },
+    "Industrial_apartment_3_slot_2": {
+      "car_id": "1015",
+      "unlocked": true
+    },
+    "Industrial_apartment_4_slot_0": {
+      "car_id": "1132"
+    },
+    "Industrial_apartment_4_slot_1": {},
+    "Industrial_apartment_4_slot_2": {},
+    "Industrial_apartment_5_slot_0": {
+      "car_id": "1045"
+    },
+    "Industrial_apartment_5_slot_1": {},
+    "Industrial_apartment_5_slot_2": {},
+    "Industrial_apartment_6_slot_0": {
+      "car_id": "1018"
+    },
+    "Industrial_apartment_6_slot_1": {
+      "car_id": "1016",
+      "unlocked": true
+    },
+    "Industrial_apartment_6_slot_2": {
+      "car_id": "1125",
+      "unlocked": true
+    },
+    "Midtown_apartment_1_slot_0": {
+      "car_id": "1035"
+    },
+    "Midtown_apartment_1_slot_1": {
+      "car_id": "1103",
+      "unlocked": true
+    },
+    "Midtown_apartment_1_slot_2": {
+      "car_id": "1023",
+      "unlocked": true
+    },
+    "Midtown_apartment_2_slot_0": {
+      "car_id": "1036"
+    },
+    "Midtown_apartment_2_slot_1": {},
+    "Midtown_apartment_2_slot_2": {},
+    "Midtown_apartment_3_slot_0": {
+      "car_id": "1037"
+    },
+    "Midtown_apartment_3_slot_1": {
+      "car_id": "1090",
+      "unlocked": true
+    },
+    "Midtown_apartment_3_slot_2": {
+      "car_id": "1091",
+      "unlocked": true
+    },
+    "Midtown_apartment_4_slot_0": {
+      "car_id": "1030"
+    },
+    "Midtown_apartment_4_slot_1": {
+      "car_id": "1092",
+      "unlocked": true
+    },
+    "Midtown_apartment_4_slot_2": {
+      "car_id": "1093",
+      "unlocked": true
+    },
+    "Midtown_apartment_5_slot_0": {
+      "car_id": "1039"
+    },
+    "Midtown_apartment_5_slot_1": {},
+    "Midtown_apartment_5_slot_2": {},
+    "Midtown_apartment_6_slot_0": {
+      "car_id": "1019"
+    },
+    "Midtown_apartment_6_slot_1": {},
+    "Midtown_apartment_6_slot_2": {},
+    "Midtown_apartment_7_slot_0": {
+      "car_id": "1017"
+    },
+    "Midtown_apartment_7_slot_1": {
+      "car_id": "1026",
+      "unlocked": true
+    },
+    "Midtown_apartment_7_slot_2": {
+      "car_id": "1094",
+      "unlocked": true
+    },
+    "Midtown_apartment_8_slot_0": {
+      "car_id": "1042"
+    },
+    "Midtown_apartment_8_slot_1": {},
+    "Midtown_apartment_8_slot_2": {},
+    "Midtown_apartment_9_slot_0": {
+      "car_id": "1043"
+    },
+    "Midtown_apartment_9_slot_1": {
+      "car_id": "1024",
+      "unlocked": true
+    },
+    "Midtown_apartment_9_slot_2": {
+      "car_id": "1074",
+      "unlocked": true
+    },
+    "Midtown_apartment_10_slot_0": {
+      "car_id": "1044"
+    },
+    "Midtown_apartment_10_slot_1": {
+      "car_id": "1075",
+      "unlocked": true
+    },
+    "Midtown_apartment_10_slot_2": {
+      "car_id": "1062",
+      "unlocked": true
+    },
+    "Midtown_apartment_11_slot_0": {
+      "car_id": "1128"
+    },
+    "Midtown_apartment_11_slot_1": {
+      "car_id": "1129",
+      "unlocked": true
+    },
+    "Midtown_apartment_11_slot_2": {
+      "car_id": "1127",
+      "unlocked": true
+    },
+    "Midtown_apartment_12_slot_0": {
+      "car_id": "1122"
+    },
+    "Midtown_apartment_12_slot_1": {
+      "car_id": "1078",
+      "unlocked": true
+    },
+    "Midtown_apartment_12_slot_2": {
+      "car_id": "1038",
+      "unlocked": true
+    },
+    "Mountain_apartment_1_slot_0": {
+      "car_id": "1047"
+    },
+    "Mountain_apartment_1_slot_1": {
+      "car_id": "1124",
+      "unlocked": true
+    },
+    "Mountain_apartment_1_slot_2": {
+      "car_id": "1123",
+      "unlocked": true
+    },
+    "Mountain_apartment_2_slot_0": {
+      "car_id": "1048"
+    },
+    "Mountain_apartment_2_slot_1": {
+      "car_id": "1133",
+      "unlocked": true
+    },
+    "Mountain_apartment_2_slot_2": {
+      "car_id": "1114",
+      "unlocked": true
+    },
+    "Mountain_apartment_3_slot_0": {
+      "car_id": "1049"
+    },
+    "Mountain_apartment_3_slot_1": {
+      "car_id": "1115",
+      "unlocked": true
+    },
+    "Mountain_apartment_3_slot_2": {
+      "car_id": "1116",
+      "unlocked": true
+    },
+    "Mountain_apartment_4_slot_0": {
+      "car_id": "1050"
+    },
+    "Mountain_apartment_4_slot_1": {
+      "car_id": "1117",
+      "unlocked": true
+    },
+    "Mountain_apartment_4_slot_2": {
+      "car_id": "1121",
+      "unlocked": true
+    },
+    "Mountain_apartment_5_slot_0": {
+      "car_id": "1051"
+    },
+    "Mountain_apartment_5_slot_1": {
+      "car_id": "1108",
+      "unlocked": true
+    },
+    "Mountain_apartment_5_slot_2": {
+      "car_id": "1109",
+      "unlocked": true
+    },
+    "Mountain_apartment_6_slot_0": {
+      "car_id": "1020"
+    },
+    "Mountain_apartment_6_slot_1": {
+      "car_id": "1110",
+      "unlocked": true
+    },
+    "Mountain_apartment_6_slot_2": {
+      "car_id": "1111",
+      "unlocked": true
+    },
+    "Mountain_apartment_7_slot_0": {
+      "car_id": "1053"
+    },
+    "Mountain_apartment_7_slot_1": {},
+    "Mountain_apartment_7_slot_2": {},
+    "Mountain_apartment_8_slot_0": {
+      "car_id": "1054"
+    },
+    "Mountain_apartment_8_slot_1": {},
+    "Mountain_apartment_8_slot_2": {},
+    "Mountain_apartment_9_slot_0": {
+      "car_id": "1055"
+    },
+    "Mountain_apartment_9_slot_1": {},
+    "Mountain_apartment_9_slot_2": {},
+    "Mountain_apartment_11_slot_0": {
+      "car_id": "1056"
+    },
+    "Mountain_apartment_11_slot_1": {
+      "car_id": "1113",
+      "unlocked": true
+    },
+    "Mountain_apartment_13_slot_0": {
+      "car_id": "1076"
+    },
+    "Mountain_apartment_13_slot_1": {
+      "car_id": "1000",
+      "unlocked": true
+    },
+    "Mountain_apartment_13_slot_2": {
+      "car_id": "1077",
+      "unlocked": true
+    },
+    "Mountain_apartment_14_slot_0": {
+      "car_id": "1058"
+    },
+    "Mountain_apartment_14_slot_1": {},
+    "Mountain_apartment_14_slot_2": {},
+    "Mountain_apartment_15_slot_0": {
+      "car_id": "1059"
+    },
+    "Mountain_apartment_15_slot_1": {},
+    "Mountain_apartment_15_slot_2": {},
+    "Mountain_apartment_16_slot_0": {
+      "car_id": "1067"
+    },
+    "Mountain_apartment_16_slot_1": {},
+    "Mountain_apartment_17_slot_0": {
+      "car_id": "1068"
+    },
+    "Prigorod_apartment_1_slot_0": {
+      "car_id": "1060"
+    },
+    "Prigorod_apartment_1_slot_1": {
+      "car_id": "1079",
+      "unlocked": true
+    },
+    "Prigorod_apartment_1_slot_2": {
+      "car_id": "1080",
+      "unlocked": true
+    },
+    "Prigorod_apartment_2_slot_0": {
+      "car_id": "1061"
+    },
+    "Prigorod_apartment_2_slot_1": {
+      "car_id": "1034",
+      "unlocked": true
+    },
+    "Prigorod_apartment_2_slot_2": {
+      "car_id": "1082",
+      "unlocked": true
+    },
+    "Prigorod_apartment_3_slot_0": {
+      "car_id": "1040"
+    },
+    "Prigorod_apartment_3_slot_1": {
+      "car_id": "1100",
+      "unlocked": true
+    },
+    "Prigorod_apartment_3_slot_2": {
+      "car_id": "1101",
+      "unlocked": true
+    },
+    "Prigorod_apartment_4_slot_0": {
+      "car_id": "1134"
+    },
+    "Prigorod_apartment_4_slot_1": {
+      "car_id": "1063",
+      "unlocked": true
+    },
+    "Prigorod_apartment_4_slot_2": {
+      "car_id": "1102",
+      "unlocked": true
+    },
+    "Prigorod_apartment_5_slot_0": {
+      "car_id": "1064"
+    },
+    "Prigorod_apartment_5_slot_1": {
+      "car_id": "1104",
+      "unlocked": true
+    },
+    "Prigorod_apartment_5_slot_2": {
+      "car_id": "1105",
+      "unlocked": true
+    },
+    "Prigorod_apartment_6_slot_0": {
+      "car_id": "1065"
+    },
+    "Prigorod_apartment_6_slot_1": {},
+    "Prigorod_apartment_6_slot_2": {},
+    "Prigorod_apartment_7_slot_0": {
+      "car_id": "1066"
+    },
+    "Prigorod_apartment_7_slot_1": {
+      "car_id": "1083",
+      "unlocked": true
+    },
+    "Prigorod_apartment_7_slot_2": {
+      "car_id": "1084",
+      "unlocked": true
+    },
+    "Mountain_apartment_18_slot_0": {
+      "car_id": "1069"
+    },
+    "Mountain_apartment_18_slot_1": {
+      "car_id": "1126",
+      "unlocked": true
+    },
+    "Mountain_apartment_18_slot_2": {
+      "car_id": "1057",
+      "unlocked": true
+    },
+    "Mountain_apartment_19_slot_0": {
+      "car_id": "1070"
+    },
+    "Mountain_apartment_19_slot_1": {
+      "car_id": "1106",
+      "unlocked": true
+    },
+    "Mountain_apartment_19_slot_2": {
+      "car_id": "1107",
+      "unlocked": true
+    },
+    "Speedway_apartment_1_slot_0": {
+      "car_id": "1071"
+    },
+    "Speedway_apartment_1_slot_1": {
+      "car_id": "1085",
+      "unlocked": true
+    },
+    "Speedway_apartment_1_slot_2": {},
+    "Speedway_apartment_2_slot_0": {
+      "car_id": "1072"
+    },
+    "Speedway_apartment_2_slot_1": {
+      "car_id": "1096",
+      "unlocked": true
+    },
+    "Speedway_apartment_2_slot_2": {
+      "car_id": "1097",
+      "unlocked": true
+    },
+    "Speedway_apartment_3_slot_0": {
+      "car_id": "1073"
+    },
+    "Speedway_apartment_3_slot_1": {
+      "car_id": "1098",
+      "unlocked": true
+    },
+    "Speedway_apartment_3_slot_2": {
+      "car_id": "1099",
+      "unlocked": true
+    }
+  },
+  "real_estates": {
+    "apartment_01": {
+      "is_bought": true
+    },
+    "apartment_51": {
+      "is_bought": true
+    },
+    "apartment_95": {
+      "is_bought": true
+    },
+    "apartment_industrial_SP": {
+      "is_bought": true
+    },
+    "apartment_midtown_SP": {
+      "is_bought": true
+    },
+    "apartment_midtown2_SP": {
+      "is_bought": true
+    },
+    "apartment_midtown3_SP": {
+      "is_bought": true
+    },
+    "Industrial_apartment_1": {
+      "is_bought": true
+    },
+    "Industrial_apartment_2": {
+      "is_bought": true
+    },
+    "Industrial_apartment_3": {
+      "is_bought": true
+    },
+    "Industrial_apartment_4": {
+      "is_bought": true
+    },
+    "Industrial_apartment_5": {
+      "is_bought": true
+    },
+    "Industrial_apartment_6": {
+      "is_bought": true
+    },
+    "Midtown_apartment_1": {
+      "is_bought": true
+    },
+    "Midtown_apartment_2": {
+      "is_bought": true
+    },
+    "Midtown_apartment_3": {
+      "is_bought": true
+    },
+    "Midtown_apartment_4": {
+      "is_bought": true
+    },
+    "Midtown_apartment_5": {
+      "is_bought": true
+    },
+    "Midtown_apartment_6": {
+      "is_bought": true
+    },
+    "Midtown_apartment_7": {
+      "is_bought": true
+    },
+    "Midtown_apartment_8": {
+      "is_bought": true
+    },
+    "Midtown_apartment_9": {
+      "is_bought": true
+    },
+    "Midtown_apartment_10": {
+      "is_bought": true
+    },
+    "Midtown_apartment_11": {
+      "is_bought": true
+    },
+    "Midtown_apartment_12": {
+      "is_bought": true
+    },
+    "Mountain_apartment_1": {
+      "is_bought": true
+    },
+    "Mountain_apartment_2": {
+      "is_bought": true
+    },
+    "Mountain_apartment_3": {
+      "is_bought": true
+    },
+    "Mountain_apartment_4": {
+      "is_bought": true
+    },
+    "Mountain_apartment_5": {
+      "is_bought": true
+    },
+    "Mountain_apartment_6": {
+      "is_bought": true
+    },
+    "Mountain_apartment_7": {
+      "is_bought": true
+    },
+    "Mountain_apartment_8": {
+      "is_bought": true
+    },
+    "Mountain_apartment_9": {
+      "is_bought": true
+    },
+    "Mountain_apartment_11": {
+      "is_bought": true
+    },
+    "Mountain_apartment_13": {
+      "is_bought": true
+    },
+    "Mountain_apartment_14": {
+      "is_bought": true
+    },
+    "Mountain_apartment_15": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_1": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_2": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_3": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_4": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_5": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_6": {
+      "is_bought": true
+    },
+    "Prigorod_apartment_7": {
+      "is_bought": true
+    },
+    "Mountain_apartment_16": {
+      "is_bought": true
+    },
+    "Mountain_apartment_17": {
+      "is_bought": true
+    },
+    "Mountain_apartment_18": {
+      "is_bought": true
+    },
+    "Mountain_apartment_19": {
+      "is_bought": true
+    },
+    "Speedway_apartment_1": {
+      "is_bought": true
+    },
+    "Speedway_apartment_2": {
+      "is_bought": true
+    },
+    "Speedway_apartment_3": {
+      "is_bought": true
+    }
+  },
+  "car_models": {
+    "keys": [
+      "datsun620",
+      "skyliner35",
+      "nissanz31",
+      "civicek9",
+      "nissan300zx",
+      "toyotasupra2020",
+      "skyliner32",
+      "mazdarx7_fc",
+      "mitsubishievo9",
+      "bmw_m3_e36",
+      "ae86",
+      "lexuslfa",
+      "bmw_i8",
+      "mustang650",
+      "nissan180sx",
+      "toyotagt86",
+      "civic",
+      "suzukicarry",
+      "lotuselise",
+      "lamborghiniaventadors",
+      "fordfocusst2019",
+      "mbgelandewagenw463",
+      "toyotasuprarz",
+      "mustang_hoonigan",
+      "corvettec7",
+      "corvettec6",
+      "chevycamaro70",
+      "mazdarx7",
+      "bmwm5e60",
+      "vipersrt10",
+      "viper",
+      "mclaren720s",
+      "audir8",
+      "hotrod",
+      "bmwm2g87",
+      "toyotasupraa70",
+      "jaguar_ftype",
+      "corvettec3",
+      "bmw_z4_e86",
+      "toyotayarisgr2020",
+      "audirs7",
+      "chevroletchevelless1970",
+      "bmwm5e34",
+      "golfgti",
+      "nissansilvias13",
+      "silvias15",
+      "dodgechallengerrt",
+      "bmwe31",
+      "mitsubishievo6",
+      "toyotamark2_100",
+      "lamborghinievo",
+      "toyotagr86",
+      "hondas2000",
+      "mustang350",
+      "bmwm4g82",
+      "nissan400z",
+      "porsche911",
+      "bmwm5f90",
+      "bmwm5x5",
+      "lamborghinidiablo",
+      "bmwe46m3",
+      "porschesinger",
+      "audirs6avantc7",
+      "mercedesbenz190evo2",
+      "vantage",
+      "chevroletcamaro2016",
+      "maloor82015",
+      "charger",
+      "nissanskyline2000gtx",
+      "porsche911gt3",
+      "skyliner34",
+      "bmwm4",
+      "fordgt_mk2",
+      "tesla_s_plaid",
+      "nissan350z",
+      "bmwe30m3",
+      "mercedesbenzamggt2019",
+      "subaruwrxsti",
+      "mitsubishievox",
+      "mazdarx8",
+      "nissanskyliner33vspec",
+      "infinity_q60",
+      "dodgecharger2020",
+      "van",
+      "bmw_m3_e92_cabrio",
+      "bmwm5e39_vagon",
+      "bmwm3g81_touring",
+      "nissan300zx_cabrio",
+      "bmwm6e24",
+      "lexusrcf",
+      "buickgnx",
+      "skyliner31",
+      "lamborghinimurcielago",
+      "mitsubishieclipse99"
+    ],
+    "values": [
+      1,
+      1,
+      1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      1,
+      2,
+      0,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "clubs": {
+    "club_burnout_rangers": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_black_lotus": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_arctic_outlaws": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_speedstar_energy": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_grip_masters": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_chimeras": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_savage": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_emeralds": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_hyper_sonic": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_spitfire": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_drift_united": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_falcons_outlaws": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_pitons": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_pythons": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_speedline_syndicate": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_streethunters": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_white_tigers": {
+      "cars": {
+        "keys": [
+          "1000"
+        ]
+      },
+      "available_races": {
+        "keys": [
+          "midtown_race_simple_sprint_dima02"
+        ]
+      },
+      "complete_races": {},
+      "car_statistics": {
+        "keys": [
+          "1000"
+        ],
+        "values": [
+          1
+        ]
+      }
+    },
+    "club_21_tribe": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_road_runner": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    },
+    "club_western_sierra": {
+      "cars": {},
+      "available_races": {},
+      "complete_races": {},
+      "car_statistics": {}
+    }
+  },
+  "resources": {
+    "soft": {
+      "amount": 59664340
+    },
+    "hard": {
+      "amount": 14679
+    },
+    "experience": {
+      "award_index": 49,
+      "amount": 96030
+    },
+    "total_club_race_completed": {},
+    "total_farm_race_completed": {},
+    "total_gas_station_enter": {},
+    "total_loot_count": {
+      "amount": 3
+    },
+    "total_loot_soft_amount": {
+      "amount": 2782
+    },
+    "midtown_race_simple_sprint_22stas_elite_gen_trigger": {},
+    "prigorod_race_simple_gymkhana_ao01_elite_gen_trigger": {},
+    "mountain_race_simple_gymkhana_ao01_elite_gen_trigger": {},
+    "industrial_race_simple_sprint_02dima_elite_gen_trigger": {},
+    "port_race_free_drift_AO01_elite_gen_trigger": {},
+    "mountain_race_simple_sprint_DM12_elite_gen_trigger": {},
+    "prigorod_race_simple_sprint_MK01_elite_gen_trigger": {},
+    "midtown_race_simple_sprint_DM002_elite_gen_trigger": {},
+    "midtown_race_simple_drift_DM02_elite_gen_trigger": {},
+    "midtown_race_simple_sprint_DM08_elite_gen_trigger": {},
+    "midtown_race_simple_sprint_ST001_elite_gen_trigger": {},
+    "midtown_race_simple_sprint_DM010_elite_gen_trigger": {},
+    "midtown_race_simple_sprint_DM025_elite_gen_trigger": {},
+    "industrial_race_simple_ring_DM010_elite_gen_trigger": {},
+    "mountain_race_simple_drift_DM01_elite_gen_trigger": {},
+    "mountain_race_simple_ring_DM01_elite_gen_trigger": {},
+    "mountain_race_simple_sprint_DM22_elite_gen_trigger": {},
+    "speedway_race_simple_sprint_DM01_elite_gen_trigger": {},
+    "midtown_race_simple_sprint_DM073_elite_gen_trigger": {},
+    "speedway_race_simple_sprint_DM011_elite_gen_trigger": {},
+    "nickname_change_count": {}
+  },
+  "statistics": {
+    "statistic_total_completed_freeride_activity": {},
+    "achievement_leaderboard_rang_10": {},
+    "achievement_leaderboard_rang_50": {},
+    "achievement_leaderboard_rang_100": {},
+    "achievement_leaderboard_rang_250": {},
+    "achievement_leaderboard_rang_500": {},
+    "statistic_car_published": {},
+    "statistic_livery_published": {},
+    "statistic_car_deliveries_completed": {},
+    "statistic_part_deliveries_completed": {},
+    "statistic_duel_won": {},
+    "statistic_total_distance": {
+      "amount": 17341.86
+    },
+    "statistic_app_launches": {
+      "amount": 57
+    },
+    "statistic_playing_time": {
+      "amount": 10823.09
+    },
+    "statistic_max_speed": {
+      "amount": 303.1187
+    },
+    "statistic_total_hard": {
+      "amount": 10158
+    },
+    "statistic_total_soft": {
+      "amount": 172140600
+    },
+    "statistic_simple_gasoline_consumed": {
+      "amount": 0.813642
+    },
+    "statistic_sports_gasoline_consumed": {
+      "amount": 16.52034
+    },
+    "statistic_tuning_nodes_installed": {},
+    "statistic_tuning_parts_installed": {},
+    "statistic_club_sprint_races_compeleted": {},
+    "statistic_club_ring_races_compeleted": {},
+    "statistic_club_drift_races_compeleted": {},
+    "statistic_club_elite_races_compeleted": {},
+    "statistic_farm_time_races_won": {},
+    "statistic_farm_drift_races_won": {},
+    "statistic_farm_drift_races_finished": {},
+    "statistic_farm_time_races_finished": {},
+    "statistic_club_free_drift_races_compeleted": {},
+    "statistic_farm_free_drift_races_won": {},
+    "statistic_farm_free_drift_races_finished": {},
+    "statistic_club_gymkhana_races_compeleted": {},
+    "statistic_farm_gymkhana_races_won": {},
+    "statistic_farm_gymkhana_races_finished": {},
+    "statistic_game_world_part_mountain_unlocked": {}
+  },
+  "car_to_real_estate_slot": {
+    "keys": [
+      "1025",
+      "1028",
+      "1029",
+      "1035",
+      "1036",
+      "1037",
+      "1039",
+      "1042",
+      "1044",
+      "1048",
+      "1049",
+      "1050",
+      "1051",
+      "1053",
+      "1054",
+      "1055",
+      "1058",
+      "1059",
+      "1060",
+      "1061",
+      "1065",
+      "1066",
+      "1067",
+      "1068",
+      "1069",
+      "1070",
+      "1071",
+      "1072",
+      "1073",
+      "1023",
+      "1024",
+      "1074",
+      "1075",
+      "1079",
+      "1080",
+      "1082",
+      "1083",
+      "1084",
+      "1085",
+      "1086",
+      "1088",
+      "1089",
+      "1090",
+      "1091",
+      "1092",
+      "1093",
+      "1096",
+      "1097",
+      "1098",
+      "1099",
+      "1100",
+      "1101",
+      "1104",
+      "1105",
+      "1124",
+      "1123",
+      "1114",
+      "1115",
+      "1116",
+      "1117",
+      "1121",
+      "1106",
+      "1107",
+      "1108",
+      "1109",
+      "1110",
+      "1111",
+      "1113",
+      "1041",
+      "1126",
+      "1119",
+      "1057",
+      "1047",
+      "1043",
+      "1038",
+      "1078",
+      "1077",
+      "1120",
+      "1095",
+      "1016",
+      "1033",
+      "1030",
+      "1118",
+      "1015",
+      "1052",
+      "1026",
+      "1031",
+      "1056",
+      "1018",
+      "1125",
+      "1094",
+      "1129",
+      "1064",
+      "1128",
+      "1127",
+      "1022",
+      "1087",
+      "1132",
+      "1133",
+      "1134",
+      "1063",
+      "1102",
+      "1103",
+      "1045",
+      "1034",
+      "1081",
+      "1017",
+      "1019",
+      "1040",
+      "1062",
+      "1076",
+      "1122",
+      "1000",
+      "1020",
+      "1012",
+      "1131"
+    ],
+    "values": [
+      "apartment_midtown3_SP_slot_0",
+      "apartment_midtown_SP_slot_0",
+      "Industrial_apartment_1_slot_0",
+      "Midtown_apartment_1_slot_0",
+      "Midtown_apartment_2_slot_0",
+      "Midtown_apartment_3_slot_0",
+      "Midtown_apartment_5_slot_0",
+      "Midtown_apartment_8_slot_0",
+      "Midtown_apartment_10_slot_0",
+      "Mountain_apartment_2_slot_0",
+      "Mountain_apartment_3_slot_0",
+      "Mountain_apartment_4_slot_0",
+      "Mountain_apartment_5_slot_0",
+      "Mountain_apartment_7_slot_0",
+      "Mountain_apartment_8_slot_0",
+      "Mountain_apartment_9_slot_0",
+      "Mountain_apartment_14_slot_0",
+      "Mountain_apartment_15_slot_0",
+      "Prigorod_apartment_1_slot_0",
+      "Prigorod_apartment_2_slot_0",
+      "Prigorod_apartment_6_slot_0",
+      "Prigorod_apartment_7_slot_0",
+      "Mountain_apartment_16_slot_0",
+      "Mountain_apartment_17_slot_0",
+      "Mountain_apartment_18_slot_0",
+      "Mountain_apartment_19_slot_0",
+      "Speedway_apartment_1_slot_0",
+      "Speedway_apartment_2_slot_0",
+      "Speedway_apartment_3_slot_0",
+      "Midtown_apartment_1_slot_2",
+      "Midtown_apartment_9_slot_1",
+      "Midtown_apartment_9_slot_2",
+      "Midtown_apartment_10_slot_1",
+      "Prigorod_apartment_1_slot_1",
+      "Prigorod_apartment_1_slot_2",
+      "Prigorod_apartment_2_slot_2",
+      "Prigorod_apartment_7_slot_1",
+      "Prigorod_apartment_7_slot_2",
+      "Speedway_apartment_1_slot_1",
+      "apartment_95_slot_1",
+      "Industrial_apartment_1_slot_1",
+      "Industrial_apartment_1_slot_2",
+      "Midtown_apartment_3_slot_1",
+      "Midtown_apartment_3_slot_2",
+      "Midtown_apartment_4_slot_1",
+      "Midtown_apartment_4_slot_2",
+      "Speedway_apartment_2_slot_1",
+      "Speedway_apartment_2_slot_2",
+      "Speedway_apartment_3_slot_1",
+      "Speedway_apartment_3_slot_2",
+      "Prigorod_apartment_3_slot_1",
+      "Prigorod_apartment_3_slot_2",
+      "Prigorod_apartment_5_slot_1",
+      "Prigorod_apartment_5_slot_2",
+      "Mountain_apartment_1_slot_1",
+      "Mountain_apartment_1_slot_2",
+      "Mountain_apartment_2_slot_2",
+      "Mountain_apartment_3_slot_1",
+      "Mountain_apartment_3_slot_2",
+      "Mountain_apartment_4_slot_1",
+      "Mountain_apartment_4_slot_2",
+      "Mountain_apartment_19_slot_1",
+      "Mountain_apartment_19_slot_2",
+      "Mountain_apartment_5_slot_1",
+      "Mountain_apartment_5_slot_2",
+      "Mountain_apartment_6_slot_1",
+      "Mountain_apartment_6_slot_2",
+      "Mountain_apartment_11_slot_1",
+      "Industrial_apartment_3_slot_0",
+      "Mountain_apartment_18_slot_1",
+      "apartment_01_slot_2",
+      "Mountain_apartment_18_slot_2",
+      "Mountain_apartment_1_slot_0",
+      "Midtown_apartment_9_slot_0",
+      "Midtown_apartment_12_slot_2",
+      "Midtown_apartment_12_slot_1",
+      "Mountain_apartment_13_slot_2",
+      "Industrial_apartment_3_slot_1",
+      "apartment_95_slot_0",
+      "Industrial_apartment_6_slot_1",
+      "apartment_01_slot_1",
+      "Midtown_apartment_4_slot_0",
+      "Industrial_apartment_2_slot_2",
+      "Industrial_apartment_3_slot_2",
+      "Industrial_apartment_2_slot_0",
+      "Midtown_apartment_7_slot_1",
+      "apartment_midtown2_SP_slot_0",
+      "Mountain_apartment_11_slot_0",
+      "Industrial_apartment_6_slot_0",
+      "Industrial_apartment_6_slot_2",
+      "Midtown_apartment_7_slot_2",
+      "Midtown_apartment_11_slot_1",
+      "Prigorod_apartment_5_slot_0",
+      "Midtown_apartment_11_slot_0",
+      "Midtown_apartment_11_slot_2",
+      "apartment_industrial_SP_slot_0",
+      "apartment_95_slot_2",
+      "Industrial_apartment_4_slot_0",
+      "Mountain_apartment_2_slot_1",
+      "Prigorod_apartment_4_slot_0",
+      "Prigorod_apartment_4_slot_1",
+      "Prigorod_apartment_4_slot_2",
+      "Midtown_apartment_1_slot_1",
+      "Industrial_apartment_5_slot_0",
+      "Prigorod_apartment_2_slot_1",
+      "apartment_51_slot_0",
+      "Midtown_apartment_7_slot_0",
+      "Midtown_apartment_6_slot_0",
+      "Prigorod_apartment_3_slot_0",
+      "Midtown_apartment_10_slot_2",
+      "Mountain_apartment_13_slot_0",
+      "Midtown_apartment_12_slot_0",
+      "Mountain_apartment_13_slot_1",
+      "Mountain_apartment_6_slot_0",
+      "apartment_01_slot_0",
+      "Industrial_apartment_2_slot_1"
+    ]
+  },
+  "car_to_club": {
+    "keys": [
+      "1000"
+    ],
+    "values": [
+      "club_white_tigers"
+    ]
+  },
+  "race_generators": {
+    "farm_races": {
+      "races_counter": {
+        "keys": [
+          "industrial_race_farm_sprint_st06",
+          "midtown_race_farm_sprint_DM03",
+          "midtown_race_farm_sprint_DM12",
+          "midtown_race_farm_drift_DM01",
+          "midtown_race_farm_drift_DM15",
+          "midtown_race_farm_drift_DM07",
+          "port_race_farm_free_drift_AO01",
+          "midtown_race_farm_free_drift_AO01",
+          "prigorod_race_farm_free_drift_AO01",
+          "port_race_farm_gymkhana_ie001",
+          "midtown_race_gymkhana_ao04",
+          "industrial_race_farm_sprint_IV001",
+          "midtown_race_farm_sprint_DM01",
+          "midtown_race_farm_sprint_DM15",
+          "midtown_race_farm_drift_DM04",
+          "midtown_race_farm_drift_DM14",
+          "midtown_race_farm_drift_DM08",
+          "port_race_farm_free_drift_AO02",
+          "midtown_race_farm_free_drift_AO02",
+          "prigorod_race_farm_free_drift_AO02",
+          "industrial_race_gymkhana_ao01",
+          "industrial_race_farm_sprint_IV002",
+          "midtown_race_farm_sprint_ST001",
+          "midtown_race_farm_sprint_DM13",
+          "midtown_race_farm_drift_DM10",
+          "midtown_race_farm_drift_DM16",
+          "port_race_farm_free_drift_AO03",
+          "midtown_race_farm_free_drift_AO03",
+          "midtown_race_farm_sprint_DM09",
+          "midtown_race_farm_sprint_DM07",
+          "husbandary_race_farm_sprint_ierg02",
+          "midtown_race_farm_drift_DM09",
+          "midtown_race_farm_drift_DM06",
+          "industrial_race_farm_free_drift_AO01",
+          "industrial_race_farm_sprint_st04",
+          "midtown_race_farm_sprint_ierg02",
+          "prigorod_race_farm_sprint_ST003",
+          "midtown_race_farm_drift_DM03",
+          "midtown_race_farm_drift_DM05",
+          "industrial_race_farm_free_drift_AO02",
+          "industrial_race_farm_sprint_stStart",
+          "prigorod_race_farm_sprint_IV001",
+          "midtown_race_farm_sprint_DM02",
+          "midtown_race_farm_drift_DM19",
+          "midtown_race_farm_sprint_DM11",
+          "prigorod_race_farm_sprint_IV002",
+          "midtown_race_farm_sprint_DM06",
+          "midtown_race_farm_drift_DM02",
+          "industrial_race_farm_sprint_ierg02",
+          "prigorod_race_farm_sprint_IV003",
+          "prigorod_race_farm_sprint_ST002",
+          "midtown_race_farm_drift_DM13",
+          "industrial_race_farm_sprint_st03",
+          "prigorod_race_farm_sprint_IV004",
+          "midtown_race_farm_sprint_ST002",
+          "midtown_race_farm_drift_DM17",
+          "prigorod_race_farm_sprint_IV005",
+          "industrial_race_farm_sprint_st01",
+          "midtown_race_farm_sprint_IV001",
+          "midtown_race_farm_drift_DM21",
+          "prigorod_race_farm_sprint_IV006",
+          "industrial_race_farm_sprint_ierg03",
+          "midtown_race_farm_sprint_IV002",
+          "midtown_race_farm_drift_DM22",
+          "prigorod_race_farm_sprint_IV007",
+          "prigorod_race_farm_sprint_IV008",
+          "midtown_race_farm_sprint_IV003",
+          "industrial_race_farm_sprint_st05",
+          "midtown_race_farm_drift_DM18",
+          "prigorod_race_farm_sprint_IV009",
+          "midtown_race_farm_sprint_IV004",
+          "midtown_race_farm_drift_DM20",
+          "industrial_race_farm_sprint_MK01",
+          "industrial_race_farm_sprint_MK02",
+          "midtown_race_farm_sprint_DM08",
+          "midtown_race_farm_sprint_IV005",
+          "midtown_race_farm_sprint_MK01",
+          "midtown_race_farm_sprint_DM05",
+          "midtown_race_farm_sprint_IV006",
+          "midtown_race_farm_sprint_MK03",
+          "prigorod_race_farm_sprint_ST001",
+          "midtown_race_farm_sprint_IV007",
+          "midtown_race_farm_sprint_MK04",
+          "midtown_race_farm_sprint_IV008",
+          "midtown_race_farm_sprint_MK06",
+          "prigorod_race_farm_sprint_MK01",
+          "midtown_race_farm_sprint_IV009",
+          "midtown_race_farm_sprint_MK09",
+          "midtown_race_farm_sprint_DM04",
+          "prigorod_race_farm_sprint_MK02",
+          "midtown_race_farm_sprint_DM10",
+          "midtown_race_farm_sprint_DM14",
+          "midtown_race_farm_sprint_MK02",
+          "midtown_race_farm_sprint_MK05",
+          "midtown_race_farm_sprint_MK07",
+          "midtown_race_farm_sprint_MK08"
+        ],
+        "values": [
+          725,
+          590,
+          603,
+          772,
+          775,
+          790,
+          776,
+          789,
+          791,
+          792,
+          793,
+          737,
+          602,
+          615,
+          784,
+          787,
+          778,
+          788,
+          765,
+          779,
+          780,
+          749,
+          614,
+          627,
+          739,
+          640,
+          740,
+          777,
+          761,
+          626,
+          639,
+          652,
+          751,
+          752,
+          773,
+          638,
+          651,
+          664,
+          763,
+          764,
+          785,
+          663,
+          650,
+          676,
+          653,
+          675,
+          662,
+          688,
+          665,
+          687,
+          674,
+          700,
+          677,
+          699,
+          686,
+          712,
+          711,
+          689,
+          698,
+          724,
+          723,
+          762,
+          710,
+          736,
+          774,
+          735,
+          722,
+          701,
+          748,
+          747,
+          734,
+          760,
+          786,
+          713,
+          759,
+          746,
+          690,
+          771,
+          758,
+          702,
+          783,
+          770,
+          714,
+          782,
+          726,
+          591,
+          494,
+          738,
+          506,
+          750,
+          518,
+          530,
+          542,
+          554,
+          566,
+          578
+        ]
+      },
+      "races_set": {
+        "keys": [
+          "midtown_race_farm_sprint_IV009",
+          "prigorod_race_farm_sprint_MK01",
+          "midtown_race_farm_drift_DM16",
+          "midtown_race_farm_sprint_DM11",
+          "midtown_race_farm_sprint_MK01",
+          "midtown_race_farm_drift_DM10",
+          "port_race_farm_free_drift_AO03",
+          "midtown_race_farm_free_drift_AO02",
+          "midtown_race_farm_drift_DM08",
+          "prigorod_race_farm_free_drift_AO02",
+          "industrial_race_gymkhana_ao01",
+          "midtown_race_gymkhana_ao04"
+        ]
+      }
+    },
+    "game_world_mountain_farm_races": {
+      "races_counter": {
+        "keys": [
+          "mountain_race_farm_drift_DM001",
+          "mountain_race_farm_sprint_ST001",
+          "mountain_race_farm_free_drift_AO01",
+          "mountain_race_farm_gymkhana_ao04",
+          "prigorod_traffic_master_gd02",
+          "mountain_race_farm_drift_DM005",
+          "mountain_race_farm_sprint_ST004",
+          "mountain_race_farm_free_drift_AO02",
+          "mountain_race_farm_gymkhana_ao08",
+          "mountain_race_farm_drift_DM002",
+          "mountain_race_farm_sprint_ST002",
+          "mountain_race_farm_free_drift_AO03",
+          "mountain_race_farm_gymkhana_ao06",
+          "mountain_race_farm_drift_DM006",
+          "mountain_race_farm_sprint_ST005",
+          "mountain_race_farm_free_drift_AO04",
+          "mountain_race_farm_drift_DM003",
+          "mountain_race_farm_sprint_ST003",
+          "mountain_race_farm_free_drift_AO05",
+          "mountain_race_farm_drift_DM007",
+          "mountain_race_farm_sprint_ST008",
+          "mountain_race_farm_free_drift_AO10",
+          "mountain_race_farm_drift_DM004",
+          "mountain_race_farm_sprint_ST006",
+          "mountain_race_farm_free_drift_AO08",
+          "mountain_race_farm_drift_DM008",
+          "mountain_race_farm_sprint_ST009",
+          "mountain_race_farm_free_drift_AO06",
+          "mountain_race_farm_drift_DM012",
+          "mountain_race_farm_sprint_ST007",
+          "mountain_race_farm_free_drift_AO09",
+          "mountain_race_farm_drift_DM009",
+          "mountain_race_farm_sprint_ST0012",
+          "mountain_race_farm_free_drift_AO07",
+          "mountain_race_farm_drift_DM015",
+          "mountain_race_farm_sprint_ST0010",
+          "mountain_race_farm_drift_DM010",
+          "mountain_race_farm_sprint_ST0013",
+          "mountain_race_farm_drift_DM011",
+          "mountain_race_farm_sprint_ST0011",
+          "mountain_race_farm_drift_DM013",
+          "mountain_race_farm_sprint_ST0015",
+          "mountain_race_farm_drift_DM014",
+          "mountain_race_farm_sprint_ST0014",
+          "mountain_race_farm_sprint_ST0016",
+          "mountain_race_farm_drift_DM016",
+          "mountain_race_farm_sprint_ST0017",
+          "mountain_race_farm_drift_DM017",
+          "mountain_race_farm_sprint_ST0018",
+          "mountain_race_farm_drift_DM018",
+          "mountain_race_farm_sprint_ST0021",
+          "mountain_race_farm_drift_DM019",
+          "mountain_race_farm_sprint_ST0019",
+          "mountain_race_farm_drift_DM020",
+          "mountain_race_farm_sprint_ST0022",
+          "mountain_race_farm_drift_DM021",
+          "mountain_race_farm_sprint_ST0020",
+          "mountain_race_farm_drift_DM022",
+          "mountain_race_farm_drift_DM023",
+          "mountain_race_farm_sprint_DM01",
+          "mountain_race_farm_drift_DM024",
+          "mountain_race_farm_sprint_DM02",
+          "mountain_race_farm_drift_DM025",
+          "mountain_race_farm_sprint_DM03",
+          "mountain_race_farm_sprint_DM04",
+          "mountain_race_farm_sprint_DM05",
+          "mountain_race_farm_sprint_DM06",
+          "mountain_race_farm_sprint_DM07",
+          "mountain_race_farm_sprint_DM08",
+          "mountain_race_farm_sprint_DM09",
+          "mountain_race_farm_sprint_DM010"
+        ],
+        "values": [
+          252,
+          161,
+          253,
+          274,
+          280,
+          257,
+          166,
+          258,
+          279,
+          262,
+          171,
+          263,
+          269,
+          267,
+          176,
+          268,
+          272,
+          181,
+          273,
+          277,
+          186,
+          278,
+          157,
+          191,
+          233,
+          162,
+          196,
+          238,
+          167,
+          201,
+          243,
+          172,
+          206,
+          248,
+          177,
+          211,
+          182,
+          216,
+          187,
+          221,
+          192,
+          226,
+          197,
+          231,
+          236,
+          202,
+          241,
+          207,
+          246,
+          212,
+          251,
+          217,
+          256,
+          222,
+          261,
+          227,
+          266,
+          232,
+          237,
+          271,
+          242,
+          276,
+          247,
+          122,
+          126,
+          131,
+          136,
+          141,
+          146,
+          151,
+          156
+        ]
+      },
+      "races_set": {
+        "keys": [
+          "mountain_race_farm_sprint_DM03",
+          "mountain_race_farm_drift_DM004",
+          "mountain_race_farm_free_drift_AO08",
+          "mountain_race_farm_gymkhana_ao06",
+          "prigorod_traffic_master_gd02"
+        ]
+      }
+    },
+    "game_world_sunset_farm_races": {
+      "races_counter": {
+        "keys": [
+          "speedway_race_farm_free_drift_AO01",
+          "speedway_race_farm_sprint_DM01",
+          "speedway_race_farm_sprint_DM05",
+          "speedway_race_farm_gymkhana_ao01",
+          "speedway_race_farm_free_drift_AO02",
+          "speedway_race_farm_sprint_DM02",
+          "speedway_race_simple_drift_DM01",
+          "speedway_race_farm_free_drift_AO03",
+          "speedway_race_farm_sprint_DM03",
+          "speedway_race_simple_drift_DM02",
+          "speedway_race_farm_sprint_DM04",
+          "speedway_race_simple_drift_DM03",
+          "speedway_race_farm_free_drift_AO04",
+          "speedway_race_farm_sprint_DM06",
+          "speedway_race_simple_drift_DM04",
+          "speedway_race_farm_free_drift_AO05",
+          "speedway_race_farm_sprint_DM07",
+          "speedway_race_simple_drift_DM05",
+          "speedway_race_farm_free_drift_AO06",
+          "speedway_race_farm_sprint_DM08",
+          "speedway_race_simple_drift_DM06",
+          "speedway_race_farm_sprint_DM09",
+          "speedway_race_simple_drift_DM07",
+          "speedway_race_farm_sprint_DM010",
+          "speedway_race_simple_drift_DM08",
+          "speedway_race_farm_sprint_DM011",
+          "speedway_race_simple_drift_DM09",
+          "speedway_race_farm_sprint_DM012",
+          "speedway_race_simple_drift_DM010",
+          "speedway_race_farm_sprint_DM013",
+          "speedway_race_simple_drift_DM011",
+          "speedway_race_farm_sprint_DM014",
+          "speedway_race_simple_drift_DM012",
+          "speedway_race_farm_sprint_DM015",
+          "speedway_race_simple_drift_DM013",
+          "speedway_race_farm_sprint_DM016",
+          "speedway_race_farm_sprint_DM017",
+          "speedway_race_farm_sprint_DM018",
+          "speedway_race_farm_sprint_DM019",
+          "speedway_race_farm_sprint_DM020"
+        ],
+        "values": [
+          219,
+          153,
+          170,
+          224,
+          223,
+          157,
+          174,
+          203,
+          161,
+          178,
+          165,
+          182,
+          207,
+          169,
+          186,
+          211,
+          173,
+          190,
+          215,
+          177,
+          194,
+          181,
+          198,
+          185,
+          202,
+          189,
+          206,
+          193,
+          210,
+          197,
+          214,
+          201,
+          218,
+          205,
+          222,
+          209,
+          213,
+          217,
+          221,
+          149
+        ]
+      },
+      "races_set": {
+        "keys": [
+          "speedway_race_farm_sprint_DM020",
+          "speedway_race_farm_sprint_DM05",
+          "speedway_race_farm_free_drift_AO03",
+          "speedway_race_farm_gymkhana_ao01"
+        ]
+      }
+    },
+    "club_white_tigers_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_savage_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_chimeras_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_pitons_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_drift_united_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_burnout_rangers_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_streethunters_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_black_lotus_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_pythons_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_speedline_syndicate_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_falcons_outlaws_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_21_tribe_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_road_runner_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_western_sierra_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_speedstar_energy_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_arctic_outlaws_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_grip_masters_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_spitfire_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_hyper_sonic_elite": {
+      "races_counter": {},
+      "races_set": {}
+    },
+    "club_emeralds_elite": {
+      "races_counter": {},
+      "races_set": {}
+    }
+  },
+  "business_counter": {
+    "keys": [
+      "car_delivery_low",
+      "car_delivery_middle",
+      "car_delivery_high",
+      "part_delivery_low",
+      "part_delivery_middle",
+      "part_delivery_high"
+    ],
+    "values": [
+      1788101123,
+      1788102123,
+      1788103123,
+      1788101123,
+      1788102123,
+      1788103123
+    ]
+  },
+  "races_ts": {
+    "keys": [
+      "midtown_race_simple_sprint_dima02",
+      "part_delivery_low",
+      "midtown_race_farm_sprint_IV009",
+      "prigorod_race_farm_sprint_MK01",
+      "midtown_race_farm_drift_DM16",
+      "midtown_race_farm_sprint_DM11",
+      "midtown_race_farm_sprint_MK01",
+      "midtown_race_farm_drift_DM10",
+      "port_race_farm_free_drift_AO03",
+      "midtown_race_farm_free_drift_AO02",
+      "midtown_race_farm_drift_DM08",
+      "prigorod_race_farm_free_drift_AO02",
+      "industrial_race_gymkhana_ao01",
+      "midtown_race_gymkhana_ao04",
+      "mountain_race_farm_sprint_DM03",
+      "mountain_race_farm_drift_DM004",
+      "mountain_race_farm_free_drift_AO08",
+      "mountain_race_farm_gymkhana_ao06",
+      "prigorod_traffic_master_gd02",
+      "speedway_race_farm_sprint_DM020",
+      "speedway_race_farm_sprint_DM05",
+      "speedway_race_farm_free_drift_AO03",
+      "speedway_race_farm_gymkhana_ao01"
+    ],
+    "values": [
+      1788101262,
+      0,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251,
+      1795189251
+    ]
+  },
+  "ad_reward_ts": {},
+  "ad_reward_views": {},
+  "fast_travel_usage": {
+    "keys": [
+      "soft"
+    ],
+    "values": [
+      2
+    ]
+  },
+  "race_counter": {},
+  "postprogression_counter": {},
+  "owned_styling_vinyls_categories": {},
+  "shop_owned_packs": {
+    "keys": [
+      "special_17",
+      "special_25",
+      "special_46",
+      "special_55",
+      "special_43",
+      "special_84",
+      "special_54",
+      "special_56",
+      "special_53",
+      "special_87",
+      "special_23",
+      "special_22",
+      "special_18",
+      "special_8",
+      "special_29",
+      "special_3",
+      "special_58",
+      "special_30",
+      "special_2",
+      "special_game_world_part_mountain_iap_full",
+      "special_47",
+      "special_41",
+      "special_game_world_part_sunset_iap_full",
+      "special_59",
+      "special_40",
+      "special_1",
+      "special_35",
+      "special_78",
+      "special_7",
+      "special_68",
+      "special_39",
+      "special_51",
+      "special_10",
+      "special_4",
+      "special_49",
+      "special_50",
+      "special_69",
+      "special_31",
+      "special_72",
+      "special_80",
+      "special_77",
+      "special_76",
+      "special_75",
+      "special_74",
+      "special_73",
+      "special_71",
+      "special_70",
+      "special_67",
+      "special_6",
+      "special_11",
+      "special_16",
+      "special_5",
+      "special_9",
+      "special_12",
+      "special_13",
+      "special_14",
+      "special_24",
+      "special_27",
+      "special_28",
+      "special_21",
+      "special_19",
+      "special_20",
+      "special_26",
+      "special_15",
+      "special_32",
+      "special_33",
+      "special_34",
+      "special_36",
+      "special_37",
+      "special_38",
+      "special_42",
+      "special_44",
+      "special_45",
+      "special_48",
+      "special_52",
+      "special_57",
+      "special_60",
+      "special_63",
+      "special_61",
+      "special_62",
+      "special_64",
+      "special_65",
+      "special_66",
+      "special_79",
+      "special_81",
+      "special_85",
+      "special_86",
+      "special_88",
+      "special_89",
+      "special_90"
+    ]
+  },
+  "transactions": {},
+  "event_ts": {},
+  "quests": {
+    "car_choice_intro": {
+      "trigger": {},
+      "completed": true,
+      "rewarded": true
+    },
+    "move_to_apartment_intro_quest": {
+      "trigger": {},
+      "completed": true,
+      "rewarded": true
+    },
+    "move_to_gasstation_intro_quest": {
+      "trigger": {},
+      "completed": true,
+      "rewarded": true
+    },
+    "move_to_tuning_intro_quest": {
+      "trigger": {},
+      "completed": true,
+      "rewarded": true
+    },
+    "move_to_club_intro_quest": {
+      "trigger": {},
+      "completed": true,
+      "rewarded": true
+    }
+  },
+  "location_object_enter": {
+    "keys": [
+      "styling_05",
+      "styling_01",
+      "styling_02",
+      "styling_03",
+      "styling_04"
+    ],
+    "values": [
+      1,
+      18,
+      10,
+      3,
+      1
+    ]
+  },
+  "collected_gift_boxes": {},
+  "collectables_events": {
+    "seed": 3,
+    "items": {
+      "0": {
+        "__desc_id": "default",
+        "event_name": "first_event",
+        "collected_objects_set": {}
+      },
+      "1": {
+        "__desc_id": "default",
+        "event_name": "halloween_2026",
+        "collected_objects_set": {}
+      },
+      "2": {
+        "__desc_id": "default",
+        "event_name": "comic_book",
+        "collected_objects_set": {}
+      }
+    }
+  },
+  "freeride_activity": {
+    "radar_progress": {
+      "instance": {},
+      "records": {
+        "keys": [
+          "radar_2|99|datsun620",
+          "radar_7|145|datsun620",
+          "radar_20|153|datsun620"
+        ]
+      }
+    },
+    "donut_zone_progress": {
+      "instance": {},
+      "records": {}
+    },
+    "average_speed_progress": {
+      "instance": {},
+      "records": {}
+    },
+    "sprint_progress": {
+      "instance": {},
+      "records": {}
+    },
+    "drift_progress": {
+      "instance": {},
+      "records": {}
+    }
+  },
+  "player_inventory": {
+    "styling_parts_collection": {
+      "seed": 0,
+      "items": {}
+    },
+    "styling_bodykits_collection": {
+      "seed": 0,
+      "items": {}
+    },
+    "builded_tuning_node_collection": {
+      "cells": {
+        "engine_0": {
+          "stack": {}
+        },
+        "engine_1": {
+          "stack": {}
+        },
+        "engine_2": {
+          "stack": {}
+        },
+        "engine_3": {
+          "stack": {}
+        },
+        "engine_4": {
+          "stack": {}
+        },
+        "transmission_0": {
+          "stack": {}
+        },
+        "transmission_1": {
+          "stack": {}
+        },
+        "transmission_2": {
+          "stack": {}
+        },
+        "transmission_3": {
+          "stack": {}
+        },
+        "transmission_4": {
+          "stack": {}
+        }
+      }
+    },
+    "tuning_parts_collection": {
+      "seed": 0,
+      "items": {
+        "engine_exhaust_2": {
+          "__desc_id": "engine_exhaust_2",
+          "count": 1,
+          "is_new": true
+        },
+        "transmission_gearbox_4": {
+          "__desc_id": "transmission_gearbox_4",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_springs_rear_3": {
+          "__desc_id": "suspension_springs_rear_3",
+          "count": 1,
+          "is_new": true
+        },
+        "body_weight_reduction_2": {
+          "__desc_id": "body_weight_reduction_2",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_ecu_6": {
+          "__desc_id": "engine_ecu_6",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_exhaust_manifold_3": {
+          "__desc_id": "engine_exhaust_manifold_3",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_arms_front_2": {
+          "__desc_id": "suspension_arms_front_2",
+          "count": 2,
+          "is_new": true
+        },
+        "suspension_arms_rear_2": {
+          "__desc_id": "suspension_arms_rear_2",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_block_4": {
+          "__desc_id": "engine_block_4",
+          "count": 1,
+          "is_new": true
+        },
+        "body_front_aero_4": {
+          "__desc_id": "body_front_aero_4",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_fuel_system_4": {
+          "__desc_id": "engine_fuel_system_4",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_springs_front_3": {
+          "__desc_id": "suspension_springs_front_3",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_springs_rear_4": {
+          "__desc_id": "suspension_springs_rear_4",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_springs_front_4": {
+          "__desc_id": "suspension_springs_front_4",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_ecu_2": {
+          "__desc_id": "engine_ecu_2",
+          "count": 1,
+          "is_new": true
+        },
+        "transmission_clutch_3": {
+          "__desc_id": "transmission_clutch_3",
+          "count": 1,
+          "is_new": true
+        },
+        "body_rear_aero_2": {
+          "__desc_id": "body_rear_aero_2",
+          "count": 1,
+          "is_new": true
+        },
+        "body_rear_aero_4": {
+          "__desc_id": "body_rear_aero_4",
+          "count": 1,
+          "is_new": true
+        },
+        "body_weight_reduction_4": {
+          "__desc_id": "body_weight_reduction_4",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_exhaust_manifold_1": {
+          "__desc_id": "engine_exhaust_manifold_1",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_shocks_rear_3": {
+          "__desc_id": "suspension_shocks_rear_3",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_intake_manifold_3": {
+          "__desc_id": "engine_intake_manifold_3",
+          "count": 1,
+          "is_new": true
+        },
+        "suspension_brakes_3": {
+          "__desc_id": "suspension_brakes_3",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_camshaft_9": {
+          "__desc_id": "engine_camshaft_9",
+          "count": 1,
+          "is_new": true
+        },
+        "body_front_aero_3": {
+          "__desc_id": "body_front_aero_3",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_camshaft_5": {
+          "__desc_id": "engine_camshaft_5",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_block_2": {
+          "__desc_id": "engine_block_2",
+          "count": 1,
+          "is_new": true
+        },
+        "transmission_gearbox_2": {
+          "__desc_id": "transmission_gearbox_2",
+          "count": 1,
+          "is_new": true
+        },
+        "engine_exhaust_1": {
+          "__desc_id": "engine_exhaust_1",
+          "count": 1,
+          "is_new": true
+        }
+      }
+    }
+  },
+  "battle_pass_event_rewards": {
+    "keys": [
+      "unlock_livery_lunar_carnival_pack_1",
+      "unlock_numberplate_lunarcarnival_gold",
+      "unlock_numberplate_lunarcarnival_white",
+      "unlock_numberplate_confrontation_skull",
+      "unlock_numberplate_confrontation_flame",
+      "unlock_number_plate_sunset_city_black",
+      "unlock_number_plate_street_500_black",
+      "unlock_number_plate_akuma_gold",
+      "unlock_number_plate_rock",
+      "unlock_number_plate_stock",
+      "unlock_number_plate_ufo",
+      "unlock_number_plate_oni_gold",
+      "unlock_number_plate_gymkhana_fest_1_logo",
+      "unlock_number_plate_gymkhana_fest_2_steelpace",
+      "unlock_number_plate_gymkhana_fest_1_number_2",
+      "unlock_number_plate_gymkhana_fest_1_number_1",
+      "unlock_number_plate_eternal_black",
+      "unlock_number_plate_akuma_black",
+      "unlock_number_plate_street_500_white",
+      "unlock_number_plate_gymkhana_fest_2_13racing",
+      "unlock_number_plate_gymkhana_fest_2_show",
+      "unlock_number_plate_2fast4u",
+      "unlock_number_plate_dr-ft",
+      "unlock_number_plate_halloween_2_zmbie",
+      "unlock_number_plate_halloween_2_w1tch",
+      "unlock_number_plate_halloween_2_h3llcar",
+      "unlock_number_plate_p1zz4",
+      "unlock_number_plate_no1se",
+      "unlock_number_plate_h07dog",
+      "unlock_number_plate_gr4ng3",
+      "unlock_number_plate_donut",
+      "unlock_number_plate_cla55ic",
+      "unlock_number_plate_blankcat",
+      "unlock_number_plate_5u5h1",
+      "unlock_number_plate_upgrad3",
+      "unlock_number_plate_top-t13r",
+      "unlock_number_plate_t3am13",
+      "unlock_number_plate_s1mpl3",
+      "unlock_number_plate_patrol_dep",
+      "unlock_number_plate_own3d",
+      "unlock_number_plate_npc",
+      "unlock_number_plate_m4y4",
+      "unlock_number_plate_et82ufo",
+      "unlock_number_plate_et82city",
+      "unlock_number_plate_b-005t",
+      "unlock_number_plate_al13n",
+      "unlock_number_plate_666666",
+      "unlock_number_plate_456897",
+      "unlock_number_plate_500hp",
+      "unlock_number_plate_5tock",
+      "unlock_number_plate_4zt3c",
+      "unlock_number_plate_brnrubr",
+      "unlock_number_plate_kawa11",
+      "unlock_number_plate_empty",
+      "unlock_number_plate_oni_graffiti",
+      "unlock_number_plate_snowfest_winter",
+      "unlock_number_plate_snowfest_ny26",
+      "unlock_number_plate_snowfest_gift26",
+      "unlock_number_plate_no_noise_just_pace_team",
+      "unlock_number_plate_i_dont",
+      "unlock_number_plate_0000",
+      "unlock_number_plate_serafim_xplpr",
+      "unlock_number_plate_serafim_l1fexp",
+      "unlock_number_plate_serafim_g4m3r",
+      "unlock_number_plate_final_charge_flame",
+      "unlock_number_plate_final_charge_fire26",
+      "unlock_number_plate_final_charge_bless",
+      "unlock_number_plate_st756",
+      "unlock_number_plate_run",
+      "unlock_number_plate_championship_fs2026",
+      "unlock_number_plate_championship_redcrd",
+      "unlock_number_plate_championship_goal7",
+      "unlock_avatar_1",
+      "unlock_avatar_2",
+      "unlock_avatar_3",
+      "unlock_avatar_4",
+      "unlock_avatar_5",
+      "unlock_avatar_6",
+      "unlock_avatar_7",
+      "unlock_avatar_8",
+      "unlock_avatar_9",
+      "unlock_avatar_10",
+      "unlock_avatar_11",
+      "unlock_avatar_12",
+      "unlock_avatar_13",
+      "unlock_avatar_14",
+      "unlock_avatar_15",
+      "unlock_avatar_16",
+      "unlock_avatar_17",
+      "unlock_avatar_18",
+      "unlock_banner_1",
+      "unlock_banner_2",
+      "unlock_banner_3",
+      "unlock_banner_4",
+      "unlock_banner_5",
+      "unlock_banner_6",
+      "unlock_banner_7",
+      "unlock_banner_8",
+      "unlock_banner_9",
+      "unlock_banner_10",
+      "unlock_banner_11",
+      "unlock_banner_12",
+      "unlock_banner_13",
+      "unlock_banner_14",
+      "unlock_banner_15",
+      "unlock_banner_16",
+      "unlock_banner_17",
+      "unlock_banner_18",
+      "unlock_frame_1",
+      "unlock_frame_2",
+      "unlock_frame_3",
+      "unlock_frame_4",
+      "unlock_frame_5",
+      "unlock_frame_6",
+      "unlock_frame_7",
+      "unlock_frame_8",
+      "unlock_frame_9",
+      "unlock_frame_10",
+      "unlock_frame_11",
+      "unlock_frame_12",
+      "unlock_frame_13",
+      "unlock_frame_14",
+      "unlock_frame_15",
+      "unlock_frame_16",
+      "unlock_frame_17",
+      "unlock_frame_18",
+      "unlock_street_pass_emoji_ellis_3",
+      "unlock_tire_side_wall_9"
+    ]
+  },
+  "social_media_rewards": {},
+  "car_sharing_slots_key": {
+    "keys": [
+      "car_sharing_slot_1",
+      "car_sharing_slot_2"
+    ]
+  },
+  "profile": {
+    "nickname": "Player95692579",
+    "avatar": "avatar_18",
+    "banner": "banner_18",
+    "frame": "frame_18",
+    "favorite_achievents": {
+      "keys": [
+        "0"
+      ],
+      "values": [
+        "statistic_cars_count"
+      ]
+    }
+  },
+  "profile_customization_set": {},
+  "character_customization_set": {},
+  "emoji": {
+    "keys": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "values": [
+      "emoji_4",
+      "emoji_1",
+      "emoji_2",
+      "emoji_3"
+    ]
+  },
+  "favorite_styling_vinyls": {},
+  "cars": {
+    "seed": 1135,
+    "external": true,
+    "items": {
+      "1000": {
+        "__desc_id": "datsun620"
+      },
+      "1012": {
+        "__desc_id": "mazdarx7"
+      },
+      "1013": {
+        "__desc_id": "nissanz31"
+      },
+      "1015": {
+        "__desc_id": "nissan300zx"
+      },
+      "1016": {
+        "__desc_id": "toyotasupra2020"
+      },
+      "1017": {
+        "__desc_id": "skyliner32"
+      },
+      "1018": {
+        "__desc_id": "mazdarx7_fc"
+      },
+      "1019": {
+        "__desc_id": "mitsubishievo9"
+      },
+      "1020": {
+        "__desc_id": "bmw_m3_e36"
+      },
+      "1022": {
+        "__desc_id": "lexuslfa"
+      },
+      "1023": {
+        "__desc_id": "bmw_i8"
+      },
+      "1024": {
+        "__desc_id": "mustang650"
+      },
+      "1025": {
+        "__desc_id": "nissan180sx"
+      },
+      "1026": {
+        "__desc_id": "toyotagt86"
+      },
+      "1028": {
+        "__desc_id": "suzukicarry"
+      },
+      "1029": {
+        "__desc_id": "lotuselise"
+      },
+      "1030": {
+        "__desc_id": "lamborghiniaventadors"
+      },
+      "1031": {
+        "__desc_id": "fordfocusst2019"
+      },
+      "1033": {
+        "__desc_id": "toyotasuprarz"
+      },
+      "1034": {
+        "__desc_id": "mustang_hoonigan"
+      },
+      "1035": {
+        "__desc_id": "corvettec7"
+      },
+      "1036": {
+        "__desc_id": "corvettec6"
+      },
+      "1037": {
+        "__desc_id": "chevycamaro70"
+      },
+      "1038": {
+        "__desc_id": "mazdarx7"
+      },
+      "1039": {
+        "__desc_id": "bmwm5e60"
+      },
+      "1040": {
+        "__desc_id": "skyliner32"
+      },
+      "1041": {
+        "__desc_id": "vipersrt10"
+      },
+      "1042": {
+        "__desc_id": "viper"
+      },
+      "1043": {
+        "__desc_id": "bmw_m3_e36"
+      },
+      "1044": {
+        "__desc_id": "mclaren720s"
+      },
+      "1045": {
+        "__desc_id": "audir8"
+      },
+      "1047": {
+        "__desc_id": "bmwm2g87"
+      },
+      "1048": {
+        "__desc_id": "toyotasupraa70"
+      },
+      "1049": {
+        "__desc_id": "jaguar_ftype"
+      },
+      "1050": {
+        "__desc_id": "corvettec3"
+      },
+      "1051": {
+        "__desc_id": "bmw_z4_e86"
+      },
+      "1052": {
+        "__desc_id": "toyotayarisgr2020"
+      },
+      "1053": {
+        "__desc_id": "audirs7"
+      },
+      "1054": {
+        "__desc_id": "chevroletchevelless1970"
+      },
+      "1055": {
+        "__desc_id": "bmwm5e34"
+      },
+      "1056": {
+        "__desc_id": "nissan300zx"
+      },
+      "1057": {
+        "__desc_id": "golfgti"
+      },
+      "1058": {
+        "__desc_id": "nissansilvias13"
+      },
+      "1059": {
+        "__desc_id": "silvias15"
+      },
+      "1060": {
+        "__desc_id": "dodgechallengerrt"
+      },
+      "1061": {
+        "__desc_id": "bmwe31"
+      },
+      "1062": {
+        "__desc_id": "mitsubishievo6"
+      },
+      "1063": {
+        "__desc_id": "toyotamark2_100"
+      },
+      "1064": {
+        "__desc_id": "lamborghinievo"
+      },
+      "1065": {
+        "__desc_id": "civicek9"
+      },
+      "1066": {
+        "__desc_id": "nissanz31"
+      },
+      "1067": {
+        "__desc_id": "mitsubishievo9"
+      },
+      "1068": {
+        "__desc_id": "toyotagr86"
+      },
+      "1069": {
+        "__desc_id": "hondas2000"
+      },
+      "1070": {
+        "__desc_id": "mustang350"
+      },
+      "1071": {
+        "__desc_id": "bmwm4g82"
+      },
+      "1072": {
+        "__desc_id": "nissan400z"
+      },
+      "1073": {
+        "__desc_id": "toyotasupra2020"
+      },
+      "1074": {
+        "__desc_id": "porsche911"
+      },
+      "1075": {
+        "__desc_id": "bmwm5f90"
+      },
+      "1076": {
+        "__desc_id": "skyliner35"
+      },
+      "1077": {
+        "__desc_id": "bmwm5x5"
+      },
+      "1078": {
+        "__desc_id": "lamborghinidiablo"
+      },
+      "1079": {
+        "__desc_id": "bmwe46m3"
+      },
+      "1080": {
+        "__desc_id": "porschesinger"
+      },
+      "1081": {
+        "__desc_id": "audirs6avantc7"
+      },
+      "1082": {
+        "__desc_id": "toyotagt86"
+      },
+      "1083": {
+        "__desc_id": "mercedesbenz190evo2"
+      },
+      "1084": {
+        "__desc_id": "vantage"
+      },
+      "1085": {
+        "__desc_id": "chevroletcamaro2016"
+      },
+      "1086": {
+        "__desc_id": "mustang650"
+      },
+      "1087": {
+        "__desc_id": "lexuslfa"
+      },
+      "1088": {
+        "__desc_id": "maloor82015"
+      },
+      "1089": {
+        "__desc_id": "charger"
+      },
+      "1090": {
+        "__desc_id": "nissanskyline2000gtx"
+      },
+      "1091": {
+        "__desc_id": "porsche911gt3"
+      },
+      "1092": {
+        "__desc_id": "ae86"
+      },
+      "1093": {
+        "__desc_id": "skyliner34"
+      },
+      "1094": {
+        "__desc_id": "bmwm4"
+      },
+      "1095": {
+        "__desc_id": "fordgt_mk2"
+      },
+      "1096": {
+        "__desc_id": "tesla_s_plaid"
+      },
+      "1097": {
+        "__desc_id": "nissan350z"
+      },
+      "1098": {
+        "__desc_id": "mazdarx7_fc"
+      },
+      "1099": {
+        "__desc_id": "bmw_i8"
+      },
+      "1100": {
+        "__desc_id": "bmwe30m3"
+      },
+      "1101": {
+        "__desc_id": "mercedesbenzamggt2019"
+      },
+      "1102": {
+        "__desc_id": "subaruwrxsti"
+      },
+      "1103": {
+        "__desc_id": "mitsubishievox"
+      },
+      "1104": {
+        "__desc_id": "mazdarx8"
+      },
+      "1105": {
+        "__desc_id": "nissanskyliner33vspec"
+      },
+      "1106": {
+        "__desc_id": "infinity_q60"
+      },
+      "1107": {
+        "__desc_id": "lotuselise"
+      },
+      "1108": {
+        "__desc_id": "dodgecharger2020"
+      },
+      "1109": {
+        "__desc_id": "van"
+      },
+      "1110": {
+        "__desc_id": "bmw_m3_e92_cabrio"
+      },
+      "1111": {
+        "__desc_id": "bmwm5e39_vagon"
+      },
+      "1113": {
+        "__desc_id": "toyotagr86"
+      },
+      "1114": {
+        "__desc_id": "bmwm3g81_touring"
+      },
+      "1115": {
+        "__desc_id": "nissan300zx_cabrio"
+      },
+      "1116": {
+        "__desc_id": "bmwm6e24"
+      },
+      "1117": {
+        "__desc_id": "lexusrcf"
+      },
+      "1118": {
+        "__desc_id": "nissansilvias13"
+      },
+      "1119": {
+        "__desc_id": "toyotayarisgr2020"
+      },
+      "1120": {
+        "__desc_id": "nissan350z"
+      },
+      "1121": {
+        "__desc_id": "buickgnx"
+      },
+      "1122": {
+        "__desc_id": "skyliner31"
+      },
+      "1123": {
+        "__desc_id": "lamborghinimurcielago"
+      },
+      "1124": {
+        "__desc_id": "mitsubishieclipse99"
+      },
+      "1125": {
+        "__desc_id": "hotrod"
+      },
+      "1126": {
+        "__desc_id": "fordgt_mk2"
+      },
+      "1127": {
+        "__desc_id": "lamborghinievo"
+      },
+      "1128": {
+        "__desc_id": "lamborghinievo"
+      },
+      "1129": {
+        "__desc_id": "lamborghinievo"
+      },
+      "1131": {
+        "__desc_id": "mbgelandewagenw463"
+      },
+      "1132": {
+        "__desc_id": "lamborghiniaventadors"
+      },
+      "1133": {
+        "__desc_id": "lamborghiniaventadors"
+      },
+      "1134": {
+        "__desc_id": "lamborghiniaventadors"
+      }
+    }
+  }
+}
