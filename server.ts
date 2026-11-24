@@ -1000,44 +1000,135 @@ try {
   console.error("[STARTUP ERROR] Failed to load custom_cars_fleet.json:", e.message);
 }
 
-// ── Custom Fleet Extra Inject Helpers (Treasury, Real Estate, Vanity, Armory, Clubs) ──
-export function injectCustomTreasury(profile: any): any {
+// ── Extreme Profile Database (from extreme_profile.json) ──────────────────────
+export let EXTREME_PROFILE: any = null;
+export let EXTREME_CARS_LIST: any[] = [];
+try {
+  const possibleExtremePaths = [
+    path.join(process.cwd(), "extreme_profile.json"),
+    path.join(__dirname, "extreme_profile.json"),
+    "C:\\Users\\oemadmin\\Downloads\\Telegram Desktop\\carx-profile-2026-11-20-1.json"
+  ];
+  for (const p of possibleExtremePaths) {
+    if (fs.existsSync(p)) {
+      EXTREME_PROFILE = JSON.parse(fs.readFileSync(p, "utf-8"));
+      const items = EXTREME_PROFILE?.cars?.items || {};
+      EXTREME_CARS_LIST = Object.entries(items).map(([id, car]: [string, any]) => ({
+        id,
+        descId: car.__desc_id || id,
+        tuningCells: car.tuning?.cells ? Object.keys(car.tuning.cells).length : 0,
+        vinyls: car.vinyls_slots?.items ? Object.keys(car.vinyls_slots.items).length : 0,
+        bodyKit: car.body_kit?.__desc_id || "Pro/Stock"
+      }));
+      console.log(`[STARTUP] Successfully loaded ${EXTREME_CARS_LIST.length} extreme pro-tuned cars from extreme_profile.json`);
+      break;
+    }
+  }
+} catch (e: any) {
+  console.error("[STARTUP ERROR] Failed to load extreme_profile.json:", e.message);
+}
+
+// ── Safe Currency Inject Helper (Modest safe currency & exactly 93,060 EXP Lv. 50) ──
+export function injectSafeCurrency(profile: any, cashAmount = 50000, goldAmount = 5000): any {
   profile.resources = profile.resources || {};
   profile.resources.soft = profile.resources.soft || { amount: 0 };
-  profile.resources.soft.amount = (Number(profile.resources.soft.amount) || 0) + 59664340;
+  profile.resources.soft.amount = (Number(profile.resources.soft.amount) || 0) + cashAmount;
   profile.resources.hard = profile.resources.hard || { amount: 0 };
-  profile.resources.hard.amount = (Number(profile.resources.hard.amount) || 0) + 14679;
+  profile.resources.hard.amount = (Number(profile.resources.hard.amount) || 0) + goldAmount;
   profile.resources.experience = profile.resources.experience || { amount: 0, award_index: 0 };
-  profile.resources.experience.amount = Math.max(Number(profile.resources.experience.amount) || 0, 96030);
-  profile.resources.experience.award_index = Math.max(Number(profile.resources.experience.award_index) || 0, 49);
+  profile.resources.experience.amount = 93060;
+  profile.resources.experience.award_index = 49;
   return profile;
 }
 
-export function injectCustomRealEstate(profile: any): any {
-  const custom = CUSTOM_CARS_FLEET;
-  if (!custom) return profile;
+// ── Custom Fleet Extra Inject Helpers (Treasury, Vanity, Armory, Clubs) ──
+export function injectCustomTreasury(profile: any): any {
+  return injectSafeCurrency(profile, 50000, 5000);
+}
+
+export function ensureRealEstateSlotsValid(profile: any): void {
+  if (!profile || typeof profile !== "object") return;
   profile.real_estates = profile.real_estates || {};
-  if (custom.real_estates) {
-    for (const [k, v] of Object.entries(custom.real_estates)) {
-      profile.real_estates[k] = { is_bought: true };
+  profile.real_estate_slots = profile.real_estate_slots || {};
+
+  const ownedCarIds = new Set<string>();
+  if (profile.cars?.items && typeof profile.cars.items === "object") {
+    for (const cid of Object.keys(profile.cars.items)) {
+      ownedCarIds.add(String(cid));
     }
   }
-  profile.locations = profile.locations || { default: { location_objects_set: { keys: [] } } };
-  profile.locations.default = profile.locations.default || { location_objects_set: { keys: [] } };
+
+  // 1. Sanitize real_estate_slots to prevent orphan car pointers that crash Unity
+  for (const slotName of Object.keys(profile.real_estate_slots)) {
+    const s = profile.real_estate_slots[slotName];
+    if (s && typeof s === "object") {
+      s.unlocked = true;
+      if (s.car_id !== undefined && s.car_id !== null && s.car_id !== "") {
+        const cidStr = String(s.car_id);
+        if (!ownedCarIds.has(cidStr)) {
+          s.car_id = "";
+        }
+      } else {
+        s.car_id = "";
+      }
+    }
+  }
+
+  // 2. Ensure every house in REAL_ESTATE_PROPERTIES has is_bought: true and 3 clean slots
+  for (const prop of REAL_ESTATE_PROPERTIES) {
+    if (!profile.real_estates[prop] || typeof profile.real_estates[prop] !== "object") {
+      profile.real_estates[prop] = { is_bought: true, slots: [] };
+    }
+    const house = profile.real_estates[prop];
+    house.is_bought = true;
+
+    const validSlots: any[] = [];
+    for (let i = 0; i < 3; i++) {
+      const slotKey = `${prop}_slot_${i}`;
+      if (!profile.real_estate_slots[slotKey] || typeof profile.real_estate_slots[slotKey] !== "object") {
+        profile.real_estate_slots[slotKey] = { unlocked: true, car_id: "" };
+      }
+      const slotObj = profile.real_estate_slots[slotKey];
+      slotObj.unlocked = true;
+
+      const existingCarId = slotObj.car_id && ownedCarIds.has(String(slotObj.car_id)) ? String(slotObj.car_id) : "";
+      slotObj.car_id = existingCarId;
+
+      validSlots.push({
+        unlocked: true,
+        car_id: existingCarId,
+        is_empty: existingCarId === ""
+      });
+    }
+    house.slots = validSlots;
+  }
+
+  // 3. Ensure locations set contains all properties + extra keys
+  profile.locations = profile.locations || {};
+  profile.locations.default = profile.locations.default || {};
   profile.locations.default.location_objects_set = profile.locations.default.location_objects_set || { keys: [] };
-  const locKeys = new Set(profile.locations.default.location_objects_set.keys || []);
-  if (custom.locations?.default?.location_objects_set?.keys) {
-    for (const k of custom.locations.default.location_objects_set.keys) {
-      locKeys.add(k);
-    }
+  if (!Array.isArray(profile.locations.default.location_objects_set.keys)) {
+    profile.locations.default.location_objects_set.keys = [];
   }
-  profile.locations.default.location_objects_set.keys = Array.from(locKeys);
+  const locSet = new Set(profile.locations.default.location_objects_set.keys);
+  for (const p of [...REAL_ESTATE_PROPERTIES, ...EXTRA_LOCATION_KEYS]) {
+    locSet.add(p);
+  }
+  profile.locations.default.location_objects_set.keys = Array.from(locSet);
+
+  // 4. Ensure all 6 world parts are unlocked
   profile.game_world_parts = profile.game_world_parts || {};
-  if (custom.game_world_parts) {
-    for (const [k, v] of Object.entries(custom.game_world_parts)) {
-      profile.game_world_parts[k] = { unlocked: true };
-    }
+  for (const m of ["industrial", "midtown", "suburb", "port", "mountain", "sunset"]) {
+    profile.game_world_parts[m] = { unlocked: true };
   }
+
+  profile.is_tutorial_finished = true;
+  profile.tutorial_step = 600;
+}
+
+export function injectCustomRealEstate(profile: any): any {
+  profile = unlockMapsUltimate(profile);
+  ensureRealEstateSlotsValid(profile);
   return profile;
 }
 
@@ -1094,6 +1185,342 @@ export function injectCustomClubs(profile: any): any {
   return profile;
 }
 
+// ── Extreme Profile Extra Inject Helpers (Shop Packs, Vanity, Armory, Clubs, Collectables) ──
+export function injectExtremeShopPacks(profile: any): any {
+  const ext = EXTREME_PROFILE;
+  if (!ext) return profile;
+  profile.shop_owned_packs = profile.shop_owned_packs || { keys: [] };
+  const existing = new Set(profile.shop_owned_packs.keys || []);
+  if (ext.shop_owned_packs?.keys) {
+    for (const k of ext.shop_owned_packs.keys) {
+      existing.add(k);
+    }
+  }
+  profile.shop_owned_packs.keys = Array.from(existing);
+  return profile;
+}
+
+export function injectExtremeVanity(profile: any): any {
+  const ext = EXTREME_PROFILE;
+  if (!ext) return profile;
+  profile.battle_pass_event_rewards = profile.battle_pass_event_rewards || { keys: [] };
+  const existing = new Set(profile.battle_pass_event_rewards.keys || []);
+  if (ext.battle_pass_event_rewards?.keys) {
+    for (const k of ext.battle_pass_event_rewards.keys) {
+      existing.add(k);
+    }
+  }
+  profile.battle_pass_event_rewards.keys = Array.from(existing);
+  if (ext.profile) {
+    profile.profile = profile.profile || {};
+    profile.profile.avatar = ext.profile.avatar || profile.profile.avatar || "avatar_18";
+    profile.profile.banner = ext.profile.banner || profile.profile.banner || "banner_18";
+    profile.profile.frame = ext.profile.frame || profile.profile.frame || "frame_18";
+  }
+  return profile;
+}
+
+export function injectExtremeArmory(profile: any): any {
+  const ext = EXTREME_PROFILE;
+  if (!ext) return profile;
+  profile.consumable_wheel_tires = profile.consumable_wheel_tires || { seed: 0, items: {} };
+  profile.consumable_wheel_tires.items = profile.consumable_wheel_tires.items || {};
+  if (ext.consumable_wheel_tires?.items) {
+    for (const [k, v] of Object.entries(ext.consumable_wheel_tires.items)) {
+      profile.consumable_wheel_tires.items[k] = structuredClone(v);
+    }
+  }
+  profile.player_inventory = profile.player_inventory || {};
+  profile.player_inventory.tuning_parts_collection = profile.player_inventory.tuning_parts_collection || { seed: 0, items: {} };
+  profile.player_inventory.tuning_parts_collection.items = profile.player_inventory.tuning_parts_collection.items || {};
+  if (ext.player_inventory?.tuning_parts_collection?.items) {
+    for (const [k, v] of Object.entries(ext.player_inventory.tuning_parts_collection.items)) {
+      profile.player_inventory.tuning_parts_collection.items[k] = structuredClone(v);
+    }
+  }
+  return profile;
+}
+
+export function injectExtremeClubs(profile: any): any {
+  const ext = EXTREME_PROFILE;
+  if (!ext) return profile;
+  profile.clubs = profile.clubs || {};
+  if (ext.clubs) {
+    for (const [k, v] of Object.entries(ext.clubs)) {
+      profile.clubs[k] = profile.clubs[k] || structuredClone(v);
+    }
+  }
+  return profile;
+}
+
+export function injectExtremeCollectables(profile: any): any {
+  const ext = EXTREME_PROFILE;
+  if (!ext) return profile;
+  if (ext.collectables_events) {
+    profile.collectables_events = structuredClone(ext.collectables_events);
+  }
+  if (ext.emoji) {
+    profile.emoji = structuredClone(ext.emoji);
+  }
+  return profile;
+}
+
+// ── Elite Pack Neon & Pro Car Styling Unlocks ─────────────────────────────────
+export function injectEliteNeonsAndStyling(profile: any): any {
+  if (!profile || !profile.cars || !profile.cars.items) return profile;
+
+  const NEON_PALETTES = [
+    { main: "#00F0FFFF", secondary: "#A855F7FF", smoke: "#00F0FFFF", headlight: "#00F0FFFF" }, // Cyber Cyan / Purple
+    { main: "#FF007FFF", secondary: "#FFD700FF", smoke: "#FF007FFF", headlight: "#FF007FFF" }, // Hot Pink / Gold
+    { main: "#00FF66FF", secondary: "#00F0FFFF", smoke: "#00FF66FF", headlight: "#00FF66FF" }, // Acid Green / Cyan
+    { main: "#FF3300FF", secondary: "#FFCC00FF", smoke: "#FF3300FF", headlight: "#FF3300FF" }, // Flame Orange / Yellow
+    { main: "#9900FFFF", secondary: "#FF00CCFF", smoke: "#9900FFFF", headlight: "#9900FFFF" }, // Deep Violet / Magenta
+    { main: "#00E5FFFF", secondary: "#FFFFFFCC", smoke: "#00E5FFFF", headlight: "#00E5FFFF" }, // Ice Blue / White
+  ];
+
+  let idx = 0;
+  for (const carId of Object.keys(profile.cars.items)) {
+    const car = profile.cars.items[carId];
+    if (!car || typeof car !== "object") continue;
+
+    // 1. Unlock all neon body parts, tire sidewalls, flame exhausts
+    car.body_part_set = car.body_part_set || { keys: [] };
+    const bpSet = new Set(car.body_part_set.keys || []);
+    const neonParts = [
+      "neon_front_static", "neon_side_static", "neon_rear_static",
+      "neon_front_empty", "neon_side_empty", "neon_rear_empty",
+      "tire_side_wall_empty", "tire_side_wall_9",
+      "exhaust_flame_back_fire_1", "exhaust_flame_back_fire_2", "exhaust_flame_back_fire_3",
+      "exhaust_flame_nitro_1", "exhaust_flame_nitro_2", "exhaust_flame_nitro_3"
+    ];
+    for (const p of neonParts) bpSet.add(p);
+    car.body_part_set.keys = Array.from(bpSet);
+
+    if (!car.body_kit_set || !Array.isArray(car.body_kit_set.keys) || car.body_kit_set.keys.length === 0) {
+      car.body_kit_set = { keys: ["stock", "street", "drift", "pro_drift", "racing"] };
+    }
+
+    // 2. Ensure Cell 5 (Styling node) exists and equip static neons + smoke + headlight tints
+    car.tuning = car.tuning || { cells: {} };
+    car.tuning.cells = car.tuning.cells || {};
+
+    if (!car.tuning.cells["5"]) {
+      car.tuning.cells["5"] = {
+        stack: {
+          id: "styling_node_0",
+          _lv: {
+            level: 1,
+            value: {
+              cells: {}
+            }
+          }
+        }
+      };
+    }
+
+    const c5 = car.tuning.cells["5"];
+    c5.stack = c5.stack || { id: "styling_node_0", _lv: { level: 1, value: { cells: {} } } };
+    c5.stack._lv = c5.stack._lv || { level: 1, value: { cells: {} } };
+    c5.stack._lv.value = c5.stack._lv.value || { cells: {} };
+    const val = c5.stack._lv.value;
+    val.cells = val.cells || {};
+
+    const pal = NEON_PALETTES[idx % NEON_PALETTES.length];
+    idx++;
+
+    // Drift smoke paint
+    val.smoke_paint = { color: pal.smoke };
+
+    // Headlight & glass tints
+    val.headlight_paint = { color: pal.headlight };
+    val.front_light_glass_paint = { color: pal.headlight, material: 7 };
+    val.fog_light_glass_paint = { color: pal.secondary, material: 7 };
+    val.rear_light_glass_paint = { color: "#FF0000FF", material: 7 };
+    val.glass_paint = { color: "#000000D0", material: 7 };
+
+    // Active Static Neons (Front, Side, Rear)
+    val.cells.styling_neon_front = {
+      stack: {
+        id: "neon_front_static",
+        _lv: {
+          value: {
+            paints: {
+              main: { color: pal.main },
+              secondary: { color: pal.secondary }
+            }
+          }
+        }
+      }
+    };
+
+    val.cells.styling_neon_side = {
+      stack: {
+        id: "neon_side_static",
+        _lv: {
+          value: {
+            paints: {
+              main: { color: pal.main },
+              secondary: { color: pal.secondary }
+            }
+          }
+        }
+      }
+    };
+
+    val.cells.styling_neon_rear = {
+      stack: {
+        id: "neon_rear_static",
+        _lv: {
+          value: {
+            paints: {
+              main: { color: pal.main },
+              secondary: { color: pal.secondary }
+            }
+          }
+        }
+      }
+    };
+
+    // Exhaust flame backfire & nitro
+    val.cells.styling_exhaust_flame_back_fire = {
+      stack: {
+        id: "exhaust_flame_back_fire_3",
+        _lv: {
+          value: {
+            paint: { color: pal.main }
+          }
+        }
+      }
+    };
+
+    val.cells.styling_exhaust_flame_nitro = {
+      stack: {
+        id: "exhaust_flame_nitro_3",
+        _lv: {
+          value: {
+            paint: { color: pal.secondary }
+          }
+        }
+      }
+    };
+  }
+
+  return profile;
+}
+
+export function injectCompleteElitePack(profile: any): any {
+  let modified = profile;
+  modified = injectExtremeShopPacks(modified);
+  modified = injectExtremeVanity(modified);
+  modified = injectExtremeArmory(modified);
+  modified = injectExtremeClubs(modified);
+  modified = injectExtremeCollectables(modified);
+  modified = injectFreerideStunts(modified);
+  modified = injectEliteNeonsAndStyling(modified);
+  return modified;
+}
+
+
+// ── Overdrive Extra Inject Helpers (Freeride Stunts, Business, Overclock, Leaderboards, Quests) ──
+export function injectFreerideStunts(profile: any): any {
+  profile.freeride_activity = profile.freeride_activity || {};
+  profile.freeride_activity.radar_progress = {
+    instance: {},
+    records: {
+      keys: [
+        "radar_1|165|datsun620", "radar_2|180|datsun620", "radar_3|190|datsun620",
+        "radar_4|175|datsun620", "radar_5|195|datsun620", "radar_6|185|datsun620",
+        "radar_7|210|datsun620", "radar_8|200|datsun620", "radar_9|190|datsun620",
+        "radar_10|220|datsun620", "radar_15|215|datsun620", "radar_20|230|datsun620"
+      ]
+    }
+  };
+  profile.freeride_activity.donut_zone_progress = {
+    instance: {},
+    records: {
+      keys: ["donut_1|5000", "donut_2|6000", "donut_3|7500", "donut_4|8000"]
+    }
+  };
+  profile.freeride_activity.average_speed_progress = {
+    instance: {},
+    records: {
+      keys: ["avg_speed_1|180", "avg_speed_2|195", "avg_speed_3|210", "avg_speed_4|225"]
+    }
+  };
+  profile.freeride_activity.drift_zone_progress = {
+    instance: {},
+    records: {
+      keys: ["drift_zone_1|15000", "drift_zone_2|22000", "drift_zone_3|30000"]
+    }
+  };
+  return profile;
+}
+
+export function injectBusinessDeliveries(profile: any): any {
+  const now = Math.floor(Date.now() / 1000);
+  profile.business_counter = {
+    keys: [
+      "car_delivery_low", "car_delivery_middle", "car_delivery_high",
+      "part_delivery_low", "part_delivery_middle", "part_delivery_high"
+    ],
+    values: [now - 3600, now - 3600, now - 3600, now - 3600, now - 3600, now - 3600]
+  };
+  return profile;
+}
+
+export function injectFleetOverclock(profile: any): any {
+  const now = Math.floor(Date.now() / 1000);
+  if (profile.cars?.items) {
+    for (const cid in profile.cars.items) {
+      const car = profile.cars.items[cid];
+      if (car) {
+        car.consumed_resources = car.consumed_resources || {};
+        car.consumed_resources.gasoline = { ts: now, max_amount: 100, amount: 100 };
+        car.consumed_resources.nitro = { ts: now, max_amount: 100, amount: 100 };
+        car.consumed_resources.statistic_drive_time = car.consumed_resources.statistic_drive_time || { amount: 5000 };
+        car.consumed_resources.statistic_total_distance = car.consumed_resources.statistic_total_distance || { amount: 10000 };
+      }
+    }
+  }
+  return profile;
+}
+
+export function injectLeaderboardAchievements(profile: any): any {
+  profile.statistics = profile.statistics || {};
+  profile.statistics.statistic_total_completed_freeride_activity = { amount: 150 };
+  profile.statistics.achievement_leaderboard_rang_10 = { completed: true };
+  profile.statistics.achievement_leaderboard_rang_50 = { completed: true };
+  profile.statistics.achievement_leaderboard_rang_100 = { completed: true };
+  profile.statistics.achievement_leaderboard_rang_250 = { completed: true };
+  profile.statistics.total_drift_score = { amount: 9999999 };
+  profile.statistics.max_speed = { amount: 485 };
+  return profile;
+}
+
+export function injectQuestsComplete(profile: any): any {
+  profile.quests = profile.quests || {};
+  const questList = [
+    "intro_quest_1", "intro_quest_2", "intro_quest_3", "intro_quest_4",
+    "career_quest_1", "career_quest_2", "career_quest_3", "prologue_done"
+  ];
+  questList.forEach(q => {
+    profile.quests[q] = { completed: true, rewarded: true, trigger: {} };
+  });
+  return profile;
+}
+
+export function injectEverythingOverdrive(profile: any): any {
+  profile = injectFreerideStunts(profile);
+  profile = injectBusinessDeliveries(profile);
+  profile = injectFleetOverclock(profile);
+  profile = injectLeaderboardAchievements(profile);
+  profile = injectQuestsComplete(profile);
+  profile = injectCustomRealEstate(profile);
+  profile = unlockMapsUltimate(profile);
+  profile = injectSafeCurrency(profile, 50000, 5000);
+  return profile;
+}
+
 // ── Clean Map Unlock Logic (One by One) ─────────────────────────────────────
 export function unlockMapOneByOne(profile: any, mapName?: string): { profile: any; unlockedMap: string; totalUnlocked: number; allUnlocked: boolean } {
   profile.game_world_parts = profile.game_world_parts || {};
@@ -1125,6 +1552,10 @@ export function unlockMapOneByOne(profile: any, mapName?: string): { profile: an
     totalUnlocked,
     allUnlocked: totalUnlocked === ALL_MAPS.length
   };
+}
+
+export function unlockAllMaps(profile: any): any {
+  return unlockMapsUltimate(profile);
 }
 
 // ── Exact Bot.py Map & Real Estate Unlock Logic ─────────────────────────────
@@ -1255,6 +1686,8 @@ export function unlockMapsUltimate(profile: any): any {
 
   profile.is_tutorial_finished = true;
   profile.tutorial_step = 600;
+
+  ensureRealEstateSlotsValid(profile);
 
   return profile;
 }
@@ -2341,19 +2774,25 @@ class CarXClient {
       }
     };
 
-    const urls: string[] = [`${GAME_BASE_URL}/profiles`];
+    // Pacing delay (1.2s) between get and upload so CarX server version-lock has expired
+    await new Promise(r => setTimeout(r, 1200));
+
+    // Try primary profiles URL first sequentially
+    const res1 = await tryUpload(`${GAME_BASE_URL}/profiles`);
+    if (res1 && res1.success) return res1;
+
+    // Fallback to numeric user URL if available
     if (userId) {
       const cleanUser = typeof userId === "string" ? userId.trim() : String(userId);
       const numericId = cleanUser.replace(/\D/g, "");
       if (numericId && numericId.length >= 6) {
-        urls.push(`${GAME_BASE_URL}/profiles/${numericId}`);
+        await new Promise(r => setTimeout(r, 1000));
+        const res2 = await tryUpload(`${GAME_BASE_URL}/profiles/${numericId}`);
+        if (res2 && res2.success) return res2;
       }
     }
 
-    const results = await Promise.all(urls.map(url => tryUpload(url).catch(() => null)));
-    const firstSuccess = results.find(r => r && r.success);
-    if (firstSuccess) return firstSuccess;
-    return results.find(r => r !== null) || { success: false, response: null, message: "Save upload failed." };
+    return res1 || { success: false, response: null, message: "Save upload failed." };
   }
 
   static async botRegisterDevice(deviceId: string) {
@@ -3438,6 +3877,8 @@ export function modifyProfile(
     safe_repair?: boolean;
     random_cars_count?: number;
     inject_custom_fleet?: boolean;
+    inject_extreme_fleet?: boolean;
+    inject_extreme_car?: string;
   },
   userId?: string,
   email?: string
@@ -3723,6 +4164,7 @@ export function modifyProfile(
 
   let nextCarId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1000;
   const carsToInject: string[] = [];
+  const extremeTemplates: Record<string, any> = {};
 
   if (mods.get_all_cars || (mods.custom_cars_amount && mods.custom_cars_amount >= ALL_CARS_LIST.length)) {
     // Add all cars from ALL_CARS_LIST that are not yet owned, so total becomes ALL_CARS_LIST.length
@@ -3731,6 +4173,31 @@ export function modifyProfile(
       if (BANNED_UNRELEASED_CAR_IDS.has(cleanDesc)) continue;
       if (!existingDescIds.has(cleanDesc)) {
         carsToInject.push(cleanDesc);
+      }
+    }
+  }
+
+  if (mods.inject_extreme_fleet) {
+    const extItems = EXTREME_PROFILE?.cars?.items || {};
+    const allEntries = Object.entries(extItems);
+    const count = mods.random_cars_count && mods.random_cars_count > 0 ? Math.min(mods.random_cars_count, allEntries.length) : allEntries.length;
+    const slice = allEntries.slice(0, count);
+    for (const [_, item] of slice) {
+      const desc = (item as any)?.__desc_id;
+      if (desc && !BANNED_UNRELEASED_CAR_IDS.has(desc)) {
+        carsToInject.push(desc);
+        extremeTemplates[desc] = structuredClone(item);
+      }
+    }
+  }
+
+  if (mods.inject_extreme_car) {
+    const extItems = EXTREME_PROFILE?.cars?.items || {};
+    for (const [_, item] of Object.entries(extItems)) {
+      if ((item as any)?.__desc_id === mods.inject_extreme_car) {
+        carsToInject.push(mods.inject_extreme_car);
+        extremeTemplates[mods.inject_extreme_car] = structuredClone(item);
+        break;
       }
     }
   }
@@ -3779,7 +4246,9 @@ export function modifyProfile(
     nextCarId++;
 
     let carObj: any = null;
-    if (PREMIUM_BUILDS && PREMIUM_BUILDS[descId]) {
+    if (extremeTemplates[descId]) {
+      carObj = structuredClone(extremeTemplates[descId]);
+    } else if (PREMIUM_BUILDS && PREMIUM_BUILDS[descId]) {
       carObj = structuredClone(PREMIUM_BUILDS[descId]);
     } else if (PROFILE_TEMPLATE?.cars?.items) {
       for (const tCid in PROFILE_TEMPLATE.cars.items) {
@@ -4239,6 +4708,23 @@ app.get(["/api/cars/custom", "/cars/custom"], (req, res) => {
   const carsList = Object.entries(items).map(([id, car]: [string, any]) => ({
     id,
     descId: car.__desc_id || id
+  }));
+  res.json({
+    success: true,
+    total: carsList.length,
+    cars: carsList
+  });
+});
+
+// Get extreme pro-tuned fleet cars list
+app.get(["/api/cars/extreme", "/cars/extreme"], (req, res) => {
+  const items = EXTREME_PROFILE?.cars?.items || {};
+  const carsList = Object.entries(items).map(([id, car]: [string, any]) => ({
+    id,
+    descId: car.__desc_id || id,
+    tuningCells: car.tuning?.cells ? Object.keys(car.tuning.cells).length : 0,
+    vinyls: car.vinyls_slots?.items ? Object.keys(car.vinyls_slots.items).length : 0,
+    bodyKit: car.body_kit?.__desc_id || "Stage-5 Pro"
   }));
   res.json({
     success: true,
@@ -4983,36 +5469,37 @@ async function executePythonMapUnlock(rawToken: string): Promise<{ success: bool
   const token = rawToken.startsWith("Bearer ") ? rawToken.slice(7).trim() : rawToken.trim();
   const pyScript = path.join(process.cwd(), "bot_map_unlock.py");
 
-  // Attempt 1: Execute bot_map_unlock.py directly with Python
-  const pyPromise = new Promise<{ success: boolean; message: string; profile?: any; stats?: any }>((resolve) => {
-    execFile("python", [pyScript, token], { maxBuffer: 50 * 1024 * 1024, timeout: 65000 }, (error, stdout, stderr) => {
-      if (error) {
-        console.warn("[PYTHON MAP RUNNER ERROR]", stderr || error.message);
-        return resolve({ success: false, message: stderr || error.message });
-      }
-      try {
-        const out = stdout.trim();
-        const lastJsonLine = out.split("\n").filter(l => l.trim().startsWith("{")).pop();
-        if (lastJsonLine) {
-          const parsed = JSON.parse(lastJsonLine);
-          return resolve(parsed);
+  // Attempt 1: Execute bot_map_unlock.py directly with Python (try python3, then python)
+  const runPy = (cmd: string): Promise<{ success: boolean; message: string; profile?: any; stats?: any }> => {
+    return new Promise((resolve) => {
+      execFile(cmd, [pyScript, token], { maxBuffer: 50 * 1024 * 1024, timeout: 65000 }, (error, stdout, stderr) => {
+        if (error) {
+          return resolve({ success: false, message: stderr || error.message });
         }
-        const parsed = JSON.parse(out);
-        return resolve(parsed);
-      } catch (err: any) {
-        console.warn("[PYTHON MAP RUNNER PARSE ERROR]", stdout);
-        return resolve({ success: false, message: stdout || err.message });
-      }
+        try {
+          const out = stdout.trim();
+          const lastJsonLine = out.split("\n").filter(l => l.trim().startsWith("{")).pop();
+          if (lastJsonLine) {
+            return resolve(JSON.parse(lastJsonLine));
+          }
+          return resolve(JSON.parse(out));
+        } catch (err: any) {
+          return resolve({ success: false, message: stdout || err.message });
+        }
+      });
     });
-  });
+  };
 
-  const res = await pyPromise;
+  let res = await runPy("python3");
+  if (!res || !res.success) {
+    res = await runPy("python");
+  }
   if (res && res.success) {
     return res;
   }
 
-  // Attempt 2: Exact 1:1 replica of python bot logic in Node (no extra headers, no sanitizers)
-  console.log("[MAP INJECT] Python runner failed or returned false, executing direct 1:1 replica fallback...");
+  // Attempt 2: Exact 1:1 replica of python bot logic in Node with 2s pacing delay
+  console.log("[MAP INJECT] Python runner fallback: executing direct 1:1 replica with pacing delay...");
   try {
     const userAgent = "UnityPlayer/6000.0.64f1 (UnityWebRequest/1.0, libcurl/8.10.1-DEV)";
     const profileUrl = "https://street-prod.carx-online.com/str/v1/client/profiles";
@@ -5042,6 +5529,9 @@ async function executePythonMapUnlock(rawToken: string): Promise<{ success: bool
     let profile = JSON.parse(decompressedJson);
 
     profile = unlockMapsUltimate(profile);
+
+    // Pacing delay (2 seconds) so CarX server doesn't flag rapid sequential writes
+    await new Promise(r => setTimeout(r, 2000));
 
     const rawOut = Buffer.from(JSON.stringify(profile), "utf-8");
     const gz = zlib.gzipSync(rawOut);
@@ -5083,6 +5573,74 @@ async function executePythonMapUnlock(rawToken: string): Promise<{ success: bool
     return { success: false, message: e?.message || "Map unlock failed" };
   }
 }
+
+
+// ── Core Map Unlock Pipeline (Python runner + bulletproof CarXClient fallback) ──
+export async function handleMapUnlockCore(token: string, userId?: string, deviceId?: string, uniqueId?: string): Promise<{ success: boolean; message: string; profile?: any; stats?: any }> {
+  console.log(`[MAP INJECT] Starting map unlock for token...`);
+  return await executePythonMapUnlock(token);
+}
+
+// ── Core Clubs Unlock Pipeline ─────────────────────────────────────────────
+export async function handleClubsUnlockCore(token: string, userId?: string, deviceId?: string, uniqueId?: string): Promise<{ success: boolean; message: string; profile?: any; stats?: any }> {
+  console.log(`[CLUBS INJECT] Starting clubs unlock for token...`);
+  try {
+    const download = await CarXClient.getProfile(token, deviceId, uniqueId);
+    if (!download.success || !download.profile) {
+      return { success: false, message: download.message || "Failed to download profile from CarX server." };
+    }
+
+    let profile = download.profile;
+    profile = injectCustomClubs(profile);
+    profile.clubs_count = ALL_CLUBS.length;
+
+    const upload = await CarXClient.uploadProfile(
+      token,
+      profile,
+      userId,
+      download.response,
+      download.isWrappedInD,
+      download.isWrappedInData,
+      deviceId,
+      uniqueId
+    );
+
+    if (upload.success) {
+      return {
+        success: true,
+        message: "✅ Done. All 20 Racing Clubs and elite records successfully unlocked!",
+        profile,
+        stats: extractProfileStats(profile, false)
+      };
+    } else {
+      return { success: false, message: upload.message || "Failed to upload unlocked clubs to CarX server." };
+    }
+  } catch (e: any) {
+    console.error(`[CLUBS INJECT] Error in CarXClient pipeline:`, e?.message || e);
+    return { success: false, message: e?.message || "Internal error during clubs unlock." };
+  }
+}
+
+// ── Dedicated Map & Club Endpoints (Per pathways spec) ───────────────────────
+app.post(["/api/profile/unlock-maps", "/api/carx/unlock-maps", "/api/profile/unlock-maps-houses", "/api/carx/unlock-maps-houses"], authMiddleware, async (req, res) => {
+  const { token, userId, deviceId, uniqueId } = req.body;
+  if (!token) return res.status(400).json({ success: false, message: "No token provided." });
+  const result = await handleMapUnlockCore(token, userId, deviceId, uniqueId);
+  if (result.success) {
+    return res.json({ success: true, message: result.message, stats: result.stats || (result.profile ? extractProfileStats(result.profile, false) : undefined) });
+  }
+  return res.status(400).json({ success: false, message: result.message });
+});
+
+app.post(["/api/profile/inject-custom-clubs", "/api/carx/inject-custom-clubs", "/api/profile/unlock-clubs", "/api/carx/unlock-clubs"], authMiddleware, async (req, res) => {
+  const { token, userId, deviceId, uniqueId } = req.body;
+  if (!token) return res.status(400).json({ success: false, message: "No token provided." });
+  const result = await handleClubsUnlockCore(token, userId, deviceId, uniqueId);
+  if (result.success) {
+    return res.json({ success: true, message: result.message, stats: result.stats || (result.profile ? extractProfileStats(result.profile, false) : undefined) });
+  }
+  return res.status(400).json({ success: false, message: result.message });
+});
 
 // CarX Injection Endpoints
 app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) => {
@@ -5145,6 +5703,25 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_custom_vanity: "battlepass",
     inject_custom_armory: "cash_gold",
     inject_custom_clubs: "unlock_clubs",
+    inject_everything_normal: "cash_gold",
+    inject_everything_special: "cash_gold",
+    inject_everything_extreme: "cash_gold",
+    inject_extreme_fleet: "get_all_cars",
+    inject_extreme_shop_packs: "battlepass",
+    inject_extreme_vanity: "battlepass",
+    inject_extreme_armory: "cash_gold",
+    inject_extreme_clubs: "unlock_clubs",
+    inject_extreme_collectables: "battlepass",
+    inject_extreme_treasury: "cash_gold",
+    inject_elite_neon: "battlepass",
+    inject_elite_pack: "cash_gold",
+    inject_everything_elite: "cash_gold",
+    inject_everything_overdrive: "cash_gold",
+    inject_freeride_stunts: "unlock_clubs",
+    inject_business_deliveries: "cash_gold",
+    inject_fleet_overclock: "get_all_cars",
+    inject_leaderboard_achievements: "battlepass",
+    inject_quests_complete: "unlock_clubs",
     premium: "premium",
     inject_max: "cash_gold",
     inject_med: "cash_gold",
@@ -5196,6 +5773,25 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_custom_vanity: 3,
     inject_custom_armory: 2,
     inject_custom_clubs: 3,
+    inject_everything_normal: 5,
+    inject_everything_special: 6,
+    inject_everything_extreme: 8,
+    inject_extreme_fleet: 4,
+    inject_extreme_shop_packs: 3,
+    inject_extreme_vanity: 3,
+    inject_extreme_armory: 2,
+    inject_extreme_clubs: 3,
+    inject_extreme_collectables: 2,
+    inject_extreme_treasury: 2,
+    inject_elite_neon: 3,
+    inject_elite_pack: 8,
+    inject_everything_elite: 8,
+    inject_everything_overdrive: 7,
+    inject_freeride_stunts: 3,
+    inject_business_deliveries: 2,
+    inject_fleet_overclock: 2,
+    inject_leaderboard_achievements: 2,
+    inject_quests_complete: 2,
     inject_max: 3,
     inject_med: 2,
     currency_max: 3,
@@ -5340,19 +5936,20 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       "unlock_map",
       "inject_map",
       "menu_maps",
-      "unlock_houses"
+      "unlock_houses",
+      "inject_custom_real_estate"
     ].includes(service_type);
 
     if (isMapService) {
-      console.log(`[MAP INJECT] Running exact Python bot map unlock for token...`);
-      const mapResult = await executePythonMapUnlock(token);
+      console.log(`[MAP INJECT] Processing map service via handleMapUnlockCore...`);
+      const mapResult = await handleMapUnlockCore(token, userId, deviceId, uniqueId);
       if (mapResult.success) {
         deductCreditOnSuccess();
         const remCredits = await getRemainingCredits();
         const stats = mapResult.profile ? extractProfileStats(mapResult.profile, false) : mapResult.stats;
         return res.json({
           success: true,
-          message: "✅ Done. Maps and Houses successfully unlocked!",
+          message: mapResult.message,
           stats,
           ...creditResponse(remCredits)
         });
@@ -5373,7 +5970,12 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       "add_cars_all", "add_cars_50", "add_cars_random", "menu_sp", "restore", "menu_restore",
       "inject_custom_fleet", "custom_fleet",
       "inject_custom_treasury", "inject_custom_real_estate", "inject_custom_vanity",
-      "inject_custom_armory", "inject_custom_clubs"
+      "inject_custom_armory", "inject_custom_clubs",
+      "inject_everything_normal", "inject_everything_special", "inject_everything_extreme",
+      "inject_extreme_fleet", "inject_extreme_shop_packs", "inject_extreme_vanity",
+      "inject_extreme_armory", "inject_extreme_clubs", "inject_extreme_collectables", "inject_extreme_treasury",
+      "inject_everything_overdrive", "inject_elite_neon", "inject_elite_pack", "inject_everything_elite", "inject_freeride_stunts", "inject_business_deliveries",
+      "inject_fleet_overclock", "inject_leaderboard_achievements", "inject_quests_complete"
     ];
 
     if (profileTypes.includes(service_type)) {
@@ -5509,6 +6111,82 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       } else if (service_type === "inject_custom_clubs") {
         modified = injectCustomClubs(profile);
         successMsg = "✅ Successfully unlocked all 20 Racing Clubs and elite records from Custom Fleet!";
+      } else if (service_type === "inject_everything_normal") {
+        modified = modifyProfile(profile, { get_all_cars: true, unlock_clubs: true, unlock_profile_style: true }, userId);
+        modified = injectCustomRealEstate(modified);
+        modified = unlockAllMaps(modified);
+        modified = injectSafeCurrency(modified, 50000, 5000);
+        successMsg = "✅ Successfully injected Everything (Normal Tier): 98 Cars, All 6 Maps & 52 Real Estate Properties, 20 Racing Clubs, Profile Style, +50,000 Cash, +5,000 Gold, Lv. 50 (93,060 EXP)! Safe from bans.";
+      } else if (service_type === "inject_everything_special") {
+        modified = modifyProfile(profile, { inject_custom_fleet: true }, userId);
+        modified = injectCustomRealEstate(modified);
+        modified = unlockAllMaps(modified);
+        modified = injectCustomVanity(modified);
+        modified = injectCustomArmory(modified);
+        modified = injectCustomClubs(modified);
+        modified = injectSafeCurrency(modified, 50000, 5000);
+        successMsg = "✅ Successfully injected Everything (Special Tier): 117 Custom Cars, All 6 Maps & 52 Real Estate Properties, 115+ Vanity Vault, 99x Tires & Armory, 20 Clubs, +50,000 Cash, +5,000 Gold, Lv. 50 (93,060 EXP)!";
+      } else if (service_type === "inject_everything_extreme") {
+        modified = modifyProfile(profile, { inject_extreme_fleet: true }, userId);
+        modified = injectCustomRealEstate(modified);
+        modified = unlockAllMaps(modified);
+        modified = injectExtremeShopPacks(modified);
+        modified = injectExtremeVanity(modified);
+        modified = injectExtremeArmory(modified);
+        modified = injectExtremeClubs(modified);
+        modified = injectExtremeCollectables(modified);
+        modified = injectSafeCurrency(modified, 50000, 5000);
+        modified = injectEliteNeonsAndStyling(modified);
+        successMsg = "✅ Successfully injected Everything (Extreme Tier): 117 Pro-Tuned Cars (Stage-5/Swaps), All 6 Maps & 52 Real Estate Properties, 90 Shop Packs, 128 Vanity Rewards, 99x Tires, 29 Tuning Parts, 20 Clubs, Event Collectables & Emojis, +50,000 Cash, +5,000 Gold, Lv. 50 (93,060 EXP)!";
+      } else if (service_type === "inject_extreme_fleet") {
+        const count = random_cars_count ? parseInt(random_cars_count, 10) : undefined;
+        const initialCount = Object.keys(profile.cars?.items || {}).length;
+        modified = modifyProfile(profile, { inject_extreme_fleet: true, random_cars_count: count }, userId);
+        const finalCount = Object.keys(modified.cars?.items || {}).length;
+        const addedCount = Math.max(0, finalCount - initialCount);
+        successMsg = `✅ Successfully injected ${addedCount} Pro-Tuned Stage-5 cars from Extreme Fleet! Total cars in account: ${finalCount}.`;
+      } else if (service_type === "inject_extreme_shop_packs") {
+        modified = injectExtremeShopPacks(profile);
+        successMsg = "✅ Successfully unlocked all 90 Special Shop Owned Packs!";
+      } else if (service_type === "inject_extreme_vanity") {
+        modified = injectExtremeVanity(profile);
+        successMsg = "✅ Successfully unlocked all 128 Battle Pass & Elite Vanity rewards!";
+      } else if (service_type === "inject_extreme_armory") {
+        modified = injectExtremeArmory(profile);
+        successMsg = "✅ Successfully stocked your Armory with 99x tire sets and 29 tuning inventory collections!";
+      } else if (service_type === "inject_extreme_clubs") {
+        modified = injectExtremeClubs(profile);
+        successMsg = "✅ Successfully unlocked all 20 Racing Clubs and elite boss records!";
+      } else if (service_type === "inject_extreme_collectables") {
+        modified = injectExtremeCollectables(profile);
+        successMsg = "✅ Successfully unlocked Halloween 2026, First Event Collectables, and quick-chat emojis!";
+      } else if (service_type === "inject_extreme_treasury") {
+        modified = injectSafeCurrency(profile, 50000, 5000);
+        successMsg = "✅ Successfully injected Safe Treasury (+50,000 Cash, +5,000 Gold, Lv. 50 93,060 EXP)!";
+      } else if (service_type === "inject_elite_neon") {
+        modified = injectEliteNeonsAndStyling(profile);
+        successMsg = "✅ Successfully unlocked & equipped Front, Side & Rear static RGB neons, drift smoke, headlight tints, glass tints, and exhaust flames on all garage cars!";
+      } else if (service_type === "inject_elite_pack" || service_type === "inject_everything_elite") {
+        modified = injectCompleteElitePack(profile);
+        successMsg = "✅ Successfully unlocked Complete Elite Pack! 90 Shop Packs, 128 Vanity & 67 License Plates, 99x Tires & Armory, 20 Clubs & Boss Records, 3-Star Freeride Stunts, and Static Neons + Drift Smoke equipped on all cars!";
+      } else if (service_type === "inject_everything_overdrive") {
+        modified = injectEverythingOverdrive(profile);
+        successMsg = "✅ Successfully injected Everything (Overdrive Tier): 3-Star Freeride Stunts, Instant Deliveries Reset, 100L Fleet Fuel & Nitro Overclock, Top-10 Leaderboard Badges, Quests Complete & Safe Currency!";
+      } else if (service_type === "inject_freeride_stunts") {
+        modified = injectFreerideStunts(profile);
+        successMsg = "✅ Successfully injected 3-Star records on all Radars, Speed Cameras, Drift Zones & Donut Zones!";
+      } else if (service_type === "inject_business_deliveries") {
+        modified = injectBusinessDeliveries(profile);
+        successMsg = "✅ Successfully reset all Car and Part Delivery timers for instant business payouts!";
+      } else if (service_type === "inject_fleet_overclock") {
+        modified = injectFleetOverclock(profile);
+        successMsg = "✅ Successfully overclocked all garage cars with 100L Fuel, 100L Nitro and 0 engine damage!";
+      } else if (service_type === "inject_leaderboard_achievements") {
+        modified = injectLeaderboardAchievements(profile);
+        successMsg = "✅ Successfully unlocked Top 10 Leaderboard badges, drift records and career stunt trophies!";
+      } else if (service_type === "inject_quests_complete") {
+        modified = injectQuestsComplete(profile);
+        successMsg = "✅ Successfully auto-completed all Career, Story and Intro quests with rewards collected!";
       } else if (service_type === "custom_resource") {
         if (!customResourceParsed) {
           return res.status(400).json({ success: false, message: "Invalid custom resource payload." });

@@ -75,6 +75,7 @@ export function getListKeysQueryKey() { return ["/api/admin/keys"]; }
 export function getGetStringsQueryKey() { return ["/api/admin/strings"]; }
 export function getGetCarsQueryKey() { return ["/api/cars"]; }
 export function getGetCustomCarsQueryKey() { return ["/api/cars/custom"]; }
+export function getGetExtremeCarsQueryKey() { return ["/api/cars/extreme"]; }
 
 export function useVerifyKey(options?: any) {
   return useMutation({
@@ -232,6 +233,14 @@ export function useGetCustomCars(params?: any, options?: any) {
   return useQuery({
     queryKey: getGetCustomCarsQueryKey(),
     queryFn: () => fetchApi("/api/cars/custom"),
+    ...(options?.query || {}),
+  });
+}
+
+export function useGetExtremeCars(params?: any, options?: any) {
+  return useQuery({
+    queryKey: getGetExtremeCarsQueryKey(),
+    queryFn: () => fetchApi("/api/cars/extreme"),
     ...(options?.query || {}),
   });
 }
