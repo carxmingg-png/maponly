@@ -1222,18 +1222,27 @@ export function injectExtremeVanity(profile: any): any {
 
 export function injectExtremeArmory(profile: any): any {
   const ext = EXTREME_PROFILE;
-  if (!ext) return profile;
   profile.consumable_wheel_tires = profile.consumable_wheel_tires || { seed: 0, items: {} };
   profile.consumable_wheel_tires.items = profile.consumable_wheel_tires.items || {};
-  if (ext.consumable_wheel_tires?.items) {
+  // Always guarantee max 99x of every tire set compound
+  for (const setKey of ["wheel_tires_set_stock", "wheel_tires_set_1", "wheel_tires_set_2", "wheel_tires_set_3", "wheel_tires_set_4"]) {
+    profile.consumable_wheel_tires.items[setKey] = {
+      __desc_id: setKey,
+      count: 99
+    };
+  }
+  if (ext && ext.consumable_wheel_tires?.items) {
     for (const [k, v] of Object.entries(ext.consumable_wheel_tires.items)) {
       profile.consumable_wheel_tires.items[k] = structuredClone(v);
+      if (profile.consumable_wheel_tires.items[k].count < 99) {
+        profile.consumable_wheel_tires.items[k].count = 99;
+      }
     }
   }
   profile.player_inventory = profile.player_inventory || {};
   profile.player_inventory.tuning_parts_collection = profile.player_inventory.tuning_parts_collection || { seed: 0, items: {} };
   profile.player_inventory.tuning_parts_collection.items = profile.player_inventory.tuning_parts_collection.items || {};
-  if (ext.player_inventory?.tuning_parts_collection?.items) {
+  if (ext && ext.player_inventory?.tuning_parts_collection?.items) {
     for (const [k, v] of Object.entries(ext.player_inventory.tuning_parts_collection.items)) {
       profile.player_inventory.tuning_parts_collection.items[k] = structuredClone(v);
     }
@@ -1408,14 +1417,40 @@ export function injectEliteNeonsAndStyling(profile: any): any {
   return profile;
 }
 
+export function injectExtremeMapsAndRealEstate(profile: any): any {
+  const ext = EXTREME_PROFILE;
+  if (!ext) return profile;
+  if (ext.game_world_parts) {
+    profile.game_world_parts = structuredClone(ext.game_world_parts);
+  }
+  if (ext.real_estates) {
+    profile.real_estates = profile.real_estates || {};
+    for (const [k, v] of Object.entries(ext.real_estates)) {
+      profile.real_estates[k] = profile.real_estates[k] || structuredClone(v);
+    }
+  }
+  if (ext.real_estate_slots) {
+    profile.real_estate_slots = profile.real_estate_slots || {};
+    for (const [k, v] of Object.entries(ext.real_estate_slots)) {
+      profile.real_estate_slots[k] = profile.real_estate_slots[k] || structuredClone(v);
+    }
+  }
+  return profile;
+}
+
 export function injectCompleteElitePack(profile: any): any {
   let modified = profile;
+  modified = injectExtremeMapsAndRealEstate(modified);
   modified = injectExtremeShopPacks(modified);
   modified = injectExtremeVanity(modified);
   modified = injectExtremeArmory(modified);
   modified = injectExtremeClubs(modified);
   modified = injectExtremeCollectables(modified);
   modified = injectFreerideStunts(modified);
+  modified = injectBusinessDeliveries(modified);
+  modified = injectFleetOverclock(modified);
+  modified = injectLeaderboardAchievements(modified);
+  modified = injectQuestsComplete(modified);
   modified = injectEliteNeonsAndStyling(modified);
   return modified;
 }

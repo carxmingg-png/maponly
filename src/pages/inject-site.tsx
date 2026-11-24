@@ -32,7 +32,7 @@ import {
   LogOut, DollarSign, Map, Car, Star, Zap, Trophy,
   User, UserPlus, Eye, EyeOff, RefreshCw, CheckCircle2, AlertCircle, Users,
   Trash2, ShieldAlert, ShieldCheck, Copy, Check, Bookmark, Wrench,
-  Flame, Layers, Sparkles, PackageCheck, Gift, Smile, ShoppingBag
+  Flame, Layers, Sparkles, PackageCheck, Gift, Smile, ShoppingBag, Fuel
 } from "lucide-react";
 
 interface CarXSession {
@@ -42,6 +42,7 @@ interface CarXSession {
   password?: string;
   deviceId?: string;
   uniqueId?: string;
+  profileStats?: any;
 }
 
 interface ProfileStats {
@@ -915,7 +916,7 @@ function LoginForm({ userToken, onSuccess }: { userToken: string; onSuccess: (s:
   );
 }
 
-function InjectionPanel({ session, userToken, onDisconnect }: { session: CarXSession; userToken: string; onDisconnect: () => void }) {
+function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: { session: CarXSession; userToken: string; onDisconnect: () => void; onUpdateSession?: (s: CarXSession) => void }) {
   const { toast } = useToast();
   const [profile, setProfile] = useState<ProfileStats | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(false);
@@ -991,11 +992,15 @@ function InjectionPanel({ session, userToken, onDisconnect }: { session: CarXSes
             description: d.message || "Banned account has been cloned, purged, and re-registered fresh!"
           });
           if (d.token) {
-            setSession((prev: any) => prev ? ({
-              ...prev,
+            const updatedSession: CarXSession = {
+              ...session,
               token: d.token,
-              carxId: d.carxId || prev.carxId,
-            }) : null);
+              carxId: d.carxId || session.carxId,
+            };
+            if (onUpdateSession) onUpdateSession(updatedSession);
+            try {
+              localStorage.setItem("connectedCarXSession", JSON.stringify(updatedSession));
+            } catch {}
           }
           fetchProfile();
         } else {
@@ -4583,6 +4588,112 @@ function InjectionPanel({ session, userToken, onDisconnect }: { session: CarXSes
                 )}
               </div>
             </div>
+
+            {/* Card 10: Elite Top-10 Leaderboards & Stunts */}
+            <div className="cyber-card cyber-card-glow-amber rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-amber-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                      <Trophy className="w-4 h-4 text-amber-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">LEADERBOARD BADGES & STUNTS</h3>
+                      <p className="text-[10px] font-chakra text-amber-300/80">Top 10 Global Records · Stunt Trophies</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase">
+                    RANK #1
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Injects top-10 leaderboard drift records, maximum stunt scores across all city courses, and unlocks high-tier driver achievement trophies.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Global Drift Leaderboard:</span>
+                    <span className="text-amber-400 font-bold">Top 10 Master Drift</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Stunt Trophies:</span>
+                    <span className="text-amber-400 font-bold">Gold Cups Unlocked</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectLeaderboardAchievements}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-500 hover:from-amber-500 hover:to-yellow-500 text-black font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING LEADERBOARDS...</span>
+                  ) : "🏆 UNLOCK TOP 10 LEADERBOARDS & STUNTS"}
+                </button>
+                {results.inject_leaderboard_achievements && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_leaderboard_achievements.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_leaderboard_achievements.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_leaderboard_achievements.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 11: Story & Career Quests Auto-Complete */}
+            <div className="cyber-card cyber-card-glow-teal rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-teal-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4 text-teal-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">STORY & CAREER QUESTS</h3>
+                      <p className="text-[10px] font-chakra text-teal-300/80">Intro Quests · Chapter Milestones · All Rewards</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 font-bold uppercase">
+                    100% DONE
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Automatically flags all story intro quests, tuning tutorials, apartment unlocks, and chapter progression milestones as 100% finished with all rewards claimed.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Tutorial & Intro:</span>
+                    <span className="text-teal-400 font-bold">Fully Completed</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Quest Rewards:</span>
+                    <span className="text-teal-400 font-bold">Collected & Deposited</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectQuestsComplete}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-500 hover:from-teal-500 hover:to-emerald-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(20,184,166,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> COMPLETING QUESTS...</span>
+                  ) : "📜 AUTO-COMPLETE ALL CAREER & STORY QUESTS"}
+                </button>
+                {results.inject_quests_complete && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_quests_complete.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_quests_complete.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_quests_complete.msg}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -4960,7 +5071,7 @@ export default function InjectSite({ adminOverrideToken, hideHeader }: { adminOv
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
               >
-                <InjectionPanel session={session} userToken={userToken} onDisconnect={() => handleSetSession(null)} />
+                <InjectionPanel session={session} userToken={userToken} onDisconnect={() => handleSetSession(null)} onUpdateSession={handleSetSession} />
               </motion.div>
             )}
           </AnimatePresence>
