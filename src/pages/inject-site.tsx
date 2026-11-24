@@ -2399,15 +2399,16 @@ function InjectionPanel({ session, userToken, onDisconnect }: { session: CarXSes
 
           <button
             type="button"
-            onClick={() => setActiveTier("overdrive")}
+            data-testid="tab-elite-pack"
+            onClick={() => setActiveTier("elite")}
             className={`px-4 py-2.5 rounded-xl text-xs font-gaming font-bold tracking-wider uppercase transition-all cursor-pointer flex items-center gap-2 ${
-              activeTier === "overdrive"
-                ? "bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-[0_0_25px_rgba(6,182,212,0.5)] border border-cyan-400/40 animate-pulse"
+              activeTier === "elite" || (activeTier as string) === "overdrive"
+                ? "bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-black font-black shadow-[0_0_25px_rgba(6,182,212,0.5)] border border-cyan-300"
                 : "text-zinc-400 hover:text-white hover:bg-zinc-800/60"
             }`}
           >
-            <span>⚡ OVERDRIVE</span>
-            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-cyan-200">ELITE PERKS</span>
+            <span>👑 ELITE PACK</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-cyan-200">ALL UNLOCKS</span>
           </button>
         </div>
       </div>
