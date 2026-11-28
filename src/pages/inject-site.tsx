@@ -4104,36 +4104,40 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Card 1: Elite Neons & Pro Styling */}
+            {/* Card 1: Ultimate Neons, Liveries & Pro Styling */}
             <div className="cyber-card cyber-card-glow-cyan rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-cyan-500/30">
               <div className="space-y-3.5">
                 <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-sm">
-                      🌟
+                      🌈
                     </div>
                     <div>
-                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">ELITE NEON & PRO STYLING</h3>
-                      <p className="text-[10px] font-chakra text-cyan-300/80">Static RGB Neons · Drift Smoke · Headlight Tints</p>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">ULTIMATE NEONS, LIVERIES & STYLING</h3>
+                      <p className="text-[10px] font-chakra text-cyan-300/80">3-Way RGB Neons · 16,000+ Vinyl Liveries · Drift Smoke & Flames</p>
                     </div>
                   </div>
                   <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-bold uppercase">
-                    ACTIVE NEONS
+                    12 RGB THEMES
                   </span>
                 </div>
 
                 <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
-                  Unlocks all neon body parts and equips high-intensity static underglow neons (front, side, rear), custom drift smoke, colored headlight paints, glass tints, and exhaust flames on all cars in your account garage.
+                  Equips 3-way static underglow neons (front, sides, rear in 12 rotating RGB themes), transfers 16,000+ multi-layer vinyl liveries & unlocks 8 vinyl packs, custom burnout drift smoke, headlight glass dyes, limo blackout tint, and spitting backfire/nitro flames on all garage cars.
                 </p>
 
                 <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
                   <div className="flex justify-between text-zinc-400">
-                    <span>Front/Side/Rear Neon:</span>
-                    <span className="text-cyan-400 font-bold">Static Vibrant RGB Glow</span>
+                    <span>3-Way Static Neons:</span>
+                    <span className="text-cyan-400 font-bold">Front / Sides / Rear (12 Themes)</span>
                   </div>
                   <div className="flex justify-between text-zinc-400">
-                    <span>Drift Smoke & Lights:</span>
-                    <span className="text-cyan-400 font-bold">Custom Smoke & Glass Tints</span>
+                    <span>Livery & Vinyl Vault:</span>
+                    <span className="text-cyan-400 font-bold">16,000+ Layers & 8 Packs Unlocked</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Drift Smoke & Optics:</span>
+                    <span className="text-cyan-400 font-bold">Custom Smoke, Headlights & Limo Tint</span>
                   </div>
                   <div className="flex justify-between text-zinc-400">
                     <span>Exhaust Flames:</span>
@@ -4149,8 +4153,8 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 via-teal-600 to-cyan-500 hover:from-cyan-500 hover:to-teal-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(6,182,212,0.25)]"
                 >
                   {injectCustomPerk.isPending ? (
-                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> EQUIPPING NEON & SMOKE...</span>
-                  ) : "⚡ UNLOCK & EQUIP STATIC NEON + SMOKE ON ALL CARS"}
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> EQUIPPING NEONS, LIVERIES & FLAMES...</span>
+                  ) : "⚡ EQUIP MASTER NEONS, LIVERIES & FLAMES ON ALL CARS"}
                 </button>
                 {results.inject_elite_neon && (
                   <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_elite_neon.ok ? "text-emerald-400" : "text-red-400"}`}>
@@ -4738,7 +4742,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
                 </div>
 
                 <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
-                  Injects the entire 216-car master fleet in one click: all 99 original base game cars plus all 117 custom-tuned fleet vehicles directly into your garage.
+                  Injects the entire 216-car master fleet in one click: all 99 original base game cars plus all 117 custom-tuned fleet vehicles pre-loaded with custom liveries, 3-way RGB neons, and pro tuning directly into your garage.
                 </p>
 
                 <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">

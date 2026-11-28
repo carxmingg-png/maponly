@@ -1278,29 +1278,100 @@ export function injectExtremeCollectables(profile: any): any {
 export function injectEliteNeonsAndStyling(profile: any): any {
   if (!profile || !profile.cars || !profile.cars.items) return profile;
 
+  // 12 Vibrant High-Luminosity RGB Themes
   const NEON_PALETTES = [
     { main: "#00F0FFFF", secondary: "#A855F7FF", smoke: "#00F0FFFF", headlight: "#00F0FFFF" }, // Cyber Cyan / Purple
-    { main: "#FF007FFF", secondary: "#FFD700FF", smoke: "#FF007FFF", headlight: "#FF007FFF" }, // Hot Pink / Gold
-    { main: "#00FF66FF", secondary: "#00F0FFFF", smoke: "#00FF66FF", headlight: "#00FF66FF" }, // Acid Green / Cyan
-    { main: "#FF3300FF", secondary: "#FFCC00FF", smoke: "#FF3300FF", headlight: "#FF3300FF" }, // Flame Orange / Yellow
-    { main: "#9900FFFF", secondary: "#FF00CCFF", smoke: "#9900FFFF", headlight: "#9900FFFF" }, // Deep Violet / Magenta
-    { main: "#00E5FFFF", secondary: "#FFFFFFCC", smoke: "#00E5FFFF", headlight: "#00E5FFFF" }, // Ice Blue / White
+    { main: "#A3FF12FF", secondary: "#00FF66FF", smoke: "#A3FF12FF", headlight: "#A3FF12FF" }, // Acid Lime / Cyber Mint
+    { main: "#FF007FFF", secondary: "#FFD700FF", smoke: "#FF007FFF", headlight: "#FF007FFF" }, // Hot Neon Pink / Gold
+    { main: "#FF8C00FF", secondary: "#FFCC00FF", smoke: "#FF8C00FF", headlight: "#FF8C00FF" }, // Amber Flame / Yellow
+    { main: "#BA55D3FF", secondary: "#9900FFFF", smoke: "#BA55D3FF", headlight: "#BA55D3FF" }, // Royal Orchid / Deep Violet
+    { main: "#00E5FFFF", secondary: "#E0FFFFFF", smoke: "#00E5FFFF", headlight: "#00E5FFFF" }, // Ice Blue / Arctic White
+    { main: "#FF0033FF", secondary: "#FF6600FF", smoke: "#FF0033FF", headlight: "#FF0033FF" }, // Crimson Red / Orange
+    { main: "#DA70D6FF", secondary: "#00F0FFFF", smoke: "#DA70D6FF", headlight: "#DA70D6FF" }, // Toxic Purple / Cyan
+    { main: "#00FFAAFF", secondary: "#A3FF12FF", smoke: "#00FFAAFF", headlight: "#00FFAAFF" }, // Cyber Mint / Acid Lime
+    { main: "#FFD700FF", secondary: "#FF8C00FF", smoke: "#FFD700FF", headlight: "#FFD700FF" }, // Solar Gold / Amber
+    { main: "#FFE600FF", secondary: "#00F0FFFF", smoke: "#FFE600FF", headlight: "#FFE600FF" }, // Cyberpunk Yellow / Blue
+    { main: "#7B68EEFF", secondary: "#4B0082FF", smoke: "#7B68EEFF", headlight: "#7B68EEFF" }, // Midnight Indigo / Purple
+  ];
+
+  // Pre-index extreme profile cars for transferring custom multi-layer vinyl liveries
+  const extCars = EXTREME_PROFILE?.cars?.items || {};
+  const extDescMap: Record<string, any> = {};
+  for (const [_, item] of Object.entries(extCars)) {
+    if ((item as any)?.__desc_id) extDescMap[(item as any).__desc_id] = item;
+  }
+
+  // Pre-populate global Battle Pass rewards (71 license plates, 18 avatars, 18 frames, 18 banners)
+  if (EXTREME_PROFILE?.battle_pass_event_rewards?.keys) {
+    profile.battle_pass_event_rewards = profile.battle_pass_event_rewards || { keys: [] };
+    const bpRewards = new Set(profile.battle_pass_event_rewards.keys || []);
+    for (const k of EXTREME_PROFILE.battle_pass_event_rewards.keys) {
+      bpRewards.add(k);
+    }
+    profile.battle_pass_event_rewards.keys = Array.from(bpRewards);
+  }
+
+  // Pre-populate global shop owned packs
+  if (EXTREME_PROFILE?.shop_owned_packs?.keys) {
+    profile.shop_owned_packs = profile.shop_owned_packs || { keys: [] };
+    const shopPacks = new Set(profile.shop_owned_packs.keys || []);
+    for (const k of EXTREME_PROFILE.shop_owned_packs.keys) {
+      shopPacks.add(k);
+    }
+    profile.shop_owned_packs.keys = Array.from(shopPacks);
+  }
+
+  const ALL_VINYL_PACKS = [
+    "styling_vinyl_hard_0", "styling_vinyl_hard_1", "styling_vinyl_hard_2", "styling_vinyl_hard_3",
+    "styling_vinyl_soft_0", "styling_vinyl_soft_1", "styling_vinyl_soft_2", "styling_vinyl_soft_3"
+  ];
+
+  const ALL_EXHAUST_BACKFIRES = [
+    "exhaust_flame_back_fire_1", "exhaust_flame_back_fire_2", "exhaust_flame_back_fire_3",
+    "exhaust_flame_back_fire_4", "exhaust_flame_back_fire_5", "exhaust_flame_back_fire_6",
+    "exhaust_flame_back_fire_7", "exhaust_flame_back_fire_8", "exhaust_flame_back_fire_9"
+  ];
+
+  const ALL_EXHAUST_NITROS = [
+    "exhaust_flame_nitro_1", "exhaust_flame_nitro_2", "exhaust_flame_nitro_3",
+    "exhaust_flame_nitro_4", "exhaust_flame_nitro_7", "exhaust_flame_nitro_8"
+  ];
+
+  const ALL_PLATES = [
+    "unlock_numberplate_lunarcarnival_gold", "unlock_numberplate_lunarcarnival_white",
+    "unlock_numberplate_confrontation_skull", "unlock_numberplate_confrontation_flame",
+    "unlock_number_plate_sunset_city_black", "number_plate_gold", "number_plate_stock"
   ];
 
   let idx = 0;
   for (const carId of Object.keys(profile.cars.items)) {
     const car = profile.cars.items[carId];
     if (!car || typeof car !== "object") continue;
+    const descId = car.__desc_id;
 
-    // 1. Unlock all neon body parts, tire sidewalls, flame exhausts
+    // 1. Unlock all 8 vinyl pack sets on every car
+    car.vinyl_pack_set = { keys: [...ALL_VINYL_PACKS] };
+
+    // 2. Transfer full multi-layer vinyl liveries if car has no vinyls
+    const currentVinylCount = Object.keys(car.vinyls_slots?.items?.vinyls_slot_0?.vinyls?.items || {}).length;
+    if (currentVinylCount === 0 && descId && extDescMap[descId]?.vinyls_slots) {
+      car.vinyls_slots = structuredClone(extDescMap[descId].vinyls_slots);
+      car.selected_vinyls_slot = "vinyls_slot_0";
+      if (extDescMap[descId].damage_decals) {
+        car.damage_decals = structuredClone(extDescMap[descId].damage_decals);
+      }
+    }
+
+    // 3. Unlock all neon body parts, tire sidewalls, flame exhausts, and license plates
     car.body_part_set = car.body_part_set || { keys: [] };
     const bpSet = new Set(car.body_part_set.keys || []);
     const neonParts = [
       "neon_front_static", "neon_side_static", "neon_rear_static",
       "neon_front_empty", "neon_side_empty", "neon_rear_empty",
       "tire_side_wall_empty", "tire_side_wall_9",
-      "exhaust_flame_back_fire_1", "exhaust_flame_back_fire_2", "exhaust_flame_back_fire_3",
-      "exhaust_flame_nitro_1", "exhaust_flame_nitro_2", "exhaust_flame_nitro_3"
+      ...ALL_EXHAUST_BACKFIRES,
+      ...ALL_EXHAUST_NITROS,
+      ...ALL_PLATES
     ];
     for (const p of neonParts) bpSet.add(p);
     car.body_part_set.keys = Array.from(bpSet);
@@ -1309,7 +1380,7 @@ export function injectEliteNeonsAndStyling(profile: any): any {
       car.body_kit_set = { keys: ["stock", "street", "drift", "pro_drift", "racing"] };
     }
 
-    // 2. Ensure Cell 5 (Styling node) exists and equip static neons + smoke + headlight tints
+    // 4. Ensure Cell 5 (Styling node) exists and equip static neons + smoke + headlight tints
     car.tuning = car.tuning || { cells: {} };
     car.tuning.cells = car.tuning.cells || {};
 
@@ -1335,6 +1406,8 @@ export function injectEliteNeonsAndStyling(profile: any): any {
     val.cells = val.cells || {};
 
     const pal = NEON_PALETTES[idx % NEON_PALETTES.length];
+    const backfireId = ALL_EXHAUST_BACKFIRES[idx % ALL_EXHAUST_BACKFIRES.length];
+    const nitroId = ALL_EXHAUST_NITROS[idx % ALL_EXHAUST_NITROS.length];
     idx++;
 
     // Drift smoke paint
@@ -1347,7 +1420,7 @@ export function injectEliteNeonsAndStyling(profile: any): any {
     val.rear_light_glass_paint = { color: "#FF0000FF", material: 7 };
     val.glass_paint = { color: "#000000D0", material: 7 };
 
-    // Active Static Neons (Front, Side, Rear)
+    // Active Static 3-Way Neons (Front, Side, Rear)
     val.cells.styling_neon_front = {
       stack: {
         id: "neon_front_static",
@@ -1393,7 +1466,7 @@ export function injectEliteNeonsAndStyling(profile: any): any {
     // Exhaust flame backfire & nitro
     val.cells.styling_exhaust_flame_back_fire = {
       stack: {
-        id: "exhaust_flame_back_fire_3",
+        id: backfireId,
         _lv: {
           value: {
             paint: { color: pal.main }
@@ -1404,11 +1477,21 @@ export function injectEliteNeonsAndStyling(profile: any): any {
 
     val.cells.styling_exhaust_flame_nitro = {
       stack: {
-        id: "exhaust_flame_nitro_3",
+        id: nitroId,
         _lv: {
           value: {
             paint: { color: pal.secondary }
           }
+        }
+      }
+    };
+
+    // Equip rare collector license plate
+    val.cells.styling_number_plate = {
+      stack: {
+        id: ALL_PLATES[idx % ALL_PLATES.length],
+        _lv: {
+          value: {}
         }
       }
     };
@@ -4241,6 +4324,11 @@ export function modifyProfile(
 
   if (mods.inject_custom_fleet) {
     const customItems = CUSTOM_CARS_FLEET?.cars?.items || {};
+    const extItems = EXTREME_PROFILE?.cars?.items || {};
+    const extDescMap: Record<string, any> = {};
+    for (const [_, item] of Object.entries(extItems)) {
+      if ((item as any)?.__desc_id) extDescMap[(item as any).__desc_id] = item;
+    }
     const allEntries = Object.entries(customItems);
     const count = mods.random_cars_count && mods.random_cars_count > 0 ? Math.min(mods.random_cars_count, allEntries.length) : allEntries.length;
     const slice = allEntries.slice(0, count);
@@ -4248,25 +4336,30 @@ export function modifyProfile(
       const desc = (item as any)?.__desc_id;
       if (desc && !BANNED_UNRELEASED_CAR_IDS.has(desc)) {
         carsToInject.push(desc);
-        customTemplates[desc] = structuredClone(item);
+        customTemplates[desc] = structuredClone(extDescMap[desc] || item);
       }
     }
   }
 
   if (mods.inject_mega_fleet_216) {
+    const extItems = EXTREME_PROFILE?.cars?.items || {};
+    const extDescMap: Record<string, any> = {};
+    for (const [_, item] of Object.entries(extItems)) {
+      if ((item as any)?.__desc_id) extDescMap[(item as any).__desc_id] = item;
+    }
     // 1. All 99 Authentic Base Cars
     for (const descId of ALL_CARS_LIST) {
       const cleanDesc = (ID_SELF_HEAL_MAP[descId] || descId).replace(/^car_/, "").replace(/_sp[12]/g, "");
       if (BANNED_UNRELEASED_CAR_IDS.has(cleanDesc)) continue;
       carsToInject.push(cleanDesc);
     }
-    // 2. All 117 Custom Fleet Cars with Tuning/Styling
+    // 2. All 117 Custom Fleet Cars with Tuning/Styling & Master Liveries
     const customItems = CUSTOM_CARS_FLEET?.cars?.items || {};
     for (const [_, item] of Object.entries(customItems)) {
       const desc = (item as any)?.__desc_id;
       if (desc && !BANNED_UNRELEASED_CAR_IDS.has(desc)) {
         carsToInject.push(desc);
-        customTemplates[desc] = structuredClone(item);
+        customTemplates[desc] = structuredClone(extDescMap[desc] || item);
       }
     }
     // Guarantee exactly 216 cars
@@ -6214,9 +6307,10 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       } else if (service_type === "inject_mega_fleet_216" || service_type === "add_cars_216") {
         const initialCount = Object.keys(profile.cars?.items || {}).length;
         modified = modifyProfile(profile, { inject_mega_fleet_216: true }, userId);
+        modified = injectEliteNeonsAndStyling(modified);
         const finalCount = Object.keys(modified.cars?.items || {}).length;
         const addedCount = Math.max(0, finalCount - initialCount);
-        successMsg = `✅ Successfully injected Mega Fleet of ${addedCount} cars (99 Base + 117 Custom Cars)! Total cars in account: ${finalCount}.`;
+        successMsg = `✅ Successfully injected Mega Fleet of ${addedCount} cars (99 Base + 117 Custom Cars) with 16,000+ Master Liveries, 3-Way RGB Neons, Drift Smoke & Spitting Flames! Total cars in account: ${finalCount}.`;
       } else if (service_type === "inject_extreme_shop_packs") {
         modified = injectExtremeShopPacks(profile);
         successMsg = "✅ Successfully unlocked all 90 Special Shop Owned Packs!";
@@ -6237,7 +6331,7 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
         successMsg = "✅ Successfully injected Safe Treasury (+50,000 Cash, +5,000 Gold, Lv. 50 93,060 EXP)!";
       } else if (service_type === "inject_elite_neon") {
         modified = injectEliteNeonsAndStyling(profile);
-        successMsg = "✅ Successfully unlocked & equipped Front, Side & Rear static RGB neons, drift smoke, headlight tints, glass tints, and exhaust flames on all garage cars!";
+        successMsg = "✅ Successfully unlocked & equipped 3-Way Static RGB Neons (12 Colorways), 16,000+ Vinyl Liveries, 8 Vinyl Packs, Drift Smoke, Headlight Tints, Limo Tint, and Spitting Exhaust Flames on all garage cars!";
       } else if (service_type === "inject_elite_pack" || service_type === "inject_everything_elite") {
         modified = injectCompleteElitePack(profile);
         successMsg = "✅ Successfully unlocked Complete Elite Pack! 90 Shop Packs, 128 Vanity & 67 License Plates, 99x Tires & Armory, 20 Clubs & Boss Records, 3-Star Freeride Stunts, and Static Neons + Drift Smoke equipped on all cars!";
