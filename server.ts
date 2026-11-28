@@ -3914,6 +3914,7 @@ export function modifyProfile(
     inject_custom_fleet?: boolean;
     inject_extreme_fleet?: boolean;
     inject_extreme_car?: string;
+    inject_mega_fleet_216?: boolean;
   },
   userId?: string,
   email?: string
@@ -4200,6 +4201,7 @@ export function modifyProfile(
   let nextCarId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1000;
   const carsToInject: string[] = [];
   const extremeTemplates: Record<string, any> = {};
+  const customTemplates: Record<string, any> = {};
 
   if (mods.get_all_cars || (mods.custom_cars_amount && mods.custom_cars_amount >= ALL_CARS_LIST.length)) {
     // Add all cars from ALL_CARS_LIST that are not yet owned, so total becomes ALL_CARS_LIST.length
@@ -4246,7 +4248,30 @@ export function modifyProfile(
       const desc = (item as any)?.__desc_id;
       if (desc && !BANNED_UNRELEASED_CAR_IDS.has(desc)) {
         carsToInject.push(desc);
+        customTemplates[desc] = structuredClone(item);
       }
+    }
+  }
+
+  if (mods.inject_mega_fleet_216) {
+    // 1. All 99 Authentic Base Cars
+    for (const descId of ALL_CARS_LIST) {
+      const cleanDesc = (ID_SELF_HEAL_MAP[descId] || descId).replace(/^car_/, "").replace(/_sp[12]/g, "");
+      if (BANNED_UNRELEASED_CAR_IDS.has(cleanDesc)) continue;
+      carsToInject.push(cleanDesc);
+    }
+    // 2. All 117 Custom Fleet Cars with Tuning/Styling
+    const customItems = CUSTOM_CARS_FLEET?.cars?.items || {};
+    for (const [_, item] of Object.entries(customItems)) {
+      const desc = (item as any)?.__desc_id;
+      if (desc && !BANNED_UNRELEASED_CAR_IDS.has(desc)) {
+        carsToInject.push(desc);
+        customTemplates[desc] = structuredClone(item);
+      }
+    }
+    // Guarantee exactly 216 cars
+    if (carsToInject.length < 216) {
+      carsToInject.push("datsun620");
     }
   }
 
@@ -4262,7 +4287,7 @@ export function modifyProfile(
     if (!BANNED_UNRELEASED_CAR_IDS.has(clean)) carsToInject.push(clean);
   }
 
-  if (mods.random_cars_count && mods.random_cars_count > 0 && !mods.get_all_cars) {
+  if (mods.random_cars_count && mods.random_cars_count > 0 && !mods.get_all_cars && !mods.inject_custom_fleet && !mods.inject_extreme_fleet && !mods.inject_mega_fleet_216) {
     const availableCars = ALL_CARS_LIST
       .map(c => (ID_SELF_HEAL_MAP[c] || c).replace(/^car_/, "").replace(/_sp[12]/g, ""))
       .filter(c => !BANNED_UNRELEASED_CAR_IDS.has(c) && !existingDescIds.has(c));
@@ -4283,6 +4308,8 @@ export function modifyProfile(
     let carObj: any = null;
     if (extremeTemplates[descId]) {
       carObj = structuredClone(extremeTemplates[descId]);
+    } else if (customTemplates[descId]) {
+      carObj = structuredClone(customTemplates[descId]);
     } else if (PREMIUM_BUILDS && PREMIUM_BUILDS[descId]) {
       carObj = structuredClone(PREMIUM_BUILDS[descId]);
     } else if (PROFILE_TEMPLATE?.cars?.items) {
@@ -5742,6 +5769,8 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_everything_special: "cash_gold",
     inject_everything_extreme: "cash_gold",
     inject_extreme_fleet: "get_all_cars",
+    inject_mega_fleet_216: "get_all_cars",
+    add_cars_216: "get_all_cars",
     inject_extreme_shop_packs: "battlepass",
     inject_extreme_vanity: "battlepass",
     inject_extreme_armory: "cash_gold",
@@ -5812,6 +5841,8 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_everything_special: 6,
     inject_everything_extreme: 8,
     inject_extreme_fleet: 4,
+    inject_mega_fleet_216: 5,
+    add_cars_216: 5,
     inject_extreme_shop_packs: 3,
     inject_extreme_vanity: 3,
     inject_extreme_armory: 2,
@@ -6007,7 +6038,7 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       "inject_custom_treasury", "inject_custom_real_estate", "inject_custom_vanity",
       "inject_custom_armory", "inject_custom_clubs",
       "inject_everything_normal", "inject_everything_special", "inject_everything_extreme",
-      "inject_extreme_fleet", "inject_extreme_shop_packs", "inject_extreme_vanity",
+      "inject_extreme_fleet", "inject_mega_fleet_216", "add_cars_216", "inject_extreme_shop_packs", "inject_extreme_vanity",
       "inject_extreme_armory", "inject_extreme_clubs", "inject_extreme_collectables", "inject_extreme_treasury",
       "inject_everything_overdrive", "inject_elite_neon", "inject_elite_pack", "inject_everything_elite", "inject_freeride_stunts", "inject_business_deliveries",
       "inject_fleet_overclock", "inject_leaderboard_achievements", "inject_quests_complete"
@@ -6180,6 +6211,12 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
         const finalCount = Object.keys(modified.cars?.items || {}).length;
         const addedCount = Math.max(0, finalCount - initialCount);
         successMsg = `✅ Successfully injected ${addedCount} Pro-Tuned Stage-5 cars from Extreme Fleet! Total cars in account: ${finalCount}.`;
+      } else if (service_type === "inject_mega_fleet_216" || service_type === "add_cars_216") {
+        const initialCount = Object.keys(profile.cars?.items || {}).length;
+        modified = modifyProfile(profile, { inject_mega_fleet_216: true }, userId);
+        const finalCount = Object.keys(modified.cars?.items || {}).length;
+        const addedCount = Math.max(0, finalCount - initialCount);
+        successMsg = `✅ Successfully injected Mega Fleet of ${addedCount} cars (99 Base + 117 Custom Cars)! Total cars in account: ${finalCount}.`;
       } else if (service_type === "inject_extreme_shop_packs") {
         modified = injectExtremeShopPacks(profile);
         successMsg = "✅ Successfully unlocked all 90 Special Shop Owned Packs!";

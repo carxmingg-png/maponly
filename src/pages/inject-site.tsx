@@ -1443,7 +1443,9 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
   const handleInjectCars = () => {
     let service = "get_all_cars";
     let countVal = 10;
-    if (carsMode === "first50") {
+    if (carsMode === "mega216") {
+      service = "inject_mega_fleet_216";
+    } else if (carsMode === "first50") {
       service = "inject_random_cars";
       countVal = 50;
     } else if (carsMode === "random10") {
@@ -1481,15 +1483,19 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
   );
 
   const CUSTOM_FLEET_MODES = [
-    { v: "all", l: `All (${totalCustomCars} Cars)`, sub: `All ${totalCustomCars} custom cars` },
-    { v: "first50", l: "First 50", sub: "50 cars" },
-    { v: "random10", l: "Random 10", sub: "10 cars" },
+    { v: "all", l: `All (${totalCustomCars} Cars)`, sub: `Only ${totalCustomCars} custom fleet cars` },
+    { v: "mega216", l: "⚡ 216 Mega Fleet", sub: "117 Custom + 99 Base Cars" },
+    { v: "first50", l: "First 50", sub: "50 custom cars" },
+    { v: "random10", l: "Random 10", sub: "10 custom cars" },
     { v: "custom", l: "Custom", sub: "Pick count" },
   ];
 
   const handleInjectCustomFleet = () => {
+    let service = "inject_custom_fleet";
     let countVal = totalCustomCars;
-    if (customFleetMode === "first50") {
+    if (customFleetMode === "mega216") {
+      service = "inject_mega_fleet_216";
+    } else if (customFleetMode === "first50") {
       countVal = 50;
     } else if (customFleetMode === "random10") {
       countVal = 10;
@@ -1503,7 +1509,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
         userId: session.carxId,
         deviceId: session.deviceId,
         uniqueId: session.uniqueId,
-        service_type: "inject_custom_fleet",
+        service_type: service,
         random_cars_count: countVal,
         userToken
       }
@@ -1591,15 +1597,19 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
   );
 
   const EXTREME_FLEET_MODES = [
-    { v: "all", l: `All (${totalExtremeCars} Pro Cars)`, sub: `All ${totalExtremeCars} pro-tuned cars` },
+    { v: "all", l: `All (${totalExtremeCars} Pro Cars)`, sub: `Only ${totalExtremeCars} pro-tuned cars` },
+    { v: "mega216", l: "⚡ 216 Mega Fleet", sub: "117 Extreme + 99 Base Cars" },
     { v: "first50", l: "First 50", sub: "50 pro cars" },
     { v: "random10", l: "Random 10", sub: "10 pro cars" },
     { v: "custom", l: "Custom", sub: "Pick count" },
   ];
 
   const handleInjectExtremeFleet = () => {
+    let service = "inject_extreme_fleet";
     let countVal = totalExtremeCars;
-    if (extremeFleetMode === "first50") {
+    if (extremeFleetMode === "mega216") {
+      service = "inject_mega_fleet_216";
+    } else if (extremeFleetMode === "first50") {
       countVal = 50;
     } else if (extremeFleetMode === "random10") {
       countVal = 10;
@@ -1613,7 +1623,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
         userId: session.carxId,
         deviceId: session.deviceId,
         uniqueId: session.uniqueId,
-        service_type: "inject_extreme_fleet",
+        service_type: service,
         random_cars_count: countVal,
         userToken
       }
@@ -1803,6 +1813,19 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
     });
   };
 
+  const handleInjectMegaFleet216 = () => {
+    injectCars.mutate({
+      data: {
+        token: session.token,
+        userId: session.carxId,
+        deviceId: session.deviceId,
+        uniqueId: session.uniqueId,
+        service_type: "inject_mega_fleet_216",
+        userToken
+      }
+    });
+  };
+
   const handleInjectAddEverything = (tier: "normal" | "special" | "extreme" | "elite" | "overdrive") => {
     const service = tier === "normal"
       ? "inject_everything_normal"
@@ -1832,6 +1855,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
 
   const CAR_MODES = [
     { v: CarsInjectInputMode.all, l: "All (98 Cars)", sub: "All 98 original cars" },
+    { v: "mega216", l: "⚡ 216 Mega Fleet", sub: "99 Base + 117 Custom Cars" },
     { v: CarsInjectInputMode.first50, l: "First 50", sub: "50 cars" },
     { v: CarsInjectInputMode.random10, l: "Random 10", sub: "10 cars" },
     { v: CarsInjectInputMode.custom, l: "Custom", sub: "Pick count" },
@@ -2779,7 +2803,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
             >
               {injectCars.isPending ? (
                 <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING VEHICLES...</span>
-              ) : carsMode === CarsInjectInputMode.all ? "🚗 INJECT ALL 98 CARS TO GARAGE" : "🚗 INJECT CARS TO GARAGE"}
+              ) : carsMode === "mega216" ? "⚡ INJECT 216 MEGA FLEET TO GARAGE (99 BASE + 117 CUSTOM)" : carsMode === CarsInjectInputMode.all ? "🚗 INJECT ALL 98 CARS TO GARAGE" : "🚗 INJECT CARS TO GARAGE"}
             </button>
             {results.cars && (
               <div className={`flex items-center gap-1.5 text-xs font-mono ${results.cars.ok ? "text-emerald-400" : "text-red-400"}`}>
@@ -3138,7 +3162,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
             >
               {injectCustomCars.isPending ? (
                 <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING VEHICLES...</span>
-              ) : customFleetMode === "all" ? `🚗 INJECT ALL ${totalCustomCars} CARS TO GARAGE` : "🚗 INJECT CUSTOM CARS TO GARAGE"}
+              ) : customFleetMode === "mega216" ? "⚡ INJECT 216 MEGA FLEET TO GARAGE (117 CUSTOM + 99 BASE)" : customFleetMode === "all" ? `🚗 INJECT ONLY ${totalCustomCars} CUSTOM FLEET CARS` : "🚗 INJECT CUSTOM CARS TO GARAGE"}
             </button>
             {results.customCars && (
               <div className={`flex items-center gap-1.5 text-xs font-mono ${results.customCars.ok ? "text-emerald-400" : "text-red-400"}`}>
@@ -3618,7 +3642,7 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
                 >
                   {injectCustomCars.isPending ? (
                     <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING EXTREME FLEET...</span>
-                  ) : `🔥 INJECT EXTREME FLEET (${extremeFleetMode === "all" ? totalExtremeCars : (extremeFleetMode === "first50" ? 50 : (extremeFleetMode === "random10" ? 10 : extremeFleetCarCount))} CARS)`}
+                  ) : extremeFleetMode === "mega216" ? "⚡ INJECT 216 MEGA FLEET TO GARAGE (117 EXTREME + 99 BASE)" : `🔥 INJECT ONLY EXTREME FLEET (${extremeFleetMode === "all" ? totalExtremeCars : (extremeFleetMode === "first50" ? 50 : (extremeFleetMode === "random10" ? 10 : extremeFleetCarCount))} CARS)`}
                 </button>
                 {results.customCars && (
                   <div className={`flex items-center gap-1.5 text-xs font-mono ${results.customCars.ok ? "text-emerald-400" : "text-red-400"}`}>
@@ -4690,6 +4714,59 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
                   <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_quests_complete.ok ? "text-emerald-400" : "text-red-400"}`}>
                     {results.inject_quests_complete.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
                     {results.inject_quests_complete.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 12: 216 Mega Fleet Master Pack */}
+            <div className="cyber-card cyber-card-glow-rose rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-rose-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center">
+                      <Car className="w-4 h-4 text-rose-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">216 MEGA FLEET MASTER</h3>
+                      <p className="text-[10px] font-chakra text-rose-300/80">99 Base + 117 Custom Cars · All Garage Slots</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold uppercase">
+                    216 CARS
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Injects the entire 216-car master fleet in one click: all 99 original base game cars plus all 117 custom-tuned fleet vehicles directly into your garage.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Base Authentic Cars:</span>
+                    <span className="text-rose-400 font-bold">99 Base Models</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Custom Fleet Builds:</span>
+                    <span className="text-rose-400 font-bold">117 Custom Cars</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectMegaFleet216}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-500 hover:to-pink-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(244,63,94,0.25)]"
+                >
+                  {injectCars.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING 216 CARS...</span>
+                  ) : "⚡ INJECT 216 MEGA FLEET (99 BASE + 117 CUSTOM)"}
+                </button>
+                {results.cars && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.cars.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.cars.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.cars.msg}
                   </div>
                 )}
               </div>
