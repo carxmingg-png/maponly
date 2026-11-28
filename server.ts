@@ -1627,8 +1627,58 @@ export function injectQuestsComplete(profile: any): any {
   return profile;
 }
 
+export function injectTuningWarehouse(profile: any): any {
+  profile.player_inventory = profile.player_inventory || {};
+  profile.player_inventory.tuning_parts_collection = profile.player_inventory.tuning_parts_collection || { seed: 100, items: {} };
+  profile.player_inventory.tuning_parts_collection.items = profile.player_inventory.tuning_parts_collection.items || {};
+
+  const parts = [
+    "engine_block_pro", "engine_camshaft_racing", "engine_ecu_ultimate",
+    "engine_turbo_twin_stage5", "transmission_sequential_6speed", "suspension_drift_pro",
+    "brake_caliper_carbon_ceramic", "brake_rotor_slotted_pro", "differential_lsd_racing"
+  ];
+  for (let i = 0; i < parts.length; i++) {
+    profile.player_inventory.tuning_parts_collection.items[`part_stage5_${i}`] = {
+      __desc_id: parts[i],
+      count: 10
+    };
+  }
+
+  profile.player_inventory.builded_tuning_node_collection = profile.player_inventory.builded_tuning_node_collection || { cells: {} };
+  for (let i = 0; i < 5; i++) {
+    profile.player_inventory.builded_tuning_node_collection.cells[`engine_${i}`] = {
+      stack: { id: `engine_stage5_crate_${i}`, _lv: { level: 5, value: {} } }
+    };
+    profile.player_inventory.builded_tuning_node_collection.cells[`transmission_${i}`] = {
+      stack: { id: `transmission_racing_crate_${i}`, _lv: { level: 5, value: {} } }
+    };
+  }
+  return profile;
+}
+
+export function injectEventCollectables(profile: any): any {
+  profile.collectables_events = {
+    seed: 2,
+    items: {
+      "0": {
+        __desc_id: "default",
+        event_name: "first_event",
+        collected_objects_set: { keys: ["trophy_0", "trophy_1", "trophy_2", "trophy_3", "trophy_4", "trophy_5", "trophy_6", "trophy_7", "trophy_8", "trophy_9"] }
+      },
+      "1": {
+        __desc_id: "default",
+        event_name: "halloween_2026",
+        collected_objects_set: { keys: ["pumpkin_0", "pumpkin_1", "pumpkin_2", "pumpkin_3", "pumpkin_4", "pumpkin_5", "pumpkin_6", "pumpkin_7", "pumpkin_8", "pumpkin_9"] }
+      }
+    }
+  };
+  return profile;
+}
+
 export function injectEverythingOverdrive(profile: any): any {
   profile = injectFreerideStunts(profile);
+  profile = injectTuningWarehouse(profile);
+  profile = injectEventCollectables(profile);
   profile = injectBusinessDeliveries(profile);
   profile = injectFleetOverclock(profile);
   profile = injectLeaderboardAchievements(profile);
@@ -1636,6 +1686,7 @@ export function injectEverythingOverdrive(profile: any): any {
   profile = injectCustomRealEstate(profile);
   profile = unlockMapsUltimate(profile);
   profile = injectSafeCurrency(profile, 50000, 5000);
+  profile = injectEliteNeonsAndStyling(profile);
   return profile;
 }
 
@@ -5879,6 +5930,8 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_fleet_overclock: "get_all_cars",
     inject_leaderboard_achievements: "battlepass",
     inject_quests_complete: "unlock_clubs",
+    inject_tuning_warehouse: "get_all_cars",
+    inject_event_collectables: "battlepass",
     premium: "premium",
     inject_max: "cash_gold",
     inject_med: "cash_gold",
@@ -5951,6 +6004,8 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_fleet_overclock: 2,
     inject_leaderboard_achievements: 2,
     inject_quests_complete: 2,
+    inject_tuning_warehouse: 3,
+    inject_event_collectables: 2,
     inject_max: 3,
     inject_med: 2,
     currency_max: 3,
@@ -6134,7 +6189,7 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       "inject_extreme_fleet", "inject_mega_fleet_216", "add_cars_216", "inject_extreme_shop_packs", "inject_extreme_vanity",
       "inject_extreme_armory", "inject_extreme_clubs", "inject_extreme_collectables", "inject_extreme_treasury",
       "inject_everything_overdrive", "inject_elite_neon", "inject_elite_pack", "inject_everything_elite", "inject_freeride_stunts", "inject_business_deliveries",
-      "inject_fleet_overclock", "inject_leaderboard_achievements", "inject_quests_complete"
+      "inject_fleet_overclock", "inject_leaderboard_achievements", "inject_quests_complete", "inject_tuning_warehouse", "inject_event_collectables"
     ];
 
     if (profileTypes.includes(service_type)) {
@@ -6353,6 +6408,12 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       } else if (service_type === "inject_quests_complete") {
         modified = injectQuestsComplete(profile);
         successMsg = "✅ Successfully auto-completed all Career, Story and Intro quests with rewards collected!";
+      } else if (service_type === "inject_tuning_warehouse") {
+        modified = injectTuningWarehouse(profile);
+        successMsg = "⚠️ Successfully stocked Player Armory with Stage-5 Tuning Parts & 5x Crate Engine Swaps!";
+      } else if (service_type === "inject_event_collectables") {
+        modified = injectEventCollectables(profile);
+        successMsg = "⚠️ Successfully unlocked all Halloween 2026 & First Event secret map trophies!";
       } else if (service_type === "custom_resource") {
         if (!customResourceParsed) {
           return res.status(400).json({ success: false, message: "Invalid custom resource payload." });

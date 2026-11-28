@@ -32,7 +32,7 @@ import {
   LogOut, DollarSign, Map, Car, Star, Zap, Trophy,
   User, UserPlus, Eye, EyeOff, RefreshCw, CheckCircle2, AlertCircle, Users,
   Trash2, ShieldAlert, ShieldCheck, Copy, Check, Bookmark, Wrench,
-  Flame, Layers, Sparkles, PackageCheck, Gift, Smile, ShoppingBag, Fuel
+  Flame, Layers, Sparkles, PackageCheck, Gift, Smile, ShoppingBag, Fuel, AlertTriangle
 } from "lucide-react";
 
 interface CarXSession {
@@ -1826,6 +1826,32 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
     });
   };
 
+  const handleInjectTuningWarehouse = () => {
+    injectCustomPerk.mutate({
+      data: {
+        token: session.token,
+        userId: session.carxId,
+        deviceId: session.deviceId,
+        uniqueId: session.uniqueId,
+        service_type: "inject_tuning_warehouse",
+        userToken
+      }
+    });
+  };
+
+  const handleInjectEventCollectables = () => {
+    injectCustomPerk.mutate({
+      data: {
+        token: session.token,
+        userId: session.carxId,
+        deviceId: session.deviceId,
+        uniqueId: session.uniqueId,
+        service_type: "inject_event_collectables",
+        userToken
+      }
+    });
+  };
+
   const handleInjectAddEverything = (tier: "normal" | "special" | "extreme" | "elite" | "overdrive") => {
     const service = tier === "normal"
       ? "inject_everything_normal"
@@ -2431,13 +2457,27 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
             data-testid="tab-elite-pack"
             onClick={() => setActiveTier("elite")}
             className={`px-4 py-2.5 rounded-xl text-xs font-gaming font-bold tracking-wider uppercase transition-all cursor-pointer flex items-center gap-2 ${
-              activeTier === "elite" || (activeTier as string) === "overdrive"
+              activeTier === "elite"
                 ? "bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-black font-black shadow-[0_0_25px_rgba(6,182,212,0.5)] border border-cyan-300"
                 : "text-zinc-400 hover:text-white hover:bg-zinc-800/60"
             }`}
           >
             <span>👑 ELITE PACK</span>
             <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-cyan-200">ALL UNLOCKS</span>
+          </button>
+
+          <button
+            type="button"
+            data-testid="tab-overdrive-tier"
+            onClick={() => setActiveTier("overdrive")}
+            className={`px-4 py-2.5 rounded-xl text-xs font-gaming font-bold tracking-wider uppercase transition-all cursor-pointer flex items-center gap-2 ${
+              activeTier === "overdrive"
+                ? "bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-black font-black shadow-[0_0_25px_rgba(245,158,11,0.6)] border border-amber-300 animate-pulse"
+                : "text-zinc-400 hover:text-white hover:bg-zinc-800/60"
+            }`}
+          >
+            <span>☣️ OVERDRIVE</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-500/50 font-bold">⚠️ HAS FLAWS</span>
           </button>
         </div>
       </div>
@@ -4051,8 +4091,8 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
         </div>
       )}
 
-      {/* ── OVERDRIVE TIER SECTION ── */}
-      {(activeTier === "elite" || (activeTier as string) === "overdrive") && (
+      {/* ── ELITE PACK TIER SECTION ── */}
+      {activeTier === "elite" && (
         <div className="space-y-4">
           {/* Elite Pack Hero: Inject Complete Elite Pack */}
           <div className="cyber-card rounded-3xl p-6 border-2 border-cyan-500/60 bg-gradient-to-br from-cyan-950/40 via-teal-950/20 to-zinc-900/90 shadow-[0_0_35px_rgba(6,182,212,0.2)]">
@@ -4771,6 +4811,464 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
                   <div className={`flex items-center gap-1.5 text-xs font-mono ${results.cars.ok ? "text-emerald-400" : "text-red-400"}`}>
                     {results.cars.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
                     {results.cars.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── OVERDRIVE EXPERIMENTAL TIER SECTION (WARNING: HAS FLAWS) ── */}
+      {activeTier === "overdrive" && (
+        <div className="space-y-4">
+          {/* Overdrive Warning Hero & Master Button */}
+          <div className="cyber-card rounded-3xl p-6 border-2 border-amber-500/60 bg-gradient-to-br from-amber-950/40 via-zinc-950 to-orange-950/40 shadow-[0_0_35px_rgba(245,158,11,0.3)] space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-amber-500/40">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-xl">
+                  ☣️
+                </div>
+                <div>
+                  <h3 className="text-sm font-gaming font-black text-white tracking-wider uppercase flex items-center gap-2">
+                    <span>OVERDRIVE EXPERIMENTAL TIER</span>
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/30 text-amber-300 border border-amber-500/50 font-bold uppercase">
+                      ⚠️ UNSTABLE · HAS FLAWS
+                    </span>
+                  </h3>
+                  <p className="text-xs font-chakra text-amber-300/80">
+                    Freeride Stunts · Tuning Warehouse & Swaps · Event Collectables · Top-10 Leaderboard · Instant Deliveries · 100L Fleet Overclock
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold uppercase shrink-0 flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-400" /> READ WARNINGS BEFORE INJECTING
+              </span>
+            </div>
+
+            {/* Prominent Warnings & Known Flaws */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 space-y-1">
+                <div className="flex items-center gap-2 text-amber-400 font-gaming text-xs font-bold uppercase">
+                  <AlertCircle className="w-4 h-4 shrink-0" /> 1. Permanent Stunt Records
+                </div>
+                <p className="text-[11px] font-chakra text-zinc-400 leading-relaxed">
+                  Injects 3-Star high-speed records on all 20+ Radars, Speed Cameras, and Donut Zones on your account. These records write permanently to your save and cannot be cleared or reset back to zero.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 space-y-1">
+                <div className="flex items-center gap-2 text-amber-400 font-gaming text-xs font-bold uppercase">
+                  <AlertCircle className="w-4 h-4 shrink-0" /> 2. Public Leaderboard Visibility
+                </div>
+                <p className="text-[11px] font-chakra text-zinc-400 leading-relaxed">
+                  Unlocks the Top-10 in the World global rank badge (Rang 10) and 999+ duel wins. Other players and club leaders will see this prestigious badge on your public player card in multiplayer rooms.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 space-y-1">
+                <div className="flex items-center gap-2 text-amber-400 font-gaming text-xs font-bold uppercase">
+                  <AlertCircle className="w-4 h-4 shrink-0" /> 3. Ghost Seasonal Event Collectables
+                </div>
+                <p className="text-[11px] font-chakra text-zinc-400 leading-relaxed">
+                  Forces Halloween 2026 and First Event secret trophies into your inventory. Because these events are seasonal, map markers may remain dormant until the official event calendars activate in-game.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 space-y-1">
+                <div className="flex items-center gap-2 text-amber-400 font-gaming text-xs font-bold uppercase">
+                  <AlertCircle className="w-4 h-4 shrink-0" /> 4. App Force-Restart Required
+                </div>
+                <p className="text-[11px] font-chakra text-zinc-400 leading-relaxed">
+                  Tuning warehouse parts and engine swap crates require a complete force-quit and restart of the CarX Drift Racing 2 game client for the dyno workshop to detect and populate the newly injected crates.
+                </p>
+              </div>
+            </div>
+
+            {/* Master Overdrive Button */}
+            <button
+              onClick={() => handleInjectAddEverything("overdrive")}
+              disabled={anyPending}
+              className="w-full py-4 rounded-2xl font-gaming font-black text-xs sm:text-sm tracking-widest uppercase bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 hover:from-amber-500 hover:to-red-500 text-white disabled:opacity-40 transition-all shadow-[0_0_25px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] cursor-pointer"
+            >
+              {injectAll.isPending ? (
+                <span className="flex items-center justify-center gap-2">
+                  <RefreshCw className="w-4 h-4 animate-spin" /> INJECTING OVERDRIVE EXPERIMENTAL...
+                </span>
+              ) : (
+                "☣️ INJECT ALL OVERDRIVE EXPERIMENTAL FEATURES (1-CLICK MASTER)"
+              )}
+            </button>
+          </div>
+
+          {/* Modular Grid of Overdrive Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Card 1: 3-Star Freeride Stunts & World Records */}
+            <div className="cyber-card cyber-card-glow-amber rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-amber-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-sm">
+                      ⚡
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">3-STAR FREERIDE STUNTS</h3>
+                      <p className="text-[10px] font-chakra text-amber-300/80">Radars · Speed Traps · Donut Zones · Drift Sectors</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase">
+                    3-STAR RECORDS
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Injects 3-star high-speed records on all speed cameras and radars across Sunset City and Mountain, plus all donut stunt pads and street drift zones.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Speed Radars:</span>
+                    <span className="text-amber-400 font-bold">All 12+ Radars 3-Star High Speed</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Donut & Drift Zones:</span>
+                    <span className="text-amber-400 font-bold">Max Points Recorded</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectFreerideStunts}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-black font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING 3-STAR STUNTS...</span>
+                  ) : "⚡ INJECT 3-STAR FREERIDE STUNTS"}
+                </button>
+                {results.inject_freeride_stunts && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_freeride_stunts.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_freeride_stunts.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_freeride_stunts.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 2: Top-10 Global Leaderboard Badges */}
+            <div className="cyber-card cyber-card-glow-red rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-red-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-sm">
+                      🥇
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">TOP-10 GLOBAL LEADERBOARD</h3>
+                      <p className="text-[10px] font-chakra text-red-300/80">Rang 10 World Honors · 999+ Duels Won</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/30 font-bold uppercase">
+                    RANG 10
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Unlocks Top-10 in the World global rank badge (Rang 10), Top 50, Top 100 badges, 9,999,999 drift score honor, and 999+ multiplayer duel victories on your profile card.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>World Rank Badge:</span>
+                    <span className="text-red-400 font-bold">Top-10 in the World (Rang 10)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Duels & Stunts:</span>
+                    <span className="text-red-400 font-bold">999+ Wins · 150+ Activities</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectLeaderboardAchievements}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(239,68,68,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> INJECTING TOP-10 BADGES...</span>
+                  ) : "🥇 UNLOCK TOP-10 LEADERBOARD BADGES"}
+                </button>
+                {results.inject_leaderboard_achievements && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_leaderboard_achievements.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_leaderboard_achievements.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_leaderboard_achievements.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 3: Player Armory & Crate Engine Swaps */}
+            <div className="cyber-card cyber-card-glow-cyan rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-cyan-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-sm">
+                      🧰
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">TUNING ARMORY & ENGINE SWAPS</h3>
+                      <p className="text-[10px] font-chakra text-cyan-300/80">Spare Stage-5 Parts · 5x Crate Engine Swaps</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-bold uppercase">
+                    SWAP CRATES
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Stocks your player inventory with Stage-5 racing engine blocks, twin-turbos, racing camshafts, and sports coilover suspensions, plus 5x ready-to-drop crate engines and transmissions.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Stage-5 Parts:</span>
+                    <span className="text-cyan-400 font-bold">10x Each Component Stocked</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Swap Crates:</span>
+                    <span className="text-cyan-400 font-bold">5x Engines · 5x Transmissions</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectTuningWarehouse}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(6,182,212,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> STOCKING ARMORY...</span>
+                  ) : "🧰 STOCK TUNING ARMORY & CRATE SWAPS"}
+                </button>
+                {results.inject_tuning_warehouse && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_tuning_warehouse.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_tuning_warehouse.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_tuning_warehouse.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 4: Secret Event Collectables & Map Trophies */}
+            <div className="cyber-card cyber-card-glow-orange rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-orange-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-sm">
+                      🎃
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">SECRET EVENT COLLECTABLES</h3>
+                      <p className="text-[10px] font-chakra text-orange-300/80">Halloween 2026 · First Event Secret Trophies</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30 font-bold uppercase">
+                    ALL TROPHIES
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Automatically finds and marks all hidden holiday pumpkins, secret tokens, and map trophies across Sunset City, Industrial, and Mountain as collected.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Halloween 2026:</span>
+                    <span className="text-orange-400 font-bold">All 10 Pumpkins Collected</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>First Event:</span>
+                    <span className="text-orange-400 font-bold">All 10 Secret Trophies Claimed</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectEventCollectables}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(249,115,22,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> CLAIMING EVENT TROPHIES...</span>
+                  ) : "🎃 UNLOCK ALL SECRET MAP TROPHIES"}
+                </button>
+                {results.inject_event_collectables && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_event_collectables.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_event_collectables.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_event_collectables.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 5: Instant Business Delivery Timers */}
+            <div className="cyber-card cyber-card-glow-purple rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-purple-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-sm">
+                      ⏱️
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">INSTANT BUSINESS DELIVERIES</h3>
+                      <p className="text-[10px] font-chakra text-purple-300/80">Zero Cooldown Timers · Car & Part Deliveries</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold uppercase">
+                    0 COOLDOWN
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Bypasses the 12–24 hour waiting periods on low, middle, and high car and part delivery contracts, letting you collect instant cash and gold business payouts.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Car Deliveries:</span>
+                    <span className="text-purple-400 font-bold">Low / Mid / High Timer Reset</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Part Deliveries:</span>
+                    <span className="text-purple-400 font-bold">Instant Payout Available</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectBusinessDeliveries}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(168,85,247,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> RESETTING DELIVERY TIMERS...</span>
+                  ) : "⏱️ RESET BUSINESS DELIVERY TIMERS"}
+                </button>
+                {results.inject_business_deliveries && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_business_deliveries.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_business_deliveries.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_business_deliveries.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 6: 100L Fuel & Nitro Fleet Overclock */}
+            <div className="cyber-card cyber-card-glow-rose rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-rose-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-sm">
+                      ⛽
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">FLEET TANK OVERCLOCK</h3>
+                      <p className="text-[10px] font-chakra text-rose-300/80">100L Fuel · 100L Nitro · 0 Engine Wear</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold uppercase">
+                    100L OVERCLOCK
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Overclocks every single car in your account garage with 100L maximum fuel tanks, 100L super nitro bottles, and eliminates engine wear and repair limits.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Fuel & Nitro Tanks:</span>
+                    <span className="text-rose-400 font-bold">100L Max Capacity (All Cars)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Engine Durability:</span>
+                    <span className="text-rose-400 font-bold">100% Mint · 0% Wear</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectFleetOverclock}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(244,63,94,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> OVERCLOCKING FLEET...</span>
+                  ) : "⛽ OVERCLOCK ALL CARS WITH 100L FUEL & NITRO"}
+                </button>
+                {results.inject_fleet_overclock && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_fleet_overclock.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_fleet_overclock.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_fleet_overclock.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 7: Story & Career Quests Auto-Complete */}
+            <div className="cyber-card cyber-card-glow-emerald rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-emerald-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-sm">
+                      📜
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">CAREER & STORY QUESTS</h3>
+                      <p className="text-[10px] font-chakra text-emerald-300/80">All Story Progression Quests Completed</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold uppercase">
+                    ALL QUESTS
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Marks all intro, prologue, and story career quests as completed with rewards collected, eliminating tutorial popups and unlocking career gates.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Story Quests:</span>
+                    <span className="text-emerald-400 font-bold">Intro & Career 100% Completed</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Quest Rewards:</span>
+                    <span className="text-emerald-400 font-bold">All XP & Bonuses Collected</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectQuestsComplete}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(168,85,247,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> COMPLETING QUESTS...</span>
+                  ) : "📜 AUTO-COMPLETE ALL CAREER & STORY QUESTS"}
+                </button>
+                {results.inject_quests_complete && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_quests_complete.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_quests_complete.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_quests_complete.msg}
                   </div>
                 )}
               </div>
