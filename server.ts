@@ -1675,10 +1675,77 @@ export function injectEventCollectables(profile: any): any {
   return profile;
 }
 
+export function injectSyndicateCustomPaintsAndVault(profile: any): any {
+  // 1. Saved Paint Booth Presets (Candy, Chrome, Chameleon)
+  profile.styling_custom_paints_presets = {
+    seed: 10,
+    items: {
+      "0": { __desc_id: "paint_cyber_cyan", color: "#00F0FFFF", material: 7, roughness: 0.05, metallic: 0.95 },
+      "1": { __desc_id: "paint_acid_lime", color: "#A3FF12FF", material: 7, roughness: 0.1, metallic: 0.9 },
+      "2": { __desc_id: "paint_hot_pink", color: "#FF007FFF", material: 7, roughness: 0.05, metallic: 0.95 },
+      "3": { __desc_id: "paint_amber_flame", color: "#FF8C00FF", material: 7, roughness: 0.1, metallic: 0.9 },
+      "4": { __desc_id: "paint_royal_orchid", color: "#BA55D3FF", material: 7, roughness: 0.05, metallic: 0.95 },
+      "5": { __desc_id: "paint_pure_gold", color: "#FFD700FF", material: 7, roughness: 0.02, metallic: 0.98 },
+      "6": { __desc_id: "paint_piano_black", color: "#111111FF", material: 7, roughness: 0.0, metallic: 1.0 },
+      "7": { __desc_id: "paint_arctic_white", color: "#FFFFFFCC", material: 7, roughness: 0.05, metallic: 0.95 },
+      "8": { __desc_id: "paint_blood_ruby", color: "#FF0033FF", material: 7, roughness: 0.08, metallic: 0.92 },
+      "9": { __desc_id: "paint_mint_frost", color: "#00FFAAFF", material: 7, roughness: 0.05, metallic: 0.95 }
+    }
+  };
+
+  // 2. Character Customization (Pro Racing Suits, Carbon Helmets, Gloves)
+  profile.character_customization_set = profile.character_customization_set || { keys: [] };
+  const charKeys = new Set(profile.character_customization_set.keys || []);
+  const proSuits = [
+    "suit_pro_racing_0", "suit_pro_racing_1", "suit_pro_carbon", "suit_street_drift",
+    "helmet_pro_carbon", "helmet_fullface_racing", "helmet_cyber_neon",
+    "gloves_racing_pro", "gloves_grip_master"
+  ];
+  for (const k of proSuits) charKeys.add(k);
+  profile.character_customization_set.keys = Array.from(charKeys);
+
+  // 3. Profile Customization Set (Titles & Badges)
+  profile.profile_customization_set = profile.profile_customization_set || { keys: [] };
+  const profKeys = new Set(profile.profile_customization_set.keys || []);
+  const proBadges = ["badge_vip_master", "badge_boss_syndicate", "title_drift_king", "title_syndicate_master"];
+  for (const k of proBadges) profKeys.add(k);
+  profile.profile_customization_set.keys = Array.from(profKeys);
+
+  // 4. Car Sharing & Rental Slots (Passive Revenue)
+  profile.car_sharing_slots_key = {
+    keys: [
+      "car_sharing_slot_1", "car_sharing_slot_2", "car_sharing_slot_3",
+      "car_sharing_slot_4", "car_sharing_slot_5", "car_sharing_slot_6",
+      "car_sharing_slot_7", "car_sharing_slot_8"
+    ]
+  };
+
+  // 5. 100% Club Boss Domination Across All 20 Clubs
+  profile.clubs = profile.clubs || {};
+  for (const clubId in profile.clubs) {
+    const club = profile.clubs[clubId];
+    if (club && typeof club === "object") {
+      club.boss_beaten = true;
+      club.reputation = 50000;
+      club.complete_races = club.complete_races || {};
+      club.complete_races["race_1"] = { completed: true, rewarded: true, score: 99999 };
+      club.complete_races["race_2"] = { completed: true, rewarded: true, score: 99999 };
+      club.complete_races["boss_race"] = { completed: true, rewarded: true, score: 99999 };
+    }
+  }
+
+  profile.statistics = profile.statistics || {};
+  profile.statistics.statistic_club_elite_races_compeleted = { amount: 20 };
+  profile.statistics.statistic_club_boss_defeated = { amount: 20 };
+
+  return profile;
+}
+
 export function injectEverythingOverdrive(profile: any): any {
   profile = injectFreerideStunts(profile);
   profile = injectTuningWarehouse(profile);
   profile = injectEventCollectables(profile);
+  profile = injectSyndicateCustomPaintsAndVault(profile);
   profile = injectBusinessDeliveries(profile);
   profile = injectFleetOverclock(profile);
   profile = injectLeaderboardAchievements(profile);
@@ -5932,6 +5999,7 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_quests_complete: "unlock_clubs",
     inject_tuning_warehouse: "get_all_cars",
     inject_event_collectables: "battlepass",
+    inject_syndicate_vault: "unlock_clubs",
     premium: "premium",
     inject_max: "cash_gold",
     inject_med: "cash_gold",
@@ -6006,6 +6074,7 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
     inject_quests_complete: 2,
     inject_tuning_warehouse: 3,
     inject_event_collectables: 2,
+    inject_syndicate_vault: 3,
     inject_max: 3,
     inject_med: 2,
     currency_max: 3,
@@ -6189,7 +6258,7 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       "inject_extreme_fleet", "inject_mega_fleet_216", "add_cars_216", "inject_extreme_shop_packs", "inject_extreme_vanity",
       "inject_extreme_armory", "inject_extreme_clubs", "inject_extreme_collectables", "inject_extreme_treasury",
       "inject_everything_overdrive", "inject_elite_neon", "inject_elite_pack", "inject_everything_elite", "inject_freeride_stunts", "inject_business_deliveries",
-      "inject_fleet_overclock", "inject_leaderboard_achievements", "inject_quests_complete", "inject_tuning_warehouse", "inject_event_collectables"
+      "inject_fleet_overclock", "inject_leaderboard_achievements", "inject_quests_complete", "inject_tuning_warehouse", "inject_event_collectables", "inject_syndicate_vault"
     ];
 
     if (profileTypes.includes(service_type)) {
@@ -6414,6 +6483,9 @@ app.post(["/api/carx/inject", "/carx/inject"], authMiddleware, async (req, res) 
       } else if (service_type === "inject_event_collectables") {
         modified = injectEventCollectables(profile);
         successMsg = "⚠️ Successfully unlocked all Halloween 2026 & First Event secret map trophies!";
+      } else if (service_type === "inject_syndicate_vault") {
+        modified = injectSyndicateCustomPaintsAndVault(profile);
+        successMsg = "👑 Successfully unlocked 10x Custom Paint Presets, Pro Racing Suits & Helmets, 8x Rental Slots, and 100% Conquered all 20 Club Bosses!";
       } else if (service_type === "custom_resource") {
         if (!customResourceParsed) {
           return res.status(400).json({ success: false, message: "Invalid custom resource payload." });

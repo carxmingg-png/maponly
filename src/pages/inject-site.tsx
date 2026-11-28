@@ -1852,6 +1852,19 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
     });
   };
 
+  const handleInjectSyndicateVault = () => {
+    injectCustomPerk.mutate({
+      data: {
+        token: session.token,
+        userId: session.carxId,
+        deviceId: session.deviceId,
+        uniqueId: session.uniqueId,
+        service_type: "inject_syndicate_vault",
+        userToken
+      }
+    });
+  };
+
   const handleInjectAddEverything = (tier: "normal" | "special" | "extreme" | "elite" | "overdrive") => {
     const service = tier === "normal"
       ? "inject_everything_normal"
@@ -4763,6 +4776,67 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
               </div>
             </div>
 
+            {/* Card 8: Syndicate Vault, Paints & Rental Slots */}
+            <div className="cyber-card cyber-card-glow-amber rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-amber-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-sm">
+                      👑
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">SYNDICATE VAULT & PAINTS</h3>
+                      <p className="text-[10px] font-chakra text-amber-300/80">10x Paint Presets · Driver Suits · 8x Rental Slots</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase">
+                    SYNDICATE BOSS
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Unlocks 10 custom candy & chrome paint recipes in your paint booth, unlocks pro carbon helmets and racing suits, conquers all 20 club bosses with 50K rep, and activates 8 car rental slots for passive income.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Custom Paint Presets:</span>
+                    <span className="text-amber-400 font-bold">10 Saved Palettes (Candy/Chrome)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Driver Suits & Helmets:</span>
+                    <span className="text-amber-400 font-bold">Carbon Helmets & Pro Suits</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Club Boss Dominance:</span>
+                    <span className="text-amber-400 font-bold">All 20 Clubs 100% Conquered</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Car Rental Slots:</span>
+                    <span className="text-amber-400 font-bold">8 Slots Active (Passive Cash)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectSyndicateVault}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 via-orange-600 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-black font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> UNLOCKING SYNDICATE VAULT...</span>
+                  ) : "👑 UNLOCK SYNDICATE VAULT, PAINTS & RENTALS"}
+                </button>
+                {results.inject_syndicate_vault && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_syndicate_vault.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_syndicate_vault.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_syndicate_vault.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
             {/* Card 12: 216 Mega Fleet Master Pack */}
             <div className="cyber-card cyber-card-glow-rose rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-rose-500/30">
               <div className="space-y-3.5">
@@ -5269,6 +5343,67 @@ function InjectionPanel({ session, userToken, onDisconnect, onUpdateSession }: {
                   <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_quests_complete.ok ? "text-emerald-400" : "text-red-400"}`}>
                     {results.inject_quests_complete.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
                     {results.inject_quests_complete.msg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Card 8: Syndicate Vault, Paints & Rental Slots */}
+            <div className="cyber-card cyber-card-glow-amber rounded-3xl p-5 space-y-4 flex flex-col justify-between border border-amber-500/30">
+              <div className="space-y-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-sm">
+                      👑
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-gaming font-bold text-white tracking-wider uppercase">SYNDICATE VAULT & PAINTS</h3>
+                      <p className="text-[10px] font-chakra text-amber-300/80">10x Paint Presets · Driver Suits · 8x Rental Slots</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase">
+                    SYNDICATE BOSS
+                  </span>
+                </div>
+
+                <p className="text-xs font-chakra text-zinc-400 leading-relaxed">
+                  Unlocks 10 custom candy & chrome paint recipes in your paint booth, unlocks pro carbon helmets and racing suits, conquers all 20 club bosses with 50K rep, and activates 8 car rental slots for passive income.
+                </p>
+
+                <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 space-y-1.5 font-mono text-[11px]">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Custom Paint Presets:</span>
+                    <span className="text-amber-400 font-bold">10 Saved Palettes (Candy/Chrome)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Driver Suits & Helmets:</span>
+                    <span className="text-amber-400 font-bold">Carbon Helmets & Pro Suits</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Club Boss Dominance:</span>
+                    <span className="text-amber-400 font-bold">All 20 Clubs 100% Conquered</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Car Rental Slots:</span>
+                    <span className="text-amber-400 font-bold">8 Slots Active (Passive Cash)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <button
+                  onClick={handleInjectSyndicateVault}
+                  disabled={anyPending}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 via-orange-600 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-black font-gaming font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-40 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                >
+                  {injectCustomPerk.isPending ? (
+                    <span className="flex items-center justify-center gap-1.5"><RefreshCw className="w-3.5 h-3.5 animate-spin" /> UNLOCKING SYNDICATE VAULT...</span>
+                  ) : "👑 UNLOCK SYNDICATE VAULT, PAINTS & RENTALS"}
+                </button>
+                {results.inject_syndicate_vault && (
+                  <div className={`flex items-center gap-1.5 text-xs font-mono ${results.inject_syndicate_vault.ok ? "text-emerald-400" : "text-red-400"}`}>
+                    {results.inject_syndicate_vault.ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                    {results.inject_syndicate_vault.msg}
                   </div>
                 )}
               </div>
